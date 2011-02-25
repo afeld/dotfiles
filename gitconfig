@@ -1,0 +1,8 @@
+[user]
+        email = aidan@jux.com
+        name = Aidan Feldman
+[core]
+        excludesfile = /home/aidan/.gitignore
+        editor = vim
+[color]
+        ui = true

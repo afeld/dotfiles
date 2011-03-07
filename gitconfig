@@ -1,8 +1,8 @@
 [user]
-        email = aidan@jux.com
-        name = Aidan Feldman
+  email = aidan@jux.com
+  name = Aidan Feldman
 [core]
-        excludesfile = /home/aidan/.gitignore
-        editor = vim
+  excludesfile = ~/.gitignore
+  editor = vim
 [color]
-        ui = true
+  ui = true

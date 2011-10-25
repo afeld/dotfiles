@@ -1,3 +1,7 @@
 ._*
+.project
 *.swp
 *.tmproj
+*.sublime-project
+*.sublime-workspace
+

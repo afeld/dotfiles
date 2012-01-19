@@ -3,6 +3,8 @@
 
 	"completions":
 	[
+		"php",
+
 		{ "trigger": "abs", "contents": "abs(${1:number})" },
 		{ "trigger": "acos", "contents": "acos(${1:arg})" },
 		{ "trigger": "acosh", "contents": "acosh(${1:arg})" },

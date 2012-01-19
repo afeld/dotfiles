@@ -1,3 +1,4 @@
 theme = "Blockboard"
 fontName = "Monaco"
 fontSize = "13"
+softWrap = true

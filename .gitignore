@@ -2,9 +2,10 @@ bash_profile_includes/keys.sh
 
 *.pyc
 *.cache
-sublime-text-2/Settings/Session.sublime_session
+sublime-text-2/Backup/
 sublime-text-2/Packages/Default/
 sublime-text-2/Pristine Packages/
 sublime-text-2/Packages/Theme - Default/
 sublime-text-2/Packages/Vintage/
+sublime-text-2/Settings/Session.sublime_session
 

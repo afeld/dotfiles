@@ -1,5 +1,6 @@
 bash_profile_includes/keys.sh
 
-sublime-text-2/Packages/**/*.pyc
-sublime-text-2/Packages/Default/*.cache
+*.pyc
+*.cache
 sublime-text-2/Settings/Session.sublime_session
+

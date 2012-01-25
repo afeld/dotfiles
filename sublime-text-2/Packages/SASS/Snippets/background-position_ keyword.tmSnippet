@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>background-position:${1: left}${2: center}${3: right}${4: top}${5: center}${6: bottom}$0</string>
+	<key>name</key>
+	<string>background-position: keyword</string>
+	<key>scope</key>
+	<string>source.sass</string>
+	<key>tabTrigger</key>
+	<string>bgp</string>
+	<key>uuid</key>
+	<string>EE960643-F8E2-47EB-AC54-56B8FE3FA8F3</string>
+</dict>
+</plist>

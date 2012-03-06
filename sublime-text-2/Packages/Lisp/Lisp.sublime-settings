@@ -1,4 +1,3 @@
 {
-	"word_wrap": false,
 	"extensions": ["lisp", "scm", "ss"]
 }

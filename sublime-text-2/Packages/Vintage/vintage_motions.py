@@ -2,6 +2,10 @@ import sublime, sublime_plugin
 from vintage import transform_selection
 from vintage import transform_selection_regions
 
+class ViDontMove(sublime_plugin.TextCommand):
+    def run(self, edit):
+        pass
+
 class ViMoveByCharactersInLine(sublime_plugin.TextCommand):
     def run(self, edit, forward = True, extend = False, visual = False):
         delta = 1 if forward else -1
@@ -47,11 +51,11 @@ class ViMoveToFirstNonWhiteSpaceCharacter(sublime_plugin.TextCommand):
 
         return l.a + offset
 
-    def run(self, edit, repeat = 1, extend = False):
+    def run(self, edit, repeat = 1, extend = False, register = '"'):
         # According to Vim's help, _ moves count - 1 lines downward.
         for i in xrange(repeat - 1):
             self.view.run_command('move', {'by': 'lines', 'forward': True, 'extend': extend})
-            
+
         transform_selection(self.view, lambda pt: self.first_character(pt),
             extend=extend)
 
@@ -131,12 +135,15 @@ class ViMoveToBrackets(sublime_plugin.TextCommand):
             self.move_by_percent(repeat)
 
 class ViGotoLine(sublime_plugin.TextCommand):
-    def run(self, edit, repeat = 1, explicit_repeat = True, extend = False):
-        repeat = int(repeat)
+    def run(self, edit, repeat=1, explicit_repeat=True, extend=False,
+            ending='eof'):
+        # G or gg
         if not explicit_repeat:
-            self.view.run_command('move_to', {'to': 'eof', 'extend':extend})
+            self.view.run_command('move_to', {'to': ending, 'extend':extend})
+        # <count>G or <count>gg
         else:
-            target_pt = self.view.text_point(repeat - 1, 0)
+            new_address = int(repeat) - 1
+            target_pt = self.view.text_point(new_address, 0)
             transform_selection(self.view, lambda pt: target_pt,
                 extend=extend)
 

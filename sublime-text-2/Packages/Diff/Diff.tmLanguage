@@ -11,11 +11,11 @@
 	<string>(?x)^
 		(===\ modified\ file
 		|==== \s* // .+ \s - \s .+ \s+ ====
-		|Index:\
+		|Index:[ ]
 		|---\ [^%]
 		|\*\*\*.*\d{4}\s*$
 		|\d+(,\d+)* (a|d|c) \d+(,\d+)* $
-		|diff\ --git\
+		|diff\ --git[ ]
 		)
 	</string>
 	<key>foldingStartMarker</key>

@@ -40,12 +40,14 @@
 	     (//.*|/\*.*\*/\s*)?		# skip any comments (optional)
          $
 	</string>
+        <!--
 		<key>indentNextLinePattern</key>
 		<string>(?x)^
 	    (?! .* [;:{}]                    # do not indent when line ends with ;, :, {, or }
 	        \s* (//|/[*] .* [*]/ \s* $)  #  …account for potential trailing comment
 	    )
 	</string>
+        -->
 		<key>unIndentedLinePattern</key>
 		<string>^\s*((/\*|\*/|//|import\b.*|package\b.*).*)?$</string>
 	</dict>

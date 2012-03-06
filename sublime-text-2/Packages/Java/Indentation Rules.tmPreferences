@@ -5,15 +5,20 @@
 	<key>name</key>
 	<string>Indentation Rules</string>
 	<key>scope</key>
-	<string>source.java</string>
+	<string>source.java - comment</string>
 	<key>settings</key>
 	<dict>
 		<key>decreaseIndentPattern</key>
-		<string>^(.*\*/)?\s*\}([^}{"']*\{)?[;\s]*(//.*|/\*.*\*/\s*)?$|^\s*(public|private|protected):\s*$</string>
+		<string>^(.*\*/)?\s*\}.*$|^\s*(public|private|protected):\s*$</string>
 		<key>increaseIndentPattern</key>
 		<string>^.*\{[^}"']*$|^\s*(public|private|protected):\s*$</string>
-		<key>indentNextLinePattern</key>
-		<string>^(?!(.*[};:])?\s*(//|/\*.*\*/\s*$)).*[^\s;:{}]\s*$</string>
+
+		<key>bracketIndentNextLinePattern</key>
+		<string>(?x)
+		^ \s* \b(if|while|else)\b [^;]* $
+		| ^ \s* \b(for)\b .* $
+		</string>
+
 	</dict>
 	<key>uuid</key>
 	<string>20E93106-18CF-4BA3-9DA3-8F0C955DB774</string>

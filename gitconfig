@@ -8,3 +8,5 @@
   ui = true
 [merge]
   conflictstyle = diff3
+[github]
+  user = afeld

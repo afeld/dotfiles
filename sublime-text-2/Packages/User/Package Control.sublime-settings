@@ -1,8 +1,9 @@
 {
-	"auto_upgrade_last_run": 1330699449,
+	"auto_upgrade_last_run": 1331100008,
 	"installed_packages":
 	[
 		"Package Control",
+		"SCSS",
 		"SublimeLinter"
 	]
 }

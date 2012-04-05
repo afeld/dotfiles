@@ -28,12 +28,7 @@ class Linter(BaseLinter):
 
     def select_annotations(self, view):
         '''selects the list of annotations to use'''
-        annotations = view.settings().get("annotations")
-
-        if annotations is None:
-            return self.DEFAULT_NOTES
-        else:
-            return annotations
+        return view.settings().get("annotations", self.DEFAULT_NOTES)
 
     def extract_annotations(self, code, view, filename):
         '''extract all lines with annotations'''

@@ -28,6 +28,7 @@
     */
     "sublimelinter_executable_map":
     {
+        "ruby": "/Users/aidan/.rvm/bin/rvm-auto-ruby"
     },
 
     /*
@@ -68,6 +69,10 @@
     // If true, when the file is saved any errors will appear in a popup list
     "sublimelinter_popup_errors_on_save": false,
 
+    // Javascript linter: "gjslint" to use the closure javascript linter (if available),
+    // or "jshint" to use the built in jshint linter.
+    "javascript_linter": "jshint",
+
     // jshint: options for linting JavaScript. See http://jshint.com/#docs for more info.
     // By deault, eval is allowed.
     "jshint_options":
@@ -76,12 +81,21 @@
         "regexdash": true,
         "browser": true,
         "wsh": true,
-        "trailing": true,
         "sub": true,
-        "smarttabs": true,
-        "undef": true,
-        "trailing": false
+        "smarttabs": true
     },
+
+    // A list of command line options to send to gjslint. --nobeep is always sent.
+    "gjslint_options":
+    [
+    ],
+
+    // A list of gjslint error numbers to ignore. The list of error codes is here:
+    // http://closure-linter.googlecode.com/svn/trunk/closure_linter/errors.py
+    "gjslint_ignore":
+    [
+        110  // line too long
+    ],
 
     // A list of pep8 error numbers to ignore. By default "line too long" errors are ignored.
     // The list of error codes is in this file: https://github.com/jcrocholl/pep8/blob/master/pep8.py.
@@ -116,5 +130,11 @@
     "pyflakes_ignore_import_*": true,
 
     // Objective-J: if true, non-ascii characters are flagged as an error.
-    "sublimelinter_objj_check_ascii": false
+    "sublimelinter_objj_check_ascii": false,
+
+    // Set to true to highlight annotations
+    "sublimelinter_notes": false,
+
+    // The set of annotation phrases to highlight
+    "annotations": ["TODO", "README", "FIXME"]
 }

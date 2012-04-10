@@ -82,6 +82,11 @@ class BaseLinter(object):
        If you do subclass and override __init__, be sure to call super(MyLinter, self).__init__(config).
     '''
 
+    JSC_PATH = '/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
+
+    JAVASCRIPT_ENGINES = ['node', 'jsc']
+    JAVASCRIPT_ENGINE_NAMES = {'node': 'node.js', 'jsc': 'JavaScriptCore'}
+
     def __init__(self, config):
         self.language = config['language']
         self.enabled = False
@@ -296,3 +301,26 @@ class BaseLinter(object):
             return subprocess.Popen(args, self.get_startupinfo()).communicate()[0]
         except:
             return ''
+
+    def jsc_path(self):
+        '''Return the path to JavaScriptCore. Use this method in case the path
+           has to be dynamically calculated in the future.'''
+        return self.JSC_PATH
+
+    def get_javascript_engine(self, view):
+        for engine in self.JAVASCRIPT_ENGINES:
+            if engine == 'node':
+                try:
+                    path = self.get_mapped_executable(view, 'node')
+                    subprocess.call([path, '-v'], startupinfo=self.get_startupinfo())
+                    return (True, path, '')
+                except OSError:
+                    pass
+
+            elif engine == 'jsc':
+                if os.path.exists(self.jsc_path()):
+                    return (True, self.jsc_path(), 'using {0}'.format(self.JAVASCRIPT_ENGINE_NAMES[engine]))
+
+        # Didn't find an engine, tell the user
+        engine_list = ', '.join(self.JAVASCRIPT_ENGINE_NAMES.values())
+        return (False, '', 'One of the following Javascript engines must be installed: ' + engine_list)

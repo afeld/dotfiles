@@ -1,0 +1,5 @@
+{
+    "sublimelinter_executable_map": {
+        "ruby": "/Users/aidan/.rvm/bin/rvm-auto-ruby"
+    }
+}

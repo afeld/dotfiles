@@ -8,7 +8,7 @@ import zipfile
 import urllib
 import urllib2
 import json
-import fnmatch
+from fnmatch import fnmatch
 import re
 import threading
 import datetime
@@ -19,6 +19,85 @@ import tempfile
 
 try:
     import ssl
+    import httplib
+    import socket
+
+    class InvalidCertificateException(httplib.HTTPException, urllib2.URLError):
+        def __init__(self, host, cert, reason):
+            httplib.HTTPException.__init__(self)
+            self.host = host
+            self.cert = cert
+            self.reason = reason
+
+        def __str__(self):
+            return ('Host %s returned an invalid certificate (%s) %s\n' %
+                    (self.host, self.reason, self.cert))
+
+    class CertValidatingHTTPSConnection(httplib.HTTPConnection):
+        default_port = httplib.HTTPS_PORT
+
+        def __init__(self, host, port=None, key_file=None, cert_file=None,
+                                 ca_certs=None, strict=None, **kwargs):
+            httplib.HTTPConnection.__init__(self, host, port, strict, **kwargs)
+            self.key_file = key_file
+            self.cert_file = cert_file
+            self.ca_certs = ca_certs
+            if self.ca_certs:
+                self.cert_reqs = ssl.CERT_REQUIRED
+            else:
+                self.cert_reqs = ssl.CERT_NONE
+
+        def _GetValidHostsForCert(self, cert):
+            if 'subjectAltName' in cert:
+                return [x[1] for x in cert['subjectAltName']
+                             if x[0].lower() == 'dns']
+            else:
+                return [x[0][1] for x in cert['subject']
+                                if x[0][0].lower() == 'commonname']
+
+        def _ValidateCertificateHostname(self, cert, hostname):
+            hosts = self._GetValidHostsForCert(cert)
+            for host in hosts:
+                host_re = host.replace('.', '\.').replace('*', '[^.]*')
+                if re.search('^%s$' % (host_re,), hostname, re.I):
+                    return True
+            return False
+
+        def connect(self):
+            sock = socket.create_connection((self.host, self.port))
+            self.sock = ssl.wrap_socket(sock, keyfile=self.key_file,
+                                              certfile=self.cert_file,
+                                              cert_reqs=self.cert_reqs,
+                                              ca_certs=self.ca_certs)
+            if self.cert_reqs & ssl.CERT_REQUIRED:
+                cert = self.sock.getpeercert()
+                hostname = self.host.split(':', 0)[0]
+                if not self._ValidateCertificateHostname(cert, hostname):
+                    raise InvalidCertificateException(hostname, cert,
+                                                      'hostname mismatch')
+
+    if hasattr(urllib2, 'HTTPSHandler'):
+        class VerifiedHTTPSHandler(urllib2.HTTPSHandler):
+            def __init__(self, **kwargs):
+                urllib2.AbstractHTTPHandler.__init__(self)
+                self._connection_args = kwargs
+
+            def https_open(self, req):
+                def http_class_wrapper(host, **kwargs):
+                    full_kwargs = dict(self._connection_args)
+                    full_kwargs.update(kwargs)
+                    return CertValidatingHTTPSConnection(host, **full_kwargs)
+
+                try:
+                    return self.do_open(http_class_wrapper, req)
+                except urllib2.URLError, e:
+                    if type(e.reason) == ssl.SSLError and e.reason.args[0] == 1:
+                        raise InvalidCertificateException(req.host, '',
+                                                          e.reason.args[1])
+                    raise
+
+            https_request = urllib2.HTTPSHandler.do_request_
+
 except (ImportError):
     pass
 
@@ -74,8 +153,8 @@ class ChannelProvider():
         try:
             channel_info = json.loads(channel_json)
         except (ValueError):
-            sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                ' channel ' + self.channel + '.')
+            sublime.error_message(('%s: Error parsing JSON from ' +
+                'channel %s.') % (__name__, self.channel))
             channel_info = False
 
         self.channel_info = channel_info
@@ -97,6 +176,12 @@ class ChannelProvider():
         if self.channel_info == False:
             return False
         return self.channel_info['repositories']
+
+    def get_certs(self):
+        self.fetch_channel()
+        if self.channel_info == False:
+            return False
+        return self.channel_info.get('certs', {})
 
     def get_packages(self, repo):
         self.fetch_channel()
@@ -151,8 +236,8 @@ class PackageProvider():
         try:
             self.repo_info = json.loads(repository_json)
         except (ValueError):
-            sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                ' repository ' + self.repo + '.')
+            sublime.error_message(('%s: Error parsing JSON from ' +
+                'repository %s.') % (__name__, self.repo))
             self.repo_info = False
 
     def get_packages(self):
@@ -219,8 +304,8 @@ class GitHubPackageProvider():
         try:
             repo_info = json.loads(repo_json)
         except (ValueError):
-            sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                ' repository ' + api_url + '.')
+            sublime.error_message(('%s: Error parsing JSON from ' +
+                'repository %s.') % (__name__, api_url))
             return False
 
         commit_api_url = api_url + '/commits?' + \
@@ -234,8 +319,8 @@ class GitHubPackageProvider():
         try:
             commit_info = json.loads(commit_json)
         except (ValueError):
-            sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                ' repository ' + commit_api_url + '.')
+            sublime.error_message(('%s: Error parsing JSON from ' +
+                'repository %s.') % (__name__, commit_api_url))
             return False
 
         download_url = 'https://nodeload.github.com/' + \
@@ -254,7 +339,8 @@ class GitHubPackageProvider():
 
         package = {
             'name': repo_info['name'],
-            'description': repo_info['description'],
+            'description': repo_info['description'] if \
+                repo_info['description'] else 'No description provided',
             'url': homepage,
             'author': repo_info['owner']['login'],
             'last_modified': timestamp.strftime('%Y-%m-%d %H:%M:%S'),
@@ -294,8 +380,8 @@ class GitHubUserProvider():
         try:
             repo_info = json.loads(repo_json)
         except (ValueError):
-            sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                ' repository ' + api_url + '.')
+            sublime.error_message(('%s: Error parsing JSON from ' +
+                'repository %s.') % (__name__, api_url))
             return False
 
         packages = {}
@@ -311,8 +397,8 @@ class GitHubUserProvider():
             try:
                 commit_info = json.loads(commit_json)
             except (ValueError):
-                sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                    ' repository ' + commit_api_url + '.')
+                sublime.error_message(('%s: Error parsing JSON from ' +
+                    'repository %s.') % (__name__, commit_api_url))
                 return False
 
             commit_date = commit_info[0]['commit']['committer']['date']
@@ -327,7 +413,8 @@ class GitHubUserProvider():
 
             package = {
                 'name': package_info['name'],
-                'description': package_info['description'],
+                'description': repo_info['description'] if \
+                    repo_info['description'] else 'No description provided',
                 'url': homepage,
                 'author': package_info['owner']['login'],
                 'last_modified': timestamp.strftime('%Y-%m-%d %H:%M:%S'),
@@ -367,8 +454,8 @@ class BitBucketPackageProvider():
         try:
             repo_info = json.loads(repo_json)
         except (ValueError):
-            sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                ' repository ' + api_url + '.')
+            sublime.error_message(('%s: Error parsing JSON from ' +
+                'repository %s.') % (__name__, api_url))
             return False
 
         changeset_url = api_url + '/changesets/default'
@@ -379,8 +466,8 @@ class BitBucketPackageProvider():
         try:
             last_commit = json.loads(changeset_json)
         except (ValueError):
-            sublime.error_message(__name__ + ': Error parsing JSON from ' +
-                ' repository ' + changeset_url + '.')
+            sublime.error_message(('%s: Error parsing JSON from ' +
+                'repository %s.') % (__name__, changeset_url))
             return False
         commit_date = last_commit['timestamp']
         timestamp = datetime.datetime.strptime(commit_date[0:19],
@@ -392,8 +479,9 @@ class BitBucketPackageProvider():
         if not homepage:
             homepage = self.repo
         package = {
-            'name': repo_info['slug'],
-            'description': repo_info['description'],
+            'name': repo_info['name'],
+            'description': repo_info['description'] if \
+                repo_info['description'] else 'No description provided',
             'url': homepage,
             'author': repo_info['owner'],
             'last_modified': timestamp.strftime('%Y-%m-%d %H:%M:%S'),
@@ -427,20 +515,42 @@ class NonCleanExitError(Exception):
         return repr(self.returncode)
 
 
-class CliDownloader():
+class Downloader():
+    def check_certs(self, domain, timeout):
+        cert_info = self.settings.get('certs', {}).get(
+            domain)
+        if not cert_info:
+            print '%s: No CA certs available for %s.' % (__name__,
+                domain)
+            return False
+        cert_path = os.path.join(sublime.packages_path(), 'Package Control',
+            'certs', cert_info[0])
+        ca_bundle_path = os.path.join(sublime.packages_path(),
+            'Package Control', 'certs', 'ca-bundle.crt')
+        if not os.path.exists(cert_path):
+            cert_downloader = self.__class__(self.settings)
+            cert_contents = cert_downloader.download(cert_info[1],
+                'Error downloading CA certs for %s.' % (domain), timeout, 1)
+            if not cert_contents:
+                return False
+            with open(cert_path, 'wb') as f:
+                f.write(cert_contents)
+            with open(ca_bundle_path, 'ab') as f:
+                f.write("\n" + cert_contents)
+        return ca_bundle_path
+
+
+class CliDownloader(Downloader):
     def __init__(self, settings):
         self.settings = settings
 
     def find_binary(self, name):
-        dirs = ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin',
-            '/sbin', '/bin']
-        for dir in dirs:
+        for dir in os.environ['PATH'].split(os.pathsep):
             path = os.path.join(dir, name)
             if os.path.exists(path):
                 return path
 
-        raise BinaryNotFoundError('The binary ' + name + ' could not be ' +
-            'located')
+        raise BinaryNotFoundError('The binary %s could not be located' % name)
 
     def execute(self, args):
         proc = subprocess.Popen(args, stdin=subprocess.PIPE,
@@ -455,7 +565,7 @@ class CliDownloader():
         return output
 
 
-class UrlLib2Downloader():
+class UrlLib2Downloader(Downloader):
     def __init__(self, settings):
         self.settings = settings
 
@@ -473,7 +583,16 @@ class UrlLib2Downloader():
             proxy_handler = urllib2.ProxyHandler(proxies)
         else:
             proxy_handler = urllib2.ProxyHandler()
-        urllib2.install_opener(urllib2.build_opener(proxy_handler))
+        handlers = [proxy_handler]
+
+        secure_url_match = re.match('^https://([^/]+)', url)
+        if secure_url_match != None:
+            secure_domain = secure_url_match.group(1)
+            bundle_path = self.check_certs(secure_domain, timeout)
+            if not bundle_path:
+                return False
+            handlers.append(VerifiedHTTPSHandler(ca_certs=bundle_path))
+        urllib2.install_opener(urllib2.build_opener(*handlers))
 
         while tries > 0:
             tries -= 1
@@ -486,17 +605,18 @@ class UrlLib2Downloader():
             except (urllib2.HTTPError) as (e):
                 # Bitbucket and Github ratelimit using 503 a decent amount
                 if str(e.code) == '503':
-                    print (__name__ + ': Downloading %s was rate limited, ' +
-                        'trying again') % url
+                    print ('%s: Downloading %s was rate limited, ' +
+                        'trying again') % (__name__, url)
                     continue
                 print '%s: %s HTTP error %s downloading %s.' % (__name__,
                     error_message, str(e.code), url)
+
             except (urllib2.URLError) as (e):
                 # Bitbucket and Github timeout a decent amount
                 if str(e.reason) == 'The read operation timed out' or \
                         str(e.reason) == 'timed out':
-                    print (__name__ + ': Downloading %s timed out, trying ' +
-                        'again') % url
+                    print ('%s: Downloading %s timed out, trying ' +
+                        'again') % (__name__, url)
                     continue
                 print '%s: %s URL error %s downloading %s.' % (__name__,
                     error_message, str(e.reason), url)
@@ -518,7 +638,17 @@ class WgetDownloader(CliDownloader):
 
         self.tmp_file = tempfile.NamedTemporaryFile().name
         command = [self.wget, '--connect-timeout=' + str(int(timeout)), '-o',
-            self.tmp_file, '-O', '-', '-U', 'Sublime Package Control', url]
+            self.tmp_file, '-O', '-', '-U', 'Sublime Package Control']
+
+        secure_url_match = re.match('^https://([^/]+)', url)
+        if secure_url_match != None:
+            secure_domain = secure_url_match.group(1)
+            bundle_path = self.check_certs(secure_domain, timeout)
+            if not bundle_path:
+                return False
+            command.append(u'--ca-certificate=' + bundle_path)
+
+        command.append(url)
 
         if self.settings.get('http_proxy'):
             os.putenv('http_proxy', self.settings.get('http_proxy'))
@@ -527,7 +657,7 @@ class WgetDownloader(CliDownloader):
         if self.settings.get('https_proxy'):
             os.putenv('https_proxy', self.settings.get('https_proxy'))
 
-        while tries > 1:
+        while tries > 0:
             tries -= 1
             try:
                 result = self.execute(command)
@@ -545,8 +675,8 @@ class WgetDownloader(CliDownloader):
                     regex = re.compile('^.*ERROR (\d+):.*', re.S)
                     if re.sub(regex, '\\1', error_line) == '503':
                         # GitHub and BitBucket seem to rate limit via 503
-                        print (__name__ + ': Downloading %s was rate limited' +
-                            ', trying again') % url
+                        print ('%s: Downloading %s was rate limited' +
+                            ', trying again') % (__name__, url)
                         continue
                     error_string = 'HTTP error ' + re.sub('^.*? ERROR ', '',
                         error_line)
@@ -555,8 +685,8 @@ class WgetDownloader(CliDownloader):
                     error_string = re.sub('^.*?failed: ', '', error_line)
                     # GitHub and BitBucket seem to time out a lot
                     if error_string.find('timed out') != -1:
-                        print (__name__ + ': Downloading %s timed out, ' +
-                            'trying again') % url
+                        print ('%s: Downloading %s timed out, ' +
+                            'trying again') % (__name__, url)
                         continue
 
                 else:
@@ -580,7 +710,17 @@ class CurlDownloader(CliDownloader):
         if not self.curl:
             return False
         command = [self.curl, '-f', '--user-agent', 'Sublime Package Control',
-            '--connect-timeout', str(int(timeout)), '-sS', url]
+            '--connect-timeout', str(int(timeout)), '-sS']
+
+        secure_url_match = re.match('^https://([^/]+)', url)
+        if secure_url_match != None:
+            secure_domain = secure_url_match.group(1)
+            bundle_path = self.check_certs(secure_domain, timeout)
+            if not bundle_path:
+                return False
+            command.extend(['--cacert', bundle_path])
+
+        command.append(url)
 
         if self.settings.get('http_proxy'):
             os.putenv('http_proxy', self.settings.get('http_proxy'))
@@ -589,7 +729,7 @@ class CurlDownloader(CliDownloader):
         if self.settings.get('https_proxy'):
             os.putenv('HTTPS_PROXY', self.settings.get('https_proxy'))
 
-        while tries > 1:
+        while tries > 0:
             tries -= 1
             try:
                 return self.execute(command)
@@ -598,19 +738,19 @@ class CurlDownloader(CliDownloader):
                     code = re.sub('^.*?(\d+)\s*$', '\\1', e.output)
                     if code == '503':
                         # GitHub and BitBucket seem to rate limit via 503
-                        print (__name__ + ': Downloading %s was rate limited' +
-                            ', trying again') % url
+                        print ('%s: Downloading %s was rate limited' +
+                            ', trying again') % (__name__, url)
                         continue
                     error_string = 'HTTP error ' + code
                 elif e.returncode == 6:
                     error_string = 'URL error host not found'
                 elif e.returncode == 28:
                     # GitHub and BitBucket seem to time out a lot
-                    print (__name__ + ': Downloading %s timed out, trying ' +
-                        'again') % url
+                    print ('%s: Downloading %s timed out, trying ' +
+                        'again') % (__name__, url)
                     continue
                 else:
-                    error_string = e.output
+                    error_string = e.output.rstrip()
 
                 print '%s: %s %s downloading %s.' % (__name__, error_message,
                     error_string, url)
@@ -673,6 +813,15 @@ class VcsUpgrader():
         if self.binary:
             return self.binary
 
+        # Try the path first
+        for dir in os.environ['PATH'].split(os.pathsep):
+            path = os.path.join(dir, name)
+            if os.path.exists(path):
+                return path
+
+        # This is left in for backwards compatibility and for windows
+        # users who may have the binary, albeit in a common dir that may
+        # not be part of the PATH
         if os.name == 'nt':
             dirs = ['C:\\Program Files\\Git\\bin',
                 'C:\\Program Files (x86)\\Git\\bin',
@@ -683,9 +832,7 @@ class VcsUpgrader():
                 'C:\\Program Files\\TortoiseHg',
                 'C:\\cygwin\\bin']
         else:
-            dirs = ['/usr/local/git/bin', '/usr/local/sbin',
-                '/usr/local/bin', '/usr/sbin',
-                '/usr/bin', '/sbin', '/bin']
+            dirs = ['/usr/local/git/bin']
 
         for dir in dirs:
             path = os.path.join(dir, name)
@@ -816,7 +963,9 @@ class PackageManager():
                 'git_binary', 'git_update_command', 'hg_binary',
                 'hg_update_command', 'http_proxy', 'https_proxy',
                 'auto_upgrade_ignore', 'auto_upgrade_frequency',
-                'submit_usage', 'submit_url', 'renamed_packages']:
+                'submit_usage', 'submit_url', 'renamed_packages',
+                'files_to_include', 'files_to_include_binary', 'certs',
+                'ignore_vcs_packages']:
             if settings.get(setting) == None:
                 continue
             self.settings[setting] = settings.get(setting)
@@ -834,7 +983,7 @@ class PackageManager():
         return cmp(normalize(version1), normalize(version2))
 
     def download_url(self, url, error_message):
-        has_ssl = 'ssl' in sys.modules
+        has_ssl = 'ssl' in sys.modules and hasattr(urllib2, 'HTTPSHandler')
         is_ssl = re.search('^https://', url) != None
 
         if (is_ssl and has_ssl) or not is_ssl:
@@ -848,9 +997,9 @@ class PackageManager():
                     pass
 
         if not downloader:
-            sublime.error_message(__name__ + ': Unable to download ' +
-                url + ' due to no ssl module available and no capable ' +
-                'program found. Please install curl or wget.')
+            sublime.error_message(('%s: Unable to download %s due to no ' +
+                'ssl module available and no capable program found. Please ' +
+                'install curl or wget.') % (__name__, url))
             return False
 
         timeout = self.settings.get('timeout', 3)
@@ -898,6 +1047,13 @@ class PackageManager():
                 renamed_packages.update(self.settings.get('renamed_packages',
                     {}))
                 self.settings['renamed_packages'] = renamed_packages
+
+            certs_cache_key = channel + '.certs'
+            certs_cache = _channel_repository_cache.get(certs_cache_key)
+            if certs_cache and certs_cache.get('time') > time.time():
+                certs = self.settings.get('certs', {})
+                certs.update(certs_cache.get('data'))
+                self.settings['certs'] = certs
 
             if channel_repositories == None or \
                     self.settings.get('package_name_map') == None or \
@@ -947,6 +1103,16 @@ class PackageManager():
                     self.settings['renamed_packages'] = self.settings.get(
                         'renamed_packages', {})
                     self.settings['renamed_packages'].update(renamed_packages)
+
+                certs = provider.get_certs()
+                _channel_repository_cache[certs_cache_key] = {
+                    'time': time.time() + self.settings.get('cache_length',
+                        300),
+                    'data': certs
+                }
+                if certs:
+                    self.settings['certs'] = self.settings.get('certs', {})
+                    self.settings['certs'].update(certs)
 
             repositories.extend(channel_repositories)
         return repositories
@@ -1069,9 +1235,9 @@ class PackageManager():
         package_dir = self.get_package_dir(package_name) + '/'
 
         if not os.path.exists(package_dir):
-            sublime.error_message(__name__ + ': The folder for the ' +
-                'package name specified, %s, does not exist in %s' %
-                (package_name, sublime.packages_path()))
+            sublime.error_message(('%s: The folder for the package name ' +
+                'specified, %s, does not exist in %s') %
+                (__name__, package_name, sublime.packages_path()))
             return False
 
         package_filename = package_name + '.sublime-package'
@@ -1088,16 +1254,18 @@ class PackageManager():
             package_file = zipfile.ZipFile(package_path, "w",
                 compression=zipfile.ZIP_DEFLATED)
         except (OSError, IOError) as (exception):
-            sublime.error_message(__name__ + ': An error occurred ' +
-                'creating the package file %s in %s. %s' % (package_filename,
+            sublime.error_message(('%s: An error occurred creating the ' +
+                'package file %s in %s. %s') % (__name__, package_filename,
                 package_destination, str(exception)))
             return False
 
         dirs_to_ignore = self.settings.get('dirs_to_ignore', [])
         if not binary_package:
             files_to_ignore = self.settings.get('files_to_ignore', [])
+            files_to_include = self.settings.get('files_to_include', [])
         else:
             files_to_ignore = self.settings.get('files_to_ignore_binary', [])
+            files_to_include = self.settings.get('files_to_include_binary', [])
 
         package_dir_regex = re.compile('^' + re.escape(package_dir))
         for root, dirs, files in os.walk(package_dir):
@@ -1105,19 +1273,18 @@ class PackageManager():
             paths = dirs
             paths.extend(files)
             for path in paths:
-                if any(fnmatch.fnmatch(path, pattern) for pattern in
-                        files_to_ignore):
-                    continue
                 full_path = os.path.join(root, path)
                 relative_path = re.sub(package_dir_regex, '', full_path)
+
+                ignore_matches = [fnmatch(relative_path, p) for p in files_to_ignore]
+                include_matches = [fnmatch(relative_path, p) for p in files_to_include]
+                if any(ignore_matches) and not any(include_matches):
+                    continue
+
                 if os.path.isdir(full_path):
                     continue
                 package_file.write(full_path, relative_path)
 
-        init_script = os.path.join(package_dir, '__init__.py')
-        if binary_package and os.path.exists(init_script):
-            package_file.write(init_script, re.sub(package_dir_regex, '',
-                init_script))
         package_file.close()
 
         return True
@@ -1126,8 +1293,8 @@ class PackageManager():
         packages = self.list_available_packages()
 
         if package_name not in packages.keys():
-            sublime.error_message(__name__ + ': The package specified,' +
-                ' %s, is not available.' % (package_name,))
+            sublime.error_message(('%s: The package specified, %s, is ' +
+                'not available.') % (__name__, package_name))
             return False
 
         download = packages[package_name]['downloads'][0]
@@ -1146,10 +1313,20 @@ class PackageManager():
             'package-metadata.json')
 
         if os.path.exists(os.path.join(package_dir, '.git')):
+            if self.settings.get('ignore_vcs_packages'):
+                sublime.error_message(('%s: Skipping git package %s since ' +
+                    'the setting ignore_vcs_packages is set to true') %
+                    (__name__, package_name))
+                return False
             return GitUpgrader(self.settings['git_binary'],
                 self.settings['git_update_command'], package_dir,
                 self.settings['cache_length']).run()
         elif os.path.exists(os.path.join(package_dir, '.hg')):
+            if self.settings.get('ignore_vcs_packages'):
+                sublime.error_message(('%s: Skipping hg package %s since ' +
+                    'the setting ignore_vcs_packages is set to true') %
+                    (__name__, package_name))
+                return False
             return HgUpgrader(self.settings['hg_binary'],
                 self.settings['hg_update_command'], package_dir,
                 self.settings['cache_length']).run()
@@ -1179,23 +1356,30 @@ class PackageManager():
                 package_backup_dir = os.path.join(backup_dir, package_name)
                 shutil.copytree(package_dir, package_backup_dir)
             except (OSError, IOError) as (exception):
-                sublime.error_message(__name__ + ': An error occurred while' +
-                    ' trying to backup the package directory for %s. %s' %
-                    (package_name, str(exception)))
+                sublime.error_message(('%s: An error occurred while trying ' +
+                    'to backup the package directory for %s. %s') %
+                    (__name__, package_name, str(exception)))
                 shutil.rmtree(package_backup_dir)
                 return False
 
-        package_zip = zipfile.ZipFile(package_path, 'r')
+        try:
+            package_zip = zipfile.ZipFile(package_path, 'r')
+        except (zipfile.BadZipfile):
+            sublime.error_message(('%s: An error occurred while ' +
+                'trying to unzip the package file for %s. Please try ' +
+                'installing the package again.') % (__name__, package_name))
+            return False
+
         root_level_paths = []
         last_path = None
         for path in package_zip.namelist():
             last_path = path
             if path.find('/') in [len(path) - 1, -1]:
                 root_level_paths.append(path)
-            if path[0] == '/' or path.find('..') != -1:
-                sublime.error_message(__name__ + ': The package ' +
-                    'specified, %s, contains files outside of the package ' +
-                    'dir and cannot be safely installed.' % (package_name,))
+            if path[0] == '/' or path.find('../') != -1 or path.find('..\\') != -1:
+                sublime.error_message(('%s: The package specified, %s, ' +
+                    'contains files outside of the package dir and cannot ' +
+                    'be safely installed.') % (__name__, package_name))
                 return False
 
         if last_path and len(root_level_paths) == 0:
@@ -1218,9 +1402,8 @@ class PackageManager():
             if os.name == 'nt':
                 regex = ':|\*|\?|"|<|>|\|'
                 if re.search(regex, dest) != None:
-                    print ('%s: Skipping file from package ' +
-                        'named %s due to an invalid filename') % (__name__,
-                        path)
+                    print ('%s: Skipping file from package named %s due to ' +
+                        'an invalid filename') % (__name__, path)
                     continue
 
             # If there was only a single directory in the package, we remove
@@ -1255,9 +1438,8 @@ class PackageManager():
                 try:
                     open(dest, 'wb').write(package_zip.read(path))
                 except (IOError, UnicodeDecodeError):
-                    print ('%s: Skipping file from package ' +
-                        'named %s due to an invalid filename') % (__name__,
-                        path)
+                    print ('%s: Skipping file from package named %s due to ' +
+                        'an invalid filename') % (__name__, path)
         package_zip.close()
 
         # Here we clean out any files that were not just overwritten
@@ -1405,8 +1587,8 @@ class PackageManager():
         installed_packages = self.list_packages()
 
         if package_name not in installed_packages:
-            sublime.error_message(__name__ + ': The package specified,' +
-                ' %s, is not installed.' % (package_name,))
+            sublime.error_message(('%s: The package specified, %s, is not ' +
+                'installed.') % (__name__, package_name))
             return False
 
         os.chdir(sublime.packages_path())
@@ -1429,27 +1611,27 @@ class PackageManager():
             if os.path.exists(package_path):
                 os.remove(package_path)
         except (OSError, IOError) as (exception):
-            sublime.error_message(__name__ + ': An error occurred while' +
-                ' trying to remove the package file for %s. %s' %
-                (package_name, str(exception)))
+            sublime.error_message(('%s: An error occurred while trying to ' +
+                'remove the package file for %s. %s') % (__name__,
+                package_name, str(exception)))
             return False
 
         try:
             if os.path.exists(installed_package_path):
                 os.remove(installed_package_path)
         except (OSError, IOError) as (exception):
-            sublime.error_message(__name__ + ': An error occurred while' +
-                ' trying to remove the installed package file for %s. %s' %
-                (package_name, str(exception)))
+            sublime.error_message(('%s: An error occurred while trying to ' +
+                'remove the installed package file for %s. %s') % (__name__,
+                package_name, str(exception)))
             return False
 
         try:
             if os.path.exists(pristine_package_path):
                 os.remove(pristine_package_path)
         except (OSError, IOError) as (exception):
-            sublime.error_message(__name__ + ': An error occurred while' +
-                ' trying to remove the pristine package file for %s. %s' %
-                (package_name, str(exception)))
+            sublime.error_message(('%s: An error occurred while trying to ' +
+                'remove the pristine package file for %s. %s') % (__name__,
+                package_name, str(exception)))
             return False
 
         # We don't delete the actual package dir immediately due to a bug
@@ -1478,13 +1660,13 @@ class PackageManager():
 
         # Remove the package from the installed packages list
         def clear_package():
-            settings = sublime.load_settings(__name__ + '.sublime-settings')
+            settings = sublime.load_settings('%s.sublime-settings' % __name__)
             installed_packages = settings.get('installed_packages', [])
             if not installed_packages:
                 installed_packages = []
             installed_packages.remove(package_name)
             settings.set('installed_packages', installed_packages)
-            sublime.save_settings(__name__ + '.sublime-settings')
+            sublime.save_settings('%s.sublime-settings' % __name__)
         sublime.set_timeout(clear_package, 1)
 
         if can_delete_dir:
@@ -1500,14 +1682,18 @@ class PackageManager():
         params['sublime_platform'] = self.settings.get('platform')
         params['sublime_version'] = self.settings.get('version')
         url = self.settings.get('submit_url') + '?' + urllib.urlencode(params)
+
         result = self.download_url(url, 'Error submitting usage information.')
+        if result == False:
+            return
+
         try:
             result = json.loads(result)
             if result['result'] != 'success':
                 raise ValueError()
         except (ValueError):
-            print '%s: Error submitting usage information for %s' % \
-                (__name__, params['package'])
+            print '%s: Error submitting usage information for %s' % (__name__,
+                params['package'])
 
 
 class PackageCreator():
@@ -1515,8 +1701,8 @@ class PackageCreator():
         self.manager = PackageManager()
         self.packages = self.manager.list_packages()
         if not self.packages:
-            sublime.error_message(__name__ + ': There are no packages ' +
-                'available to be packaged.')
+            sublime.error_message(('%s: There are no packages available to ' +
+                'be packaged.') % (__name__))
             return
         self.window.show_quick_panel(self.packages, self.on_done)
 
@@ -1526,8 +1712,7 @@ class PackageCreator():
         # We check destination via an if statement instead of using
         # the dict.get() method since the key may be set, but to a blank value
         if not destination:
-            destination = os.path.join(os.path.expanduser('~'),
-                'Desktop')
+            destination = os.path.join(os.path.expanduser('~'), 'Desktop')
 
         return destination
 
@@ -1607,12 +1792,16 @@ class PackageInstaller():
             else:
                 if os.path.exists(os.path.join(sublime.packages_path(),
                         package, '.git')):
+                    if settings.get('ignore_vcs_packages'):
+                        continue
                     vcs = 'git'
                     incoming = GitUpgrader(settings.get('git_binary'),
                         settings.get('git_update_command'), package_dir,
                         settings.get('cache_length')).incoming()
                 elif os.path.exists(os.path.join(sublime.packages_path(),
                         package, '.hg')):
+                    if settings.get('ignore_vcs_packages'):
+                        continue
                     vcs = 'hg'
                     incoming = HgUpgrader(settings.get('hg_binary'),
                         settings.get('hg_update_command'), package_dir,
@@ -1653,8 +1842,10 @@ class PackageInstaller():
                 if action in ignore_actions:
                     continue
 
-            package_entry.append(info.get('description', 'No description ' +
-                'provided'))
+            description = info.get('description')
+            if not description:
+                description = 'No description provided'
+            package_entry.append(description)
             package_entry.append(action + extra + ' ' +
                 re.sub('^https?://', '', info['url']))
             package_list.append(package_entry)
@@ -1700,8 +1891,8 @@ class InstallPackageThread(threading.Thread, PackageInstaller):
 
         def show_quick_panel():
             if not self.package_list:
-                sublime.error_message(__name__ + ': There are no packages ' +
-                    'available for installation.')
+                sublime.error_message(('%s: There are no packages ' +
+                    'available for installation.') % __name__)
                 return
             self.window.show_quick_panel(self.package_list, self.on_done)
         sublime.set_timeout(show_quick_panel, 10)
@@ -1733,8 +1924,8 @@ class UpgradePackageThread(threading.Thread, PackageInstaller):
 
         def show_quick_panel():
             if not self.package_list:
-                sublime.error_message(__name__ + ': There are no packages ' +
-                    'ready for upgrade.')
+                sublime.error_message(('%s: There are no packages ' +
+                    'ready for upgrade.') % __name__)
                 return
             self.window.show_quick_panel(self.package_list, self.on_done)
         sublime.set_timeout(show_quick_panel, 10)
@@ -1787,8 +1978,10 @@ class ExistingPackagesCommand():
             metadata = self.manager.get_metadata(package)
             package_dir = os.path.join(sublime.packages_path(), package)
 
-            package_entry.append(metadata.get('description',
-                'No description provided'))
+            description = metadata.get('description')
+            if not description:
+                description = 'No description provided'
+            package_entry.append(description)
 
             version = metadata.get('version')
             if not version and os.path.exists(os.path.join(package_dir,
@@ -1829,8 +2022,8 @@ class ListPackagesThread(threading.Thread, ExistingPackagesCommand):
 
         def show_quick_panel():
             if not self.package_list:
-                sublime.error_message(__name__ + ': There are no packages ' +
-                    'to list.')
+                sublime.error_message(('%s: There are no packages ' +
+                    'to list.') % __name__)
                 return
             self.window.show_quick_panel(self.package_list, self.on_done)
         sublime.set_timeout(show_quick_panel, 10)
@@ -1855,8 +2048,8 @@ class RemovePackageCommand(sublime_plugin.WindowCommand,
     def run(self):
         self.package_list = self.make_package_list('remove')
         if not self.package_list:
-            sublime.error_message(__name__ + ': There are no packages ' +
-                'that can be removed.')
+            sublime.error_message(('%s: There are no packages ' +
+                'that can be removed.') % __name__)
             return
         self.window.show_quick_panel(self.package_list, self.on_done)
 
@@ -1900,19 +2093,19 @@ class RemovePackageThread(threading.Thread):
 
 class AddRepositoryChannelCommand(sublime_plugin.WindowCommand):
     def run(self):
-        self.window.show_input_panel('Repository Channel JSON URL', '',
+        self.window.show_input_panel('Channel JSON URL', '',
             self.on_done, self.on_change, self.on_cancel)
 
     def on_done(self, input):
-        settings = sublime.load_settings(__name__ + '.sublime-settings')
+        settings = sublime.load_settings('%s.sublime-settings' % __name__)
         repository_channels = settings.get('repository_channels', [])
         if not repository_channels:
             repository_channels = []
         repository_channels.append(input)
         settings.set('repository_channels', repository_channels)
-        sublime.save_settings(__name__ + '.sublime-settings')
-        sublime.status_message('Repository channel ' + input +
-            ' successfully added')
+        sublime.save_settings('%s.sublime-settings' % __name__)
+        sublime.status_message(('Channel %s successfully ' +
+            'added') % input)
 
     def on_change(self, input):
         pass
@@ -1928,14 +2121,14 @@ class AddRepositoryCommand(sublime_plugin.WindowCommand):
             self.on_change, self.on_cancel)
 
     def on_done(self, input):
-        settings = sublime.load_settings(__name__ + '.sublime-settings')
+        settings = sublime.load_settings('%s.sublime-settings' % __name__)
         repositories = settings.get('repositories', [])
         if not repositories:
             repositories = []
         repositories.append(input)
         settings.set('repositories', repositories)
-        sublime.save_settings(__name__ + '.sublime-settings')
-        sublime.status_message('Repository ' + input + ' successfully added')
+        sublime.save_settings('%s.sublime-settings' % __name__)
+        sublime.status_message('Repository %s successfully added' % input)
 
     def on_change(self, input):
         pass
@@ -1955,8 +2148,8 @@ class DisablePackageCommand(sublime_plugin.WindowCommand):
         self.package_list = list(set(packages) - set(disabled_packages))
         self.package_list.sort()
         if not self.package_list:
-            sublime.error_message(__name__ + ': There are no enabled ' +
-            'packages to disable.')
+            sublime.error_message(('%s: There are no enabled packages' +
+                'to disable.') % __name__)
             return
         self.window.show_quick_panel(self.package_list, self.on_done)
 
@@ -1970,9 +2163,9 @@ class DisablePackageCommand(sublime_plugin.WindowCommand):
         ignored_packages.append(package)
         self.settings.set('ignored_packages', ignored_packages)
         sublime.save_settings('Global.sublime-settings')
-        sublime.status_message('Package ' + package + ' successfully added ' +
-            'to list of disabled packages - restarting Sublime Text may be '
-            'required')
+        sublime.status_message(('Package %s successfully added to list of ' +
+            'disabled packages - restarting Sublime Text may be required') %
+            package)
 
 
 class EnablePackageCommand(sublime_plugin.WindowCommand):
@@ -1981,8 +2174,8 @@ class EnablePackageCommand(sublime_plugin.WindowCommand):
         self.disabled_packages = self.settings.get('ignored_packages')
         self.disabled_packages.sort()
         if not self.disabled_packages:
-            sublime.error_message(__name__ + ': There are no disabled ' +
-            'packages to enable.')
+            sublime.error_message(('%s: There are no disabled packages ' +
+                'to enable.') % __name__)
             return
         self.window.show_quick_panel(self.disabled_packages, self.on_done)
 
@@ -1994,9 +2187,9 @@ class EnablePackageCommand(sublime_plugin.WindowCommand):
         self.settings.set('ignored_packages',
             list(set(ignored) - set([package])))
         sublime.save_settings('Global.sublime-settings')
-        sublime.status_message('Package ' + package + ' successfully removed' +
-            ' from list of disabled packages - restarting Sublime Text may be '
-            'required')
+        sublime.status_message(('Package %s successfully removed from list ' +
+            'of disabled packages - restarting Sublime Text may be required') %
+            package)
 
 
 class PackageStartup():
@@ -2159,11 +2352,18 @@ class PackageCleanup(threading.Thread, PackageStartup):
             metadata_path = os.path.join(package_dir, 'package-metadata.json')
 
             # Cleanup packages that could not be removed due to in-use files
-            if os.path.exists(os.path.join(package_dir,
-                    'package-control.cleanup')):
-                shutil.rmtree(package_dir)
-                print '%s: Removed old directory for package %s' % \
-                    (__name__, package_name)
+            cleanup_file = os.path.join(package_dir, 'package-control.cleanup')
+            if os.path.exists(cleanup_file):
+                try:
+                    shutil.rmtree(package_dir)
+                    print '%s: Removed old directory for package %s' % \
+                        (__name__, package_name)
+                except (OSError) as (e):
+                    if not os.path.exists(cleanup_file):
+                        open(cleanup_file, 'w').close()
+                    print ('%s: Unable to remove old directory for package ' +
+                        '%s - deferring until next start: %s') % (__name__,
+                        package_name, str(e))
 
             # This adds previously installed packages from old versions of PC
             if os.path.exists(metadata_path) and \

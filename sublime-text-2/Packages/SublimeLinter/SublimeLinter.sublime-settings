@@ -28,13 +28,12 @@
     */
     "sublimelinter_executable_map":
     {
-        "ruby": "/Users/aidan/.rvm/bin/rvm-auto-ruby"
     },
 
     /*
         Maps syntax names to linters. This allows variations on a syntax
         (for example "Python (Django)") to be linted. The key is
-        the base filename of the .tmLanguage syntax files, and the value
+        the base filename of the .tmLanguage syntax file, and the value
         is the linter name (lowercase) the syntax maps to.
     */
     "sublimelinter_syntax_map":
@@ -81,8 +80,8 @@
         "regexdash": true,
         "browser": true,
         "wsh": true,
-        "sub": true,
-        "smarttabs": true
+        "trailing": true,
+        "sub": true
     },
 
     // A list of command line options to send to gjslint. --nobeep is always sent.

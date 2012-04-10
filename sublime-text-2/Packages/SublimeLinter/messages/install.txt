@@ -1,0 +1,25 @@
+SublimeLinter
+=============
+
+SublimeLinter is a plugin that supports "lint" programs (known as "linters"). SublimeLinter highlights
+lines of code the linter deems to contain (potential) errors. It also
+supports highlighting special annotations (for example: TODO) so that they
+can be quickly located.
+
+SublimeLinter has built in linters for the following languages:
+
+* Javascript - lint via built in `jshint <http://jshint.org>`_ or the `closure linter (gjslint) <https://developers.google.com/closure/utilities/docs/linter_howto>`_ (if installed)
+* Objective-J - lint via built-in `capp_lint <https://github.com/aparajita/capp_lint>`_
+* python - native, moderately-complete lint
+* ruby - syntax checking via "ruby -wc"
+* php - syntax checking via "php -l"
+* java - lint via "javac -Xlint"
+* perl - syntax+deprecation checking via "perl -c"
+
+
+For more information:
+---------------------
+Please take the time to read the documentation:
+
+* Online - https://github.com/Kronuz/SublimeLinter/blob/master/README.rst
+* Sublime Text - Select Preferences->Package Settings->SublimeLinter->README

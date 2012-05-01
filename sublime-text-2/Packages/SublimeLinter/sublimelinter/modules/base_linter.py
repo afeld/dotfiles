@@ -3,6 +3,7 @@
 
 import os
 import os.path
+import json
 import re
 import subprocess
 
@@ -84,14 +85,18 @@ class BaseLinter(object):
 
     JSC_PATH = '/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources/jsc'
 
+    LIB_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), 'libs'))
+
     JAVASCRIPT_ENGINES = ['node', 'jsc']
     JAVASCRIPT_ENGINE_NAMES = {'node': 'node.js', 'jsc': 'JavaScriptCore'}
+    JAVASCRIPT_ENGINE_WRAPPERS_PATH = os.path.join(LIB_PATH, 'jsengines')
 
     def __init__(self, config):
         self.language = config['language']
         self.enabled = False
         self.executable = config.get('executable', None)
         self.test_existence_args = config.get('test_existence_args', ('-v',))
+        self.js_engine = None
 
         if isinstance(self.test_existence_args, basestring):
             self.test_existence_args = (self.test_existence_args,)
@@ -256,6 +261,15 @@ class BaseLinter(object):
         for start, end in results:
             self.underline_range(view, lineno, start + offset, underlines, end - start)
 
+    def underline_word(self, view, lineno, position, underlines):
+        # Assume lineno is one-based, ST2 wants zero-based line numbers
+        lineno -= 1
+        line = view.full_line(view.text_point(lineno, 0))
+        position += line.begin()
+
+        word = view.word(position)
+        underlines.append(word)
+
     def run(self, view, code, filename=None):
         self.filename = filename
 
@@ -307,19 +321,47 @@ class BaseLinter(object):
            has to be dynamically calculated in the future.'''
         return self.JSC_PATH
 
-    def get_javascript_engine(self, view):
-        for engine in self.JAVASCRIPT_ENGINES:
-            if engine == 'node':
-                try:
-                    path = self.get_mapped_executable(view, 'node')
-                    subprocess.call([path, '-v'], startupinfo=self.get_startupinfo())
-                    return (True, path, '')
-                except OSError:
-                    pass
+    def get_javascript_args(self, view, linter, code):
+        path = os.path.join(self.LIB_PATH, linter)
+        options = json.dumps(view.settings().get('%s_options' % linter) or {})
 
-            elif engine == 'jsc':
-                if os.path.exists(self.jsc_path()):
-                    return (True, self.jsc_path(), 'using {0}'.format(self.JAVASCRIPT_ENGINE_NAMES[engine]))
+        self.get_javascript_engine(view)
+        engine = self.js_engine
+
+        if (engine['name'] == 'jsc'):
+            args = (engine['wrapper'], '--', path + os.path.sep, str(code.count('\n')), options)
+        else:
+            args = (engine['wrapper'], path + os.path.sep, options)
+
+        return args
+
+    def get_javascript_engine(self, view):
+        if self.js_engine == None:
+            for engine in self.JAVASCRIPT_ENGINES:
+                if engine == 'node':
+                    try:
+                        path = self.get_mapped_executable(view, 'node')
+                        subprocess.call([path, '-v'], startupinfo=self.get_startupinfo())
+                        self.js_engine = {
+                            'name': engine,
+                            'path': path,
+                            'wrapper': os.path.join(self.JAVASCRIPT_ENGINE_WRAPPERS_PATH, engine + '.js'),
+                        }
+                        break
+                    except OSError:
+                        pass
+
+                elif engine == 'jsc':
+                    if os.path.exists(self.jsc_path()):
+                        self.js_engine = {
+                            'name': engine,
+                            'path': self.jsc_path(),
+                            'wrapper': os.path.join(self.JAVASCRIPT_ENGINE_WRAPPERS_PATH, engine + '.js'),
+                        }
+                        break
+
+        if self.js_engine != None:
+            return (True, self.js_engine['path'], 'using {0}'.format(self.JAVASCRIPT_ENGINE_NAMES[self.js_engine['name']]))
 
         # Didn't find an engine, tell the user
         engine_list = ', '.join(self.JAVASCRIPT_ENGINE_NAMES.values())

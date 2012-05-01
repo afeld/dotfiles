@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # javascript.py - sublimelint package for checking Javascript files
 
-import os
 import json
 import re
 import subprocess
@@ -18,16 +17,13 @@ class Linter(BaseLinter):
 
     def __init__(self, config):
         super(Linter, self).__init__(config)
-        self.use_jsc = False
         self.linter = None
 
     def get_executable(self, view):
         self.linter = view.settings().get('javascript_linter', 'jshint')
 
-        if (self.linter == 'jshint'):
-            foundEngine, path, message = self.get_javascript_engine(view)
-            self.use_jsc = path == self.jsc_path()
-            return (foundEngine, path, message)
+        if (self.linter in ('jshint', 'jslint')):
+            return self.get_javascript_engine(view)
         elif (self.linter == 'gjslint'):
             try:
                 path = self.get_mapped_executable(view, 'gjslint')
@@ -46,21 +42,10 @@ class Linter(BaseLinter):
             args.extend(gjslint_options)
             args.extend(['--nobeep', filename])
             return args
-        elif (self.linter == 'jshint'):
-            path = self.jshint_path()
-            jshint_options = json.dumps(view.settings().get("jshint_options") or {})
-
-            if self.use_jsc:
-                args = (os.path.join(path, 'jshint_jsc.js'), '--', str(code.count('\n')), jshint_options, path + os.path.sep)
-            else:
-                args = (os.path.join(path, 'jshint_node.js'), jshint_options)
-
-            return args
+        elif (self.linter in ('jshint', 'jslint')):
+            return self.get_javascript_args(view, self.linter, code)
         else:
             return []
-
-    def jshint_path(self):
-        return os.path.join(os.path.dirname(__file__), 'libs', 'jshint')
 
     def parse_errors(self, view, errors, lines, errorUnderlines, violationUnderlines, warningUnderlines, errorMessages, violationMessages, warningMessages):
         if (self.linter == 'gjslint'):
@@ -75,8 +60,11 @@ class Linter(BaseLinter):
                     if (int(errnum) not in ignore):
                         self.add_message(int(line), lines, message, errorMessages)
 
-        elif (self.linter == 'jshint'):
-            errors = json.loads(errors.strip() or '[]')
+        elif (self.linter in ('jshint', 'jslint')):
+            try:
+                errors = json.loads(errors.strip() or '[]')
+            except ValueError:
+                raise ValueError("Error from {0}: {1}".format(self.linter, errors))
 
             for error in errors:
                 lineno = error['line']

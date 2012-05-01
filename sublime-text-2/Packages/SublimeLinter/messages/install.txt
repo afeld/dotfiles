@@ -23,3 +23,12 @@ Please take the time to read the documentation:
 
 * Online - https://github.com/Kronuz/SublimeLinter/blob/master/README.rst
 * Sublime Text - Select Preferences->Package Settings->SublimeLinter->README
+
+
+IMPORTANT
+
+Do NOT edit the default SublimeLinter settings. Your changes will be lost
+when SublimeLinter is updated. ALWAYS edit the user SublimeLinter settings
+by selecting "Preferences->Package Settings->SublimeLinter->Settings - User".
+Note that individual settings you include in your user settings will **completely**
+replace the corresponding default setting, so you must provide that setting in its entirety.

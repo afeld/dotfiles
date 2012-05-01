@@ -83,6 +83,21 @@ CHANGES/FIXES
   more than error on a line.
 
 
+SublimeLinter 1.5.2 changelog
+=============================
+CHANGES/FIXES
+
+- Fixed a problem with messages.json that prevented correct upgrading.
+
+
+IMPORTANT
+
+Please check to see if you have multiple listings for `SublimeLinter` in
+`Preferences -> Package Settings`. If you do see 2 listings, please run
+`Package Control: Upgrade/Overwrite All Packages` from the Command Palette
+(`Tools -> Command Palette`).
+
+
 SublimeLinter 1.5.3 changelog
 =============================
 CHANGES/FIXES
@@ -116,3 +131,94 @@ SublimeLinter 1.5.6 changelog
 CHANGES/FIXES
 
 - Fixed a problem with messages.json that prevented correct upgrading.
+
+
+IMPORTANT
+
+Please check to see if you have multiple listings for `SublimeLinter` in
+`Preferences -> Package Settings`. If you do see 2 listings, please run
+`Package Control: Upgrade/Overwrite All Packages` from the Command Palette
+(`Tools -> Command Palette`).
+
+
+SublimeLinter 1.5.7 changelog
+=============================
+CHANGES/FIXES
+
+- node.js is the preferred Javascript engine on Mac OS X and will be used if it is installed.
+  JavaScriptCore does not handle non-ASCII text correctly and you should install node.js
+  if possible.
+
+- If you imported BaseLinter.JSC_PATH, please change your linter to use the self.jsc_path()
+  method instead. JSC_PATH should no longer be considered public.
+
+
+SublimeLinter 1.6.0 changelog
+=============================
+NEW FEATURES
+
+- Simpler abstraction of Javascript engines for JS powered linters.
+
+  To leverage a JS linter, include a "linter.js" file; this file should
+  `require` the actual linter library file and export a `lint` function.
+  The `lint` function should return a list of errors back to the python
+  language handler file (via the `errors` parameter to the `parse_errors`
+  method).
+
+  Although "linter.js" should follow the Node.js api, the linter may also
+  be run via JavaScriptCore on OS X if Node.js is not installed. In the case
+  where JavaScriptCore is used, require + export are shimmed to keep things
+  consistent. However, it is important not to assume that a full Node.js
+  api is available. If you must know what JS engine you are using, you may
+  check for `USING_JSC` to be set as `true` when JavaScriptCore is used.
+
+  For examples of using the JS engines, see "csslint", "jslint", and
+  "jshint" in "SublimeLinter/sublimelinter/modules/libs" and the respective
+  python code of "css.py" and "javascript.py" in
+  "SublimeLinter/sublimelinter/modules".
+
+- Douglas Crockford's JSLint Javascript linter (jslint) is now supported
+  (http://jslint.com). To use JSLint set the "javascript_linter" setting
+  to "jslint". You may also customize jslint behavior with the
+  "jslint_options" setting. For more information about options available
+  to JSLint, see http://jslint.com/lint.html.
+
+- The CSSLint CSS linter (csslint) is now supported (http://csslint.net).
+  By default all CSSLint settings are turned on. You may customize csslint
+  behavior with the "csslint_options" setting. Please select
+  "Preferences->Package Settings->SublimeLinter->Settings - Default"
+  for more information on turning off or adjusting severity of tests.
+  For more information about options available to CSSLint, see
+  https://github.com/stubbornella/csslint/wiki/Rules.
+
+
+SublimeLinter 1.6.1 changelog
+=============================
+CHANGES/FIXES
+
+- Fixed an issue (#141) with JSLint running in Node.js
+
+- Updated CSSLint, JSLint, JSHint to latest stable releases.
+
+- Added additional debugging output (in Sublime console) when
+  errors occur running linters written in Javascript.
+
+
+SublimeLinter 1.6.2 changelog
+=============================
+CHANGES/FIXES
+
+- Replaced the default perl linter with Perl::Critic. The standard Perl syntax checker
+  can still be invoked by switching the "perl_linter" setting to "perl".
+
+- Added a LICENSE file to define appropriate usage of SublimeLinter and its source.
+
+- Converted README back to markdown.
+
+
+IMPORTANT
+
+Due to a vulnerability (issue #77) with the Perl linter, Perl syntax checking is no longer
+enabled by default. The default linter for Perl has been replaced by Perl::Critic.
+
+

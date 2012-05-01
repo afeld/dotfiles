@@ -37,8 +37,6 @@ import os.path
 import re
 import sys
 
-import sublime
-
 
 EXIT_CODE_SHOW_HTML = 205
 EXIT_CODE_SHOW_TOOLTIP = 206
@@ -135,11 +133,20 @@ class LintChecker(object):
     METHOD_RE = ur'[-+]\s*\([a-zA-Z_$]\w*\)\s*[a-zA-Z_$]\w*'
     FUNCTION_RE = re.compile(ur'\s*function\s*(?P<name>[a-zA-Z_$]\w*)?\(.*\)\s*\{?')
     STRING_LITERAL_RE = re.compile(ur'(?<!\\)(["\'])(.*?)(?<!\\)\1')
+    RE_RE = re.compile(ur'(?<!\\)/.*?[^\\]/[gims]*')
     EMPTY_STRING_LITERAL_FUNCTION = lambda match: match.group(1) + (len(match.group(2)) * ' ') + match.group(1)
     EMPTY_SELF_STRING_LITERAL_FUNCTION = lambda self, match: match.group(1) + (len(match.group(2)) * ' ') + match.group(1)
 
     ERROR_TYPE_ILLEGAL = 1
     ERROR_TYPE_WARNING = 2
+
+    # Replace the contents of comments, regex and string literals
+    # with spaces so we don't get false matches within them
+    STD_IGNORES = (
+        {'regex': STRIP_LINE_COMMENT_RE, 'replace': ''},
+        {'regex': STRING_LITERAL_RE, 'replace': EMPTY_STRING_LITERAL_FUNCTION},
+        {'regex': RE_RE, 'replace': '/ /'},
+    )
 
     LINE_CHECKLIST = (
         {
@@ -178,11 +185,7 @@ class LintChecker(object):
             # Filter out @import statements, method declarations, method parameters, unary plus/minus/increment/decrement
             'filter': {'regex': re.compile(ur'(^@import\b|^\s*' + METHOD_RE + '|^\s*[a-zA-Z_$]\w*:\s*\([a-zA-Z_$][\w<>]*\)\s*\w+|[a-zA-Z_$]\w*(\+\+|--)|([ -+*/%^&|<>!]=?|&&|\|\||<<|>>>|={1,3}|!==?)\s*[-+][\w(\[])'), 'pass': False},
 
-            # Replace the contents of literal strings with spaces so we don't get false matches within them
-            'preprocess': (
-                {'regex': STRIP_LINE_COMMENT_RE, 'replace': ''},
-                {'regex': STRING_LITERAL_RE, 'replace': EMPTY_STRING_LITERAL_FUNCTION},
-            ),
+            'preprocess': STD_IGNORES,
             'regex':      re.compile(ur'(?<=[\w)\]"\']|([ ]))([-+*/%^]|&&?|\|\|?|<<|>>>?)(?=[\w({\["\']|(?(1)\b\b|[ ]))'),
             'error':      'binary operator without surrounding spaces',
             'showPositionForGroup': 2,
@@ -192,11 +195,7 @@ class LintChecker(object):
             # Filter out @import statements, method declarations
             'filter': {'regex': re.compile(ur'^(@import\b|\s*' + METHOD_RE + ')'), 'pass': False},
 
-            # Replace the contents of literal strings with spaces so we don't get false matches within them
-            'preprocess': (
-                {'regex': STRIP_LINE_COMMENT_RE, 'replace': ''},
-                {'regex': STRING_LITERAL_RE, 'replace': EMPTY_STRING_LITERAL_FUNCTION},
-            ),
+            'preprocess': STD_IGNORES,
             'regex':      re.compile(ur'(?:[-*/%^&|<>!]=?|&&|\|\||<<|>>>|={1,3}|!==?)\s*(?<!\+)(\+)[\w(\[]'),
             'error':      'useless unary + operator',
             'showPositionForGroup': 1,
@@ -206,11 +205,7 @@ class LintChecker(object):
             # Filter out possible = within @accessors
             'filter': {'regex': re.compile(ur'^\s*(?:@outlet\s+)?[a-zA-Z_$]\w*\s+[a-zA-Z_$]\w*\s+@accessors\b'), 'pass': False},
 
-            # Replace the contents of literal strings with spaces so we don't get false matches within them
-            'preprocess': (
-                {'regex': STRIP_LINE_COMMENT_RE, 'replace': ''},
-                {'regex': STRING_LITERAL_RE, 'replace': EMPTY_STRING_LITERAL_FUNCTION},
-            ),
+            'preprocess': STD_IGNORES,
             'regex':      re.compile(ur'(?<=[\w)\]"\']|([ ]))(=|[-+*/%^&|]=|<<=|>>>?=)(?=[\w({\["\']|(?(1)\b\b|[ ]))'),
             'error':      'assignment operator without surrounding spaces',
             'showPositionForGroup': 2,
@@ -220,11 +215,7 @@ class LintChecker(object):
             # Filter out @import statements and @implementation/method declarations
             'filter': {'regex': re.compile(ur'^(@import\b|@implementation\b|\s*' + METHOD_RE + ')'), 'pass': False},
 
-            # Replace the contents of literal strings with spaces so we don't get false matches within them
-            'preprocess': (
-                {'regex': STRIP_LINE_COMMENT_RE, 'replace': ''},
-                {'regex': STRING_LITERAL_RE, 'replace': EMPTY_STRING_LITERAL_FUNCTION},
-            ),
+            'preprocess': STD_IGNORES,
             'regex':      re.compile(ur'(?<=[\w)\]"\']|([ ]))(===?|!==?|[<>]=?)(?=[\w({\["\']|(?(1)\b\b|[ ]))'),
             'error':      'comparison operator without surrounding spaces',
             'showPositionForGroup': 2,

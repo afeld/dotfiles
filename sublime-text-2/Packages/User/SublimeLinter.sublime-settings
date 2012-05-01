@@ -1,5 +1,10 @@
 {
-    "sublimelinter_executable_map": {
-        "ruby": "/Users/aidan/.rvm/bin/rvm-auto-ruby"
-    }
+  "jshint_options": {
+    "smarttabs": true,
+    "trailing": false
+  },
+
+  "sublimelinter_executable_map": {
+    "ruby": "/Users/aidan/.rvm/bin/rvm-auto-ruby"
+  }
 }

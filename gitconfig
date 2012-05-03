@@ -1,12 +1,15 @@
 [user]
-  email = aidan.feldman@gmail.com
-  name = Aidan Feldman
+	email = aidan.feldman@gmail.com
+	name = Aidan Feldman
 [core]
-  excludesfile = ~/.gitignore
-  editor = vim
+	excludesfile = ~/.gitignore
+	editor = vim
 [color]
-  ui = true
+	ui = true
 [merge]
-  conflictstyle = diff3
+	conflictstyle = diff3
 [github]
-  user = afeld
+	user = afeld
+[alias]
+	# the newest tag
+	latest = describe --abbrev=0 --tags

@@ -8,8 +8,10 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="subl ~/.zshrc"
+alias ohmyzsh="subl ~/.oh-my-zsh"
+alias rbp="git pull --rebase && git push"
+
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"

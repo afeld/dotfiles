@@ -1,10 +1,14 @@
+import re
 import sublime, sublime_plugin
 from vintage import transform_selection
 from vintage import transform_selection_regions
 
-class ViDontMove(sublime_plugin.TextCommand):
-    def run(self, edit):
-        pass
+class ViSpanCountLines(sublime_plugin.TextCommand):
+    def run(self, edit, repeat = 1):
+        for i in xrange(repeat - 1):
+            self.view.run_command('move', {'by': 'lines',
+                                           'extend': True,
+                                           'forward': True})
 
 class ViMoveByCharactersInLine(sublime_plugin.TextCommand):
     def run(self, edit, forward = True, extend = False, visual = False):
@@ -91,6 +95,41 @@ class ViMoveToCharacter(sublime_plugin.TextCommand):
             lambda pt: self.find_next(forward, character, before, pt),
             extend=extend)
 
+class ViExtendToEndOfWhitespaceOrWord(sublime_plugin.TextCommand):
+    def run(self, edit, repeat = 1, separators=None):
+        repeat = int(repeat)
+
+        # Selections that start on whitespace should extend to the end of the
+        # the whitespace.  Other selections can simply be moved to word ends.
+        sel = self.view.sel()
+        sels_advanced_from_whitespace = []
+        sels_to_move_to_word_end = []
+
+        for r in sel:
+            b = advance_while_white_space_character(self.view, r.b)
+            if b > r.b:
+                sels_advanced_from_whitespace.append(sublime.Region(r.a, b))
+            else:
+                sels_to_move_to_word_end.append(r)
+
+        sel.clear()
+        for r in sels_to_move_to_word_end:
+            sel.add(r)
+
+        move_args = {"by": "stops", "word_end": True, "punct_end": True,
+                     "empty_line": True, "forward": True, "extend": True}
+        if separators != None:
+            move_args.update(separators=separators)
+
+        self.view.run_command('move', move_args)
+
+        for r in sels_advanced_from_whitespace:
+            sel.add(r)
+
+        # Only the first move differs from a normal move to word end.
+        for i in xrange(repeat - 1):
+            self.view.run_command('move', move_args)
+
 # Helper class used to implement ';'' and ',', which repeat the last f, F, t
 # or T command (reversed in the case of ',')
 class SetRepeatMoveToCharacterMotion(sublime_plugin.TextCommand):
@@ -123,13 +162,16 @@ class ViMoveToBrackets(sublime_plugin.TextCommand):
     def run(self, edit, repeat=1):
         repeat = int(repeat)
         if repeat == 1:
-            bracket_chars = ")]}"
-            def adj(pt):
-                if (self.view.substr(pt) in bracket_chars):
-                    return pt + 1
+            re_brackets = re.compile(r"([(\[{])|([)}\])])")
+            def move_to_next_bracket(pt):
+                line = self.view.line(pt)
+                remaining_line = self.view.substr(sublime.Region(pt, line.b))
+                match = re_brackets.search(remaining_line)
+                if match:
+                    return pt + match.start() + (1 if match.group(2) else 0)
                 else:
                     return pt
-            transform_selection(self.view, adj)
+            transform_selection(self.view, move_to_next_bracket, extend=True)
             self.view.run_command("move_to", {"to": "brackets", "extend": True, "force_outer": True})
         else:
             self.move_by_percent(repeat)

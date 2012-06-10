@@ -47,6 +47,14 @@ class Linter(BaseLinter):
         else:
             return []
 
+    def get_javascript_options(self, view):
+        if self.linter == 'jshint':
+            rc_options = self.find_file('.jshintrc', view)
+
+            if rc_options != None:
+                rc_options = self.strip_json_comments(rc_options)
+                return json.dumps(json.loads(rc_options))
+
     def parse_errors(self, view, errors, lines, errorUnderlines, violationUnderlines, warningUnderlines, errorMessages, violationMessages, warningMessages):
         if (self.linter == 'gjslint'):
             ignore = view.settings().get('gjslint_ignore', [])

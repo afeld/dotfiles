@@ -67,6 +67,9 @@ CONFIG = {
 
 TEMPFILES_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '.tempfiles'))
 
+JSON_MULTILINE_COMMENT_RE = re.compile(r'\/\*[\s\S]*?\*\/')
+JSON_SINGLELINE_COMMENT_RE = re.compile(r'\/\/[^\n\r]*')
+
 if not os.path.exists(TEMPFILES_DIR):
     os.mkdir(TEMPFILES_DIR)
 
@@ -321,9 +324,43 @@ class BaseLinter(object):
            has to be dynamically calculated in the future.'''
         return self.JSC_PATH
 
+    def find_file(self, filename, view):
+        '''Find a file with the given name, starting in the view's directory,
+           then ascending the file hierarchy up to root.'''
+        path = view.file_name()
+
+        # quit if the view is temporary
+        if not path:
+            return None
+
+        dirname = os.path.dirname(path)
+
+        while True:
+            path = os.path.join(dirname, filename)
+
+            if os.path.isfile(path):
+                with open(path, 'r') as f:
+                    return f.read()
+
+            # if we hit root, quit
+            parent = os.path.dirname(dirname)
+
+            if parent == dirname:
+                return None
+            else:
+                dirname = parent
+
+    def strip_json_comments(self, json_str):
+        stripped_json = JSON_MULTILINE_COMMENT_RE.sub('', json_str)
+        stripped_json = JSON_SINGLELINE_COMMENT_RE.sub('', stripped_json)
+        return json.dumps(json.loads(stripped_json))
+
     def get_javascript_args(self, view, linter, code):
         path = os.path.join(self.LIB_PATH, linter)
-        options = json.dumps(view.settings().get('%s_options' % linter) or {})
+        options = self.get_javascript_options(view)
+
+        if options == None:
+            options = json.dumps(view.settings().get('%s_options' % linter) or {})
 
         self.get_javascript_engine(view)
         engine = self.js_engine
@@ -334,6 +371,12 @@ class BaseLinter(object):
             args = (engine['wrapper'], path + os.path.sep, options)
 
         return args
+
+    def get_javascript_options(self, view):
+        '''Subclasses should override this if they want to provide options
+           for a Javascript-based linter. If the subclass cannot provide
+           options, it should return None (or not return anything).'''
+        return None
 
     def get_javascript_engine(self, view):
         if self.js_engine == None:

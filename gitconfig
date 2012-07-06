@@ -13,3 +13,6 @@
 [alias]
 	# the newest tag
 	latest = describe --abbrev=0 --tags
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+[branch]
+	autosetupmerge = true

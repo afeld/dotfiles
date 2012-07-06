@@ -11,10 +11,11 @@ ZSH_THEME="robbyrussell"
 alias zshconfig="subl ~/.zshrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
 alias rbp="git pull --rebase && git push"
+alias jux="cd ~/dev/surround/ && git pull && open surround.sublime-project"
 
 
 # Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
@@ -39,4 +40,4 @@ plugins=(gem git github heroku node npm rvm)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/Users/aidan/.rvm/gems/ruby-1.9.3-p0/bin:/Users/aidan/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/aidan/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/aidan/.rvm/bin:/Users/aidan/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
+export PATH=./node_modules/.bin/:/Users/aidan/.rvm/gems/ruby-1.9.3-p0/bin:/Users/aidan/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/aidan/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/aidan/.rvm/bin:/Users/aidan/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin

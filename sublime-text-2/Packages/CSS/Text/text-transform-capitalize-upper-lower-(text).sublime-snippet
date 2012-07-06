@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[text-transform: ${1:capitalize/uppercase/lowercase};$0]]></content>
-    <tabTrigger>text</tabTrigger>
-    <scope>source.css</scope>
-    <description>text-transform: capitalize/upper/lower</description>
-</snippet>

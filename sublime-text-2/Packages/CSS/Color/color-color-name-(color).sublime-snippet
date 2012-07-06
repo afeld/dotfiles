@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[color: ${1:red};$0]]></content>
-    <tabTrigger>color</tabTrigger>
-    <scope>source.css</scope>
-    <description>color: name</description>
-</snippet>

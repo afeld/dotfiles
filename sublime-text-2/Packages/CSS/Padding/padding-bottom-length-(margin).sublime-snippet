@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[padding-bottom: ${1:20px};$0]]></content>
-    <tabTrigger>padding</tabTrigger>
-    <scope>source.css</scope>
-    <description>padding-bottom: length</description>
-</snippet>

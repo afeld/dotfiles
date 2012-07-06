@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[cursor: url($1);$0]]></content>
-    <tabTrigger>cursor</tabTrigger>
-    <scope>source.css</scope>
-    <description>cursor: url</description>
-</snippet>

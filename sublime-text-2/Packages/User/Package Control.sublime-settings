@@ -1,7 +1,9 @@
 {
-	"auto_upgrade_last_run": 1339046785,
+	"auto_upgrade_last_run": 1341542734,
 	"installed_packages":
 	[
+		"CoffeeScript",
+		"EJS",
 		"Package Control",
 		"SCSS",
 		"SublimeLinter"

@@ -4,9 +4,9 @@
 <dict>
 	<key>fileTypes</key>
 	<array>
-		<string>tcl</string>
+		<!-- <string>tcl</string> -->
 		<string>adp</string>
-		<string>inc</string>
+		<!-- <string>inc</string> -->
 	</array>
 	<key>foldingStartMarker</key>
 	<string>(&lt;(?i:(head|table|div|style|script|ul|ol|form|dl))\b.*?&gt;|\{)</string>

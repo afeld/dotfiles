@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[margin-left: ${1:20px};$0]]></content>
-    <tabTrigger>margin</tabTrigger>
-    <scope>source.css</scope>
-    <description>margin-left: length</description>
-</snippet>

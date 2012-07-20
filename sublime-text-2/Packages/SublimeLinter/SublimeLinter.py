@@ -335,9 +335,9 @@ def select_linter(view, ignore_disabled=False):
     syntaxMap = view.settings().get('sublimelinter_syntax_map', {})
 
     if syntax in syntaxMap:
-        language = syntaxMap[syntax]
+        language = syntaxMap[syntax].lower()
     elif lc_syntax in syntaxMap:
-        language = syntaxMap[lc_syntax]
+        language = syntaxMap[lc_syntax].lower()
     elif lc_syntax in LINTERS:
         language = lc_syntax
 

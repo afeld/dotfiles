@@ -106,10 +106,10 @@ class BaseLinter(object):
 
         self.input_method = config.get('input_method', INPUT_METHOD_STDIN)
         self.filename = None
-        self.lint_args = config.get('lint_args', ())
+        self.lint_args = config.get('lint_args', [])
 
         if isinstance(self.lint_args, basestring):
-            self.lint_args = (self.lint_args,)
+            self.lint_args = [self.lint_args]
 
     def check_enabled(self, view):
         if hasattr(self, 'get_executable'):
@@ -150,7 +150,7 @@ class BaseLinter(object):
 
     def _get_lint_args(self, view, code, filename):
         if hasattr(self, 'get_lint_args'):
-            return self.get_lint_args(view, code, filename) or ()
+            return self.get_lint_args(view, code, filename) or []
         else:
             lintArgs = self.lint_args or []
             settings = view.settings().get('SublimeLinter', {}).get(self.language, {})
@@ -366,9 +366,9 @@ class BaseLinter(object):
         engine = self.js_engine
 
         if (engine['name'] == 'jsc'):
-            args = (engine['wrapper'], '--', path + os.path.sep, str(code.count('\n')), options)
+            args = [engine['wrapper'], '--', path + os.path.sep, str(code.count('\n')), options]
         else:
-            args = (engine['wrapper'], path + os.path.sep, options)
+            args = [engine['wrapper'], path + os.path.sep, options]
 
         return args
 

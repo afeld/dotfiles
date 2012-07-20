@@ -2,16 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>content</key>
+	<string>if ${1:condition}
+	${2:# ...}
+else
+	${3:# ...}
+$0</string>
 	<key>name</key>
-	<string>Disable Indent Corrections</string>
+	<string>If Else</string>
 	<key>scope</key>
 	<string>source.coffee</string>
-	<key>settings</key>
-	<dict>
-		<key>disableIndentCorrections</key>
-		<true/>
-	</dict>
-	<key>uuid</key>
-	<string>5E57C0C3-77D5-4809-A131-F777EE264908</string>
+	<key>tabTrigger</key>
+	<string>ifel</string>
 </dict>
 </plist>

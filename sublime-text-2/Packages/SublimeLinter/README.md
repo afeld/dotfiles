@@ -10,6 +10,8 @@ SublimeLinter has built in linters for the following languages:
 
 * CoffeeScript - lint via `coffee -s -l`
 * CSS - lint via built-in [csslint](http://csslint.net)
+* Git Commit Messages - lint via built-in module based on [A Note About Git Commit Messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
+* Haml - lint via `haml -c`
 * Java - lint via `javac -Xlint`
 * Javascript - lint via built in [jshint](http://jshint.org), [jslint](http://jslint.com), or the [closure linter (gjslint)](https://developers.google.com/closure/utilities/docs/linter_howto) (if installed)
 * Objective-J - lint via built-in [capp_lint](https://github.com/aparajita/capp_lint)
@@ -25,11 +27,11 @@ Installing
 
 Once you install Package Control, restart ST2 and bring up the Command Palette (`Command+Shift+P` on OS X, `Control+Shift+P` on Linux/Windows). Select "Package Control: Install Package", wait while Package Control fetches the latest package list, then select SublimeLinter when the list appears. The advantage of using this method is that Package Control will automatically keep SublimeLinter up to date with the latest version.
 
-**Without Git:** Download the latest source from [GitHub](http://github.com/Kronuz/SublimeLinter) and copy the SublimeLinter folder to your Sublime Text "Packages" directory.
+**Without Git:** Download the latest source from [GitHub](https://github.com/SublimeLinter/SublimeLinter) and copy the SublimeLinter folder to your Sublime Text "Packages" directory.
 
 **With Git:** Clone the repository in your Sublime Text "Packages" directory:
 
-    git clone git://github.com/Kronuz/SublimeLinter.git
+    git clone https://github.com/SublimeLinter/SublimeLinter.git
 
 
 The "Packages" directory is located at:
@@ -81,7 +83,7 @@ Following are notes specific to individual linters that you should be aware of:
 
   By default all CSSLint settings are turned on. You may customize CSSLint behavior with the "csslint_options" setting. Please select `Preferences->Package Settings->SublimeLinter->Settings - Default` for more information on turning off or adjusting severity of tests. For more information about options available to CSSLint, see https://github.com/stubbornella/csslint/wiki/Rules.
 
-* **perl** - Due to a vulnerability (issue [#77](https://github.com/Kronuz/SublimeLinter/issues/77)) with the Perl linter, Perl syntax checking is no longer enabled by default. The default linter for Perl has been replaced by Perl::Critic. The standard Perl syntax checker can still be invoked by switching the "perl_linter" setting to "perl".
+* **perl** - Due to a vulnerability (issue [#77](https://github.com/SublimeLinter/SublimeLinter/issues/77)) with the Perl linter, Perl syntax checking is no longer enabled by default. The default linter for Perl has been replaced by Perl::Critic. The standard Perl syntax checker can still be invoked by switching the "perl_linter" setting to "perl".
 
 * **ruby** - If you are using rvm or rbenv, you will probably have to specify the full path to the ruby you are using in the "sublimelinter_executable_map" setting. See "Configuring" below for more info.
 

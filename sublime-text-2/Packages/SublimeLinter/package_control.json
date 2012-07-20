@@ -10,8 +10,8 @@
 			"platforms": {
 				"*": [
 					{
-						"version": "1.6.4",
-						"url": "https://nodeload.github.com/SublimeLinter/SublimeLinter/zipball/v1.6.4"
+						"version": "1.6.5",
+						"url": "https://nodeload.github.com/SublimeLinter/SublimeLinter/zipball/v1.6.5"
 					}
 				]
 			}

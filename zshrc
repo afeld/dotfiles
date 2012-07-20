@@ -37,6 +37,7 @@ plugins=(gem git github heroku node npm rvm)
 # enable RVM
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
+[[ -f ~/.bash_profile_includes/keys.sh ]] && source ~/.bash_profile_includes/keys.sh
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...

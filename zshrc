@@ -42,3 +42,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
 export PATH=./node_modules/.bin/:/Users/aidan/.rvm/gems/ruby-1.9.3-p0/bin:/Users/aidan/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/aidan/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/aidan/.rvm/bin:/Users/aidan/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin
+
+export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
+

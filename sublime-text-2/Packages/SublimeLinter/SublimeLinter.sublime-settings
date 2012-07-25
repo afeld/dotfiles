@@ -78,6 +78,7 @@
     // By deault, eval is allowed.
     "jshint_options":
     {
+        "indent": 1,
         "evil": true,
         "regexdash": true,
         "browser": true,
@@ -130,7 +131,9 @@
         "regex-selectors": "warning",
         "rules-count": "warning",
         "shorthand": "warning",
+        "star-property-hack": "warning",
         "text-indent": "warning",
+        "underscore-property-hack": "warning",
         "unique-headings": "warning",
         "universal-selector": "warning",
         "vendor-prefix": true,

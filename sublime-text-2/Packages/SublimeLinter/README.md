@@ -17,6 +17,7 @@ SublimeLinter has built in linters for the following languages:
 * Objective-J - lint via built-in [capp_lint](https://github.com/aparajita/capp_lint)
 * Perl - lint via [Perl:Critic](http://perlcritic.com/) or syntax+deprecation checking via `perl -c`
 * PHP - syntax checking via `php -l`
+* Puppet - syntax checking via `puppet parser validate`
 * Python - native, moderately-complete lint
 * Ruby - syntax checking via `ruby -wc`
 
@@ -171,11 +172,16 @@ or define separate substyles for one or more types to color them differently.
 If you want to make the offending lines glaringly obvious (perhaps for those
 who tend to ignore lint errors), you can set the user setting:
 
-    "sublimelinter_fill_outlines": true
+    "sublimelinter_mark_style": "fill"
 
 When this is set true, lines that have errors will be colored with the background
 and foreground color of the "sublime.outline.<type>" theme style. Unless you have defined
-those styles, this setting should be left false.
+those styles, this setting should be left as "outline".
+
+You may want to disable drawing of outline boxes entirely. If so, change
+using the user setting to:
+
+    "sublimelinter_mark_style": "none"
 
 You may also mark lines with errors by putting an "x" in the gutter with the user setting:
 

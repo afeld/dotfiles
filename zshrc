@@ -45,3 +45,5 @@ export PATH=./node_modules/.bin/:/Users/aidan/.rvm/gems/ruby-1.9.3-p0/bin:/Users
 
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

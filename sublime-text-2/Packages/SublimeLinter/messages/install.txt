@@ -18,6 +18,7 @@ SublimeLinter has built in linters for the following languages:
 * Perl - lint via [Perl:Critic](http://perlcritic.com/) or syntax+deprecation checking via `perl -c`
 * PHP - syntax checking via `php -l`
 * Python - native, moderately-complete lint
+* Puppet - syntax checking via `puppet parser validate`
 * Ruby - syntax checking via `ruby -wc`
 
 

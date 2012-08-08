@@ -98,7 +98,7 @@ class BaseLinter(object):
         self.language = config['language']
         self.enabled = False
         self.executable = config.get('executable', None)
-        self.test_existence_args = config.get('test_existence_args', ('-v',))
+        self.test_existence_args = config.get('test_existence_args', ['-v'])
         self.js_engine = None
 
         if isinstance(self.test_existence_args, basestring):

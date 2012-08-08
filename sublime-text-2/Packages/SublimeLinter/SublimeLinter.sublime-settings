@@ -8,15 +8,19 @@
         true - Linting occurs in the background as you type (the default).
         false - Linting only occurs when you initiate it.
         "load-save" - Linting occurs only when a file is loaded and saved.
+        "save-only" - Linting occurs only when a file is saved.
     */
     "sublimelinter": true,
 
     /*
-        Maps linter names (which should be all lowercase) to executables
+        Maps language names (which should be all lowercase) to executables
         for non-built in linters. If the executable is not in the default system path,
         or on posix systems is not in /usr/local/bin or ~/bin, then you must specify
         the full path to the executable. Note that paths in Windows must use double
         backslashes, for example "C:\\Program Files (x86)\\nodejs\\node.exe".
+
+        Please note that the map _keys_ do not always match the name of the
+        executable, but rather the language syntax for the executable to lint.
 
         This is the effective default map; your mappings may override these.
 
@@ -58,7 +62,23 @@
     */
     "sublimelinter_delay": 0,
 
-    // If true, lines with errors or warnings will be filled in with the outline color.
+    /*
+        Selects the way the lines with errors or warnings are marked; "outline"
+        (default) draws outline boxes around the lines, "fill" fills the lines
+        with the outline color, and "none" disables all outline styles
+        (useful if "sublimelinter_gutter_marks" is set).
+    */
+    "sublimelinter_mark_style": "outline",
+
+    /*
+        If true, lines with errors or warnings will be filled in with the
+        outline color.
+
+        This setting is DEPRECATED and will be ignored in future
+        versions. Use "sublimelinter_mark_style" instead. For backwards
+        compatibility reasons, this setting overrides "sublimelinter_mark_style"
+        if that one is set to "outline", but has no effect if it's set to "none".
+    */
     "sublimelinter_fill_outlines": false,
 
     // If true, lines with errors or warnings will have a gutter mark.

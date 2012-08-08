@@ -5,7 +5,7 @@ from base_linter import BaseLinter
 
 
 CONFIG = {
-    'language': 'git commit message'
+    'language': 'Git Commit Message'
 }
 
 

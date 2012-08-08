@@ -22,7 +22,6 @@ THE SOFTWARE.
 
 */
 /* Build time: 14-May-2012 10:24:48 */
-var CSSLint = (function(){
 
 /*!
 Parser-Lib
@@ -9122,5 +9121,5 @@ CSSLint.addFormatter({
 });
 
 
-return CSSLint;
-})();
+exports.CSSLint = CSSLint;
+

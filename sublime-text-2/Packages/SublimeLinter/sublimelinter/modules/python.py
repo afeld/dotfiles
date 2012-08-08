@@ -50,7 +50,7 @@ from base_linter import BaseLinter
 pyflakes.messages.Message.__str__ = lambda self: self.message % self.message_args
 
 CONFIG = {
-    'language': 'python'
+    'language': 'Python'
 }
 
 

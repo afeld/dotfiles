@@ -3,8 +3,8 @@
 Backup/
 Packages/Default/
 Pristine Packages/
-Packages/
-!Packages/User/
+Packages/Theme - Default/
+Packages/Vintage/
 Settings/
 .tempfiles/
 certs/

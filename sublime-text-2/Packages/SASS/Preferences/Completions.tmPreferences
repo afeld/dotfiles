@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>name</key>
+	<string>Completions</string>
+	<key>scope</key>
+	<string>source.sass</string>
+	<key>settings</key>
+	<dict>
+		<key>completions</key>
+		<array>
+			<string>background</string>
+			<string>border</string>
+			<string>clear</string>
+			<string>color</string>
+			<string>cursor</string>
+			<string>direction</string>
+			<string>display</string>
+			<string>float</string>
+			<string>font</string>
+			<string>letter</string>
+			<string>list</string>
+			<string>margin</string>
+			<string>marker</string>
+			<string>overflow</string>
+			<string>padding</string>
+			<string>position</string>
+			<string>text</string>
+			<string>vertical</string>
+			<string>visibility</string>
+			<string>white</string>
+			<string>word</string>
+			<string>absolute</string>
+			<string>block</string>
+			<string>bottom</string>
+			<string>hidden</string>
+			<string>inline</string>
+			<string>inherit</string>
+			<string>italic</string>
+			<string>left</string>
+			<string>relative</string>
+			<string>repeat-x</string>
+			<string>repeat-y</string>
+			<string>repeat</string>
+			<string>right</string>
+			<string>underline</string>
+			<string>uppercase</string>
+		</array>
+	</dict>
+	<key>uuid</key>
+	<string>3C3365EB-75D2-4DFD-9F23-AE3F6A33165D</string>
+</dict>
+</plist>

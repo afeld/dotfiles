@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>background-image: none;
+/ URI relative to HTML page, not CSS file!!
+filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='_img/${1:image_name}.png',sizingMethod='scale')$0</string>
+	<key>name</key>
+	<string>IE png filter (!validate)</string>
+	<key>scope</key>
+	<string>source.sass</string>
+	<key>tabTrigger</key>
+	<string>iepng</string>
+	<key>uuid</key>
+	<string>61F372F8-4C28-4B4C-9C42-24B2B55DA5E0</string>
+</dict>
+</plist>

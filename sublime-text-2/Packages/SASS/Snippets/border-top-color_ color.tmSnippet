@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>border-top-color: #${1:999}$0</string>
+	<key>name</key>
+	<string>border-top-color: color</string>
+	<key>scope</key>
+	<string>source.sass</string>
+	<key>tabTrigger</key>
+	<string>btc</string>
+	<key>uuid</key>
+	<string>874B53DC-4CB8-4538-B7B8-BA8D9B400E00</string>
+</dict>
+</plist>

@@ -8,11 +8,7 @@ ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 
 # Aliases
-alias zshconfig="subl ~/.zshrc"
-alias ohmyzsh="subl ~/.oh-my-zsh"
-alias rbp="git pull --rebase && git push"
-alias jux="cd ~/dev/surround/ && git pull && open surround.sublime-project"
-
+source ~/.bash_profile_includes/aliases.sh
 
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="true"

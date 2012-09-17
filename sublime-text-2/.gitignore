@@ -8,4 +8,4 @@ Packages/Vintage/
 Settings/
 .tempfiles/
 certs/
-
+*.last-run

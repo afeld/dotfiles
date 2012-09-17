@@ -1,0 +1,22 @@
+[
+  { "caption": "-" },
+  {
+    "caption": "RubyTest",
+    "children":
+      [
+        { "caption": "Run single test / scenario / spec", "command": "run_single_ruby_test" },
+        { "caption": "Run all tests / feature / full spec", "command": "run_all_ruby_test" },
+        { "caption": "Run last test(s) / feature / spec", "command": "run_last_ruby_test" },
+        { "caption": "-" },
+        { "caption": "Show test panel", "command": "show_test_panel" },
+        { "caption": "-" },
+        { "caption": "Verify ruby syntax", "command": "verify_ruby_file" },
+        { "caption": "-" },
+        { "caption": "Refactoring", "children": [
+          { "caption": "Extract Local Variable", "command": "ruby_extract_variable" }
+        ]},
+        { "caption": "-" },
+        { "caption": "Switch Between Code and Test", "command": "switch_between_code_and_test", "args": {"split_view": false} }
+      ]
+  }
+]

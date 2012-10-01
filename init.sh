@@ -1,5 +1,13 @@
 #!/bin/sh
 # based on https://github.com/ahri/dotfiles/blob/master/write-links.sh
+
+# Die on failures
+set -e
+
+# Echo all commands
+# set -x
+
+
 script="`python -c 'import os,sys;print os.path.realpath(sys.argv[1])' "$0"`" #"`readlink -f "$0"`"
 dir="`dirname "$script"`"
 

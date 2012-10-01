@@ -3,6 +3,7 @@
 script="`python -c 'import os,sys;print os.path.realpath(sys.argv[1])' "$0"`" #"`readlink -f "$0"`"
 dir="`dirname "$script"`"
 
+# symlink dotfiles/folders
 find "$dir" -maxdepth 1 | while read file; do
 
   case "$file" in
@@ -15,3 +16,7 @@ find "$dir" -maxdepth 1 | while read file; do
   rm -rf "$HOME/$name"
   ln -s "$file" "$HOME/$name"
 done
+
+# symlink Sublime Text files
+rm -rf $HOME/Library/Application\ Support/Sublime\ Text\ 2
+ln -s $dir/sublime-text-2 $HOME/Library/Application\ Support/Sublime\ Text\ 2

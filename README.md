@@ -13,12 +13,15 @@ cd dotfiles
 
 ## Software
 
-I use the following pieces of software in my dev setup (installed manually, at the moment):
+I use the following pieces of software in my dev setup.  Installed automatically by `init.sh`:
 
 * [ack](http://betterthangrep.com/)
 * [brew](http://mxcl.github.com/homebrew/)
+* [RVM](https://rvm.io/)
+
+Others that need to be installed manually:
+
 * [iTerm 2](http://www.iterm2.com/#/section/home)
 * JSONView ([Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jsonview/))
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
-* [RVM](https://rvm.io/)
 * [Sublime Text 2](http://www.sublimetext.com/)

@@ -2,6 +2,7 @@ alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 alias rbp="git pull --rebase && git push"
 alias zshconfig="subl ~/.zshrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
+alias dot="cd ~/dotfiles && subl ."
 
 # Jux-specific
 alias jux="cd ~/dev/surround/ && git pull && open surround.sublime-project"

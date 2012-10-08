@@ -21,6 +21,9 @@ I use the following pieces of software in my dev setup.  Installed automatically
 
 Others that need to be installed manually:
 
+* [Caffeine](http://itunes.apple.com/us/app/caffeine/id411246225)
+* [Cloud](http://itunes.apple.com/us/app/cloud/id417602904)
+* [Dropbox](http://db.tt/y5bnAOst)
 * [iTerm 2](http://www.iterm2.com/#/section/home)
 * JSONView ([Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jsonview/))
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)

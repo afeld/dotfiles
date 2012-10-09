@@ -1,5 +1,7 @@
 # Aidan's dotfiles
 
+Moving towards one-liner setup of a development machine.
+
 ## Getting Started
 
 Fork this repo, then run the following in a terminal:
@@ -28,3 +30,9 @@ Others that need to be installed manually:
 * JSONView ([Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jsonview/))
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 * [Sublime Text 2](http://www.sublimetext.com/)
+
+## See Also
+
+* [Zach Holman's](http://zachholman.com/) talk [Ruby Patterns from GitHub's Codebase](http://speakerdeck.com/u/holman/p/ruby-patterns-from-githubs-codebase?slide=7)
+* [GitHub does dotfiles](http://dotfiles.github.com)
+* [pivotal_workstation](https://github.com/pivotal/pivotal_workstation) / [soloist](https://github.com/mkocher/soloist)

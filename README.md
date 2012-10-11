@@ -30,6 +30,7 @@ Others that need to be installed manually:
 * JSONView ([Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jsonview/))
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 * [Sublime Text 2](http://www.sublimetext.com/)
+* [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh)
 
 ## See Also
 

@@ -1,3 +1,5 @@
 --type-add=css=.scss,.hbs
 --type-set=views=.html,.haml,.slim,.hbs
 --ignore-dir=node_modules
+--ignore-dir=log
+--ignore-dir=tmp

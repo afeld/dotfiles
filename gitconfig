@@ -13,6 +13,8 @@
 [github]
 	user = afeld
 [alias]
+	# show branches with most recently updated commit - from https://coderwall.com/p/ndinba
+	branches = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short)'
 	# delete merged branches
 	clean = git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d
 	# the newest tag

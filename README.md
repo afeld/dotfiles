@@ -15,23 +15,27 @@ cd dotfiles
 
 ## Software
 
-I use the following pieces of software in my dev setup.  Installed automatically by `init.sh`:
+I use the following pieces of software in my dev setup.
+
+### Installed automatically by `init.sh`
 
 * [ack](http://betterthangrep.com/)
 * [brew](http://mxcl.github.com/homebrew/)
 * [RVM](https://rvm.io/)
 
-Others that need to be installed manually:
+### Others that need to be installed manually
 
 * [Caffeine](http://itunes.apple.com/us/app/caffeine/id411246225)
 * [Cloud](http://itunes.apple.com/us/app/cloud/id417602904)
 * [Dash](https://itunes.apple.com/us/app/dash/id458034879)
 * [Dropbox](http://db.tt/y5bnAOst)
 * [iTerm 2](http://www.iterm2.com/#/section/home)
-* JSONView ([Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jsonview/))
+* JSONView ([Chrome](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/jsonview/))
 * [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
 * [Sublime Text 2](http://www.sublimetext.com/)
 * [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh)
+* [XML Tree](https://chrome.google.com/webstore/detail/xml-tree/gbammbheopgpmaagmckhpjbfgdfkpadb)
+* [XPath Helper](https://chrome.google.com/webstore/detail/xpath-helper/hgimnogjllphhhkhlmebbmlgjoejdpjl)
 
 ## See Also
 

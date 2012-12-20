@@ -26,4 +26,5 @@
 	trustExitCode = false
 	keepBackup = false
 [push]
-	default = matching
+	# only push the current branch
+	default = upstream

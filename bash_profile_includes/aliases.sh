@@ -1,11 +1,11 @@
 alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
-alias rbp="git pull --rebase && git push"
 alias zshconfig="subl ~/.zshrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
 alias dot="cd ~/dotfiles && subl ."
+alias tb="torquebox run -b 0.0.0.0"
+
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'
-alias tb="torquebox run -b 0.0.0.0"
 
 # Jux-specific
 alias jux="cd ~/dev/surround/ && git pull && open surround.sublime-project"
@@ -14,5 +14,14 @@ alias jux="cd ~/dev/surround/ && git pull && open surround.sublime-project"
 # open DigitalColor Meter, displaying hex
 alias color="osascript ~/.color_meter.scpt"
 
+# PostgreSQL commands
 alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
+
+
+## Git stuff ##
+
+# delete merged branches
+alias bclean='git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d'
+
+alias rbp="git pull --rebase && git push"

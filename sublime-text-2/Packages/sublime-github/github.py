@@ -1,3 +1,4 @@
+import sublime
 import os.path
 import json
 import sublime_requests as requests
@@ -10,7 +11,6 @@ logger = logging.getLogger()
 
 class GitHubApi(object):
     "Encapsulates the GitHub API"
-    BASE_URI = "https://api.github.com"
     PER_PAGE = 100
     etags = {}
     cache = {}
@@ -23,16 +23,17 @@ class GitHubApi(object):
         "Raised if we get a response code we don't recognize from GitHub"
         pass
 
-    def __init__(self, token=None, debug=False):
+    def __init__(self, base_uri="https://api.github.com", token=None, debug=False):
+        self.base_uri = base_uri
         self.token = token
         self.debug = debug
         if debug:
             logger.setLevel(logging.DEBUG)
 
-        # set up requests session with the github ssl cert, if found
-        cert_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "api.github.com.crt")
+        # set up requests session with the root CA cert bundle
+        cert_path = os.path.join(sublime.packages_path(), "sublime-github", "ca-bundle.crt")
         if not os.path.isfile(cert_path):
-            logger.warning("GitHub SSL cert not found at %s! Not verifying requests." % cert_path)
+            logger.warning("Root CA cert bundle not found at %s! Not verifying requests." % cert_path)
             cert_path = None
         self.rsession = requests.session(verify=cert_path,
                                          config={'verbose': sys.stderr if self.debug else None})
@@ -43,13 +44,13 @@ class GitHubApi(object):
             "note": "Sublime GitHub",
             "note_url": "https://github.com/bgreenlee/sublime-github"
         }
-        resp = self.rsession.post("https://api.github.com/authorizations",
+        resp = self.rsession.post(self.base_uri + "/authorizations",
                                   auth=(username, password),
                                   data=json.dumps(auth_data))
-        if resp.status_code == 201:
+        if resp.status_code == requests.codes.CREATED:
             data = json.loads(resp.text)
             return data["token"]
-        elif resp.status_code == 401:
+        elif resp.status_code == requests.codes.UNAUTHORIZED:
             raise self.UnauthorizedException()
         else:
             raise self.UnknownException("%d %s" % (resp.status_code, resp.text))
@@ -65,29 +66,30 @@ class GitHubApi(object):
 
     def request(self, method, url, params=None, data=None, content_type=None):
         if not url.startswith("http"):
-            url = self.BASE_URI + url
+            url = self.base_uri + url
         if data:
             data = json.dumps(data)
 
         headers = {"Authorization": "token %s" % self.token}
 
         if content_type:
-            headers["Content-Type"]=content_type
+            headers["Content-Type"] = content_type
 
         # add an etag to the header if we have one
         if method == 'get' and url in self.etags:
             headers["If-None-Match"] = self.etags[url]
-
+        logger.debug("request: %s %s %s %s" % (method, url, headers, params))
         resp = self.rsession.request(method, url,
                                      headers=headers,
                                      params=params,
                                      data=data,
                                      allow_redirects=True)
-        logger.debug("response headers: %s" % resp.headers)
         full_url = resp.url
-        if resp.status_code in [requests.codes.ok,
-                                requests.codes.created,
-                                requests.codes.found]:
+        logger.debug("response: %s" % resp.headers)
+        if resp.status_code in [requests.codes.OK,
+                                requests.codes.CREATED,
+                                requests.codes.FOUND,
+                                requests.codes.CONTINUE]:
             if 'application/json' in resp.headers['content-type']:
                 resp_data = json.loads(resp.text)
             else:
@@ -97,25 +99,23 @@ class GitHubApi(object):
                 self.etags[full_url] = etag
                 self.cache[etag] = resp_data
             return resp_data
-        elif resp.status_code == requests.codes.not_modified:
+        elif resp.status_code == requests.codes.NOT_MODIFIED:
             return self.cache[resp.headers['etag']]
-        elif resp.status_code == requests.codes.unauthorized:
+        elif resp.status_code == requests.codes.UNAUTHORIZED:
             raise self.UnauthorizedException()
         else:
             raise self.UnknownException("%d %s" % (resp.status_code, resp.text))
 
     def create_gist(self, description="", filename="", content="", public=False):
-        data = self.post("/gists", {"description": description,
-                                     "public": public,
-                                     "files": {filename: {"content": content}}})
-        return data["html_url"]
+        return self.post("/gists", {"description": description,
+                                    "public": public,
+                                    "files": {filename: {"content": content}}})
 
     def update_gist(self, gist, content):
         filename = gist["files"].keys()[0]
-        resp = self.patch("/gists/" + gist["id"],
-                           {"description": gist["description"],
-                            "files": {filename: {"content": content}}})
-        return resp["html_url"]
+        return self.patch("/gists/" + gist["id"],
+                         {"description": gist["description"],
+                          "files": {filename: {"content": content}}})
 
     def list_gists(self, starred=False):
         page = 1

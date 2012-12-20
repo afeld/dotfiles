@@ -1,5 +1,7 @@
 import os
+import sys
 import os.path
+import re
 import sublime
 import sublime_plugin
 import webbrowser
@@ -10,6 +12,14 @@ try:
     import xml.parsers.expat as expat
 except ImportError:
     expat = None
+
+try:
+    sys.path.append(os.path.join(sublime.packages_path(), 'Git'))
+    git = __import__("git")
+    sys.path.remove(os.path.join(sublime.packages_path(), 'Git'))
+except ImportError:
+    git = None
+
 
 logger.basicConfig(format='[sublime-github] %(levelname)s: %(message)s')
 
@@ -32,8 +42,23 @@ class BaseGitHubCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         self.settings = sublime.load_settings("GitHub.sublime-settings")
         self.github_user = None
-        self.github_token = self.settings.get('github_token')
+        self.accounts = self.settings.get("accounts")
+        self.active_account = self.settings.get("active_account")
+        if not self.active_account:
+            self.active_account = self.accounts.keys()[0]
+        self.github_token = self.accounts[self.active_account]["github_token"]
+        if not self.github_token:
+            self.github_token = self.settings.get("github_token")
+            if self.github_token:
+                # migrate to new structure
+                self.settings.set("accounts", {"GitHub": {"base_uri": "https://api.github.com", "github_token": self.github_token}})
+                self.settings.set("active_account", "GitHub")
+                self.active_account = self.settings.get("active_account")
+                self.settings.erase("github_token")
+                sublime.save_settings("GitHub.sublime-settings")
+        self.base_uri = self.accounts[self.active_account]["base_uri"]
         self.debug = self.settings.get('debug')
+        self.gistapi = GitHubApi(self.base_uri, self.github_token, debug=self.debug)
 
     def get_token(self):
         sublime.error_message(self.ERR_NO_USER_TOKEN)
@@ -54,14 +79,19 @@ class BaseGitHubCommand(sublime_plugin.TextCommand):
     def on_done_password(self, value):
         "Callback for the password show_input_panel"
         try:
-            self.github_token = GitHubApi(debug=self.debug).get_token(self.github_user, value)
-            self.settings.set("github_token", self.github_token)
+            self.github_token = GitHubApi(self.base_uri, debug=self.debug).get_token(self.github_user, value)
+            self.accounts[self.active_account]["github_token"] = self.github_token
+            self.settings.set("accounts", self.accounts)
             sublime.save_settings("GitHub.sublime-settings")
-            if self.callback:
-                sublime.error_message(self.MSG_TOKEN_SUCCESS)
-                callback = self.callback
-                self.callback = None
-                sublime.set_timeout(callback, 50)
+            self.gistapi = GitHubApi(self.base_uri, self.github_token, debug=self.debug)
+            try:
+                if self.callback:
+                    sublime.error_message(self.MSG_TOKEN_SUCCESS)
+                    callback = self.callback
+                    self.callback = None
+                    sublime.set_timeout(callback, 50)
+            except AttributeError:
+                pass
         except GitHubApi.UnauthorizedException:
             sublime.error_message(self.ERR_UNAUTHORIZED)
             sublime.set_timeout(self.get_username, 50)
@@ -89,7 +119,6 @@ class OpenGistCommand(BaseGitHubCommand):
             self.get_token()
 
     def get_gists(self):
-        self.gistapi = GitHubApi(self.github_token, debug=self.debug)
         try:
             self.gists = self.gistapi.list_gists(starred=self.starred)
             format = self.settings.get("gist_list_format")
@@ -148,6 +177,9 @@ class OpenGistCommand(BaseGitHubCommand):
 
     @staticmethod
     def _generate_syntax_file_map():
+        """
+        Generate a map of all file types to their syntax files.
+        """
         syntax_file_map = {}
         packages_path = sublime.packages_path()
         packages = [f for f in os.listdir(packages_path) if os.path.isdir(os.path.join(packages_path, f))]
@@ -181,11 +213,13 @@ class OpenGistInEditorCommand(OpenGistCommand):
     """
     open_in_editor = True
 
+
 class OpenGistUrlCommand(OpenGistCommand):
     """
     Open a gist url in a new editor.
     """
     copy_gist_id = True
+
 
 class OpenStarredGistInEditorCommand(OpenGistCommand):
     """
@@ -254,13 +288,13 @@ class GistFromSelectionCommand(BaseGitHubCommand):
         else:
             text = "\n".join([self.view.substr(region) for region in self.view.sel()])
 
-        gistapi = GitHubApi(self.github_token, debug=self.debug)
         try:
-            gist_url = gistapi.create_gist(description=self.description,
+            gist = self.gistapi.create_gist(description=self.description,
                                            filename=self.filename,
                                            content=text,
                                            public=self.public)
-            sublime.set_clipboard(gist_url)
+            self.view.settings().set('gist', gist)
+            sublime.set_clipboard(gist["html_url"])
             sublime.status_message(self.MSG_SUCCESS)
         except GitHubApi.UnauthorizedException:
             # clear out the bad token so we can reset it
@@ -303,10 +337,9 @@ class UpdateGistCommand(BaseGitHubCommand):
 
     def update(self):
         text = self.view.substr(sublime.Region(0, self.view.size()))
-        gistapi = GitHubApi(self.github_token, debug=self.debug)
         try:
-            gist_url = gistapi.update_gist(self.gist, text)
-            sublime.set_clipboard(gist_url)
+            updated_gist = self.gistapi.update_gist(self.gist, text)
+            sublime.set_clipboard(updated_gist["html_url"])
             sublime.status_message(self.MSG_SUCCESS)
         except GitHubApi.UnauthorizedException:
             # clear out the bad token so we can reset it
@@ -316,3 +349,64 @@ class UpdateGistCommand(BaseGitHubCommand):
             sublime.set_timeout(self.get_username, 50)
         except GitHubApi.UnknownException, e:
             sublime.error_message(e.message)
+
+
+class SwitchAccountsCommand(BaseGitHubCommand):
+    def run(self, edit):
+        super(SwitchAccountsCommand, self).run(edit)
+        accounts = self.accounts.keys()
+        self.view.window().show_quick_panel(accounts, self.account_selected)
+
+    def account_selected(self, index):
+        if index == -1:
+            return  # canceled
+        else:
+            self.active_account = self.accounts.keys()[index]
+            self.settings.set("active_account", self.active_account)
+            sublime.save_settings("GitHub.sublime-settings")
+            self.base_uri = self.accounts[self.active_account]["base_uri"]
+            self.github_token = self.accounts[self.active_account]["github_token"]
+
+if git:
+    class RemoteUrlCommand(git.GitTextCommand):
+        def run(self, edit):
+            self.run_command("git remote -v".split(), self.done_remote)
+
+        def done_remote(self, result):
+            remote_origin = [r for r in result.split("\n") if "origin" in r][0]
+            remote_loc = re.split('\s+', remote_origin)[1]
+            repo_url = re.sub('^git@', 'https://', remote_loc)
+            repo_url = re.sub('\.com:', '.com/', repo_url)
+            repo_url = re.sub('\.git$', '', repo_url)
+            self.repo_url = repo_url
+            self.run_command("git rev-parse --abbrev-ref HEAD".split(), self.done_rev_parse)
+
+        def done_rev_parse(self, result):
+            # get current branch
+            current_branch = result.strip()
+            # get file path within repo
+            repo_name = self.repo_url.split("/").pop()
+            relative_path = self.view.file_name().split(repo_name).pop()
+            self.url = "%s/blob/%s%s" % (self.repo_url, current_branch, relative_path)
+            self.on_done()
+else:
+    class RemoteUrlCommand(sublime_plugin.TextCommand):
+        def run(self, edit):
+            sublime.error_message("I couldn't find the Git plugin. Please install it, restart Sublime Text, and try again.")
+
+
+class OpenRemoteUrlCommand(RemoteUrlCommand):
+    def run(self, edit):
+        super(OpenRemoteUrlCommand, self).run(edit)
+
+    def on_done(self):
+        webbrowser.open(self.url)
+
+
+class CopyRemoteUrlCommand(RemoteUrlCommand):
+    def run(self, edit):
+        super(CopyRemoteUrlCommand, self).run(edit)
+
+    def on_done(self):
+        sublime.set_clipboard(self.url)
+        sublime.status_message("Remote URL copied to clipboard")

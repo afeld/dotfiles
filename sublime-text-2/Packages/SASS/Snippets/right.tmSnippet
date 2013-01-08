@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>content</key>
-	<string>right: ${1:0}${2:em}</string>
+	<string>right: ${TM_CSS_SPACE}$1$0</string>
 	<key>name</key>
 	<string>right</string>
 	<key>scope</key>
@@ -11,6 +11,7 @@
 	<key>tabTrigger</key>
 	<string>r</string>
 	<key>uuid</key>
-	<string>2BDDD6B9-8FAF-44BC-8ABF-1E7BC2F43310</string>
+	<string>36CE1B8E-6909-4908-B5DA-068A88C00E2B
+</string>
 </dict>
 </plist>

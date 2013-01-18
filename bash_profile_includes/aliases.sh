@@ -2,7 +2,7 @@ alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
 alias zshconfig="subl ~/.zshrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
 alias dot="cd ~/dotfiles && subl ."
-alias tb="torquebox run -b 0.0.0.0"
+alias tb="bundle exec torquebox run -b 0.0.0.0"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'

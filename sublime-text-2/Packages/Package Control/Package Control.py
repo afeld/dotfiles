@@ -269,6 +269,20 @@ class DebuggableHTTPHandler(urllib2.HTTPHandler):
         return self.do_open(http_class_wrapper, req)
 
 
+class RateLimitException(httplib.HTTPException, urllib2.URLError):
+    """
+    An exception for when the rate limit of an API has been exceeded.
+    """
+
+    def __init__(self, host, limit):
+        httplib.HTTPException.__init__(self)
+        self.host = host
+        self.limit = limit
+
+    def __str__(self):
+        return ('Rate limit of %s exceeded for %s' % (self.limit, self.host))
+
+
 if os.name == 'nt':
     class ProxyNtlmAuthHandler(urllib2.BaseHandler):
 
@@ -352,6 +366,8 @@ try:
             self.key_file = key_file
             self.cert_file = cert_file
             self.ca_certs = ca_certs
+            if 'user_agent' in kwargs:
+                self.user_agent = kwargs['user_agent']
             if self.ca_certs:
                 self.cert_reqs = ssl.CERT_REQUIRED
             else:
@@ -403,7 +419,7 @@ try:
             self._set_hostport(self._tunnel_host, self._tunnel_port)
 
             self._tunnel_headers['Host'] = u"%s:%s" % (self.host, self.port)
-            self._tunnel_headers['User-Agent'] = 'Sublime Package Control'
+            self._tunnel_headers['User-Agent'] = self.user_agent
             self._tunnel_headers['Proxy-Connection'] = 'Keep-Alive'
 
             request = "CONNECT %s:%d HTTP/1.1\r\n" % (self.host, self.port)
@@ -1380,27 +1396,123 @@ class Downloader():
             The CA cert bundle path on success, or False on error
         """
 
-        cert_info = self.settings.get('certs', {}).get(
-            domain)
-        if not cert_info:
-            print '%s: No CA certs available for %s.' % (__name__,
-                domain)
+        cert_match = False
+
+        certs_list = self.settings.get('certs', {})
+        certs_dir = os.path.join(sublime.packages_path(), 'Package Control',
+            'certs')
+        ca_bundle_path = os.path.join(certs_dir, 'ca-bundle.crt')
+
+        cert_info = certs_list.get(domain)
+        if cert_info:
+            cert_match = self.locate_cert(certs_dir, cert_info[0], cert_info[1])
+
+        wildcard_info = certs_list.get('*')
+        if wildcard_info:
+            cert_match = self.locate_cert(certs_dir, wildcard_info[0], wildcard_info[1]) or cert_match
+
+        if not cert_match:
+            print '%s: No CA certs available for %s.' % (__name__, domain)
             return False
-        cert_path = os.path.join(sublime.packages_path(), 'Package Control',
-            'certs', cert_info[0])
-        ca_bundle_path = os.path.join(sublime.packages_path(),
-            'Package Control', 'certs', 'ca-bundle.crt')
-        if not os.path.exists(cert_path):
-            cert_downloader = self.__class__(self.settings)
-            cert_contents = cert_downloader.download(cert_info[1],
-                'Error downloading CA certs for %s.' % (domain), timeout, 1)
-            if not cert_contents:
-                return False
-            with open(cert_path, 'wb') as f:
-                f.write(cert_contents)
-            with open(ca_bundle_path, 'ab') as f:
-                f.write("\n" + cert_contents)
+
         return ca_bundle_path
+
+    def locate_cert(self, certs_dir, cert_id, location):
+        """
+        Makes sure the SSL cert specified has been added to the CA cert
+        bundle that is present on the machine
+
+        :param certs_dir:
+            The path of the folder that contains the cert files
+
+        :param cert_id:
+            The identifier for CA cert(s). For those provided by the channel
+            system, this will be an md5 of the contents of the cert(s). For
+            user-provided certs, this is something they provide.
+
+        :param location:
+            An http(s) URL, or absolute filesystem path to the CA cert(s)
+
+        :return:
+            If the cert specified (by cert_id) is present on the machine and
+            part of the ca-bundle.crt file in the certs_dir
+        """
+
+        cert_path = os.path.join(certs_dir, cert_id)
+        if not os.path.exists(cert_path):
+            if str(location) != '':
+                if re.match('^https?://', location):
+                    contents = self.download_cert(cert_id, location)
+                else:
+                    contents = self.load_cert(cert_id, location)
+                if contents:
+                    self.save_cert(certs_dir, cert_id, contents)
+                    return True
+            return False
+        return True
+
+    def download_cert(self, cert_id, url):
+        """
+        Downloads CA cert(s) from a URL
+
+        :param cert_id:
+            The identifier for CA cert(s). For those provided by the channel
+            system, this will be an md5 of the contents of the cert(s). For
+            user-provided certs, this is something they provide.
+
+        :param url:
+            An http(s) URL to the CA cert(s)
+
+        :return:
+            The contents of the CA cert(s)
+        """
+
+        cert_downloader = self.__class__(self.settings)
+        return cert_downloader.download(url,
+            'Error downloading CA certs for %s.' % (domain), timeout, 1)
+
+    def load_cert(self, cert_id, path):
+        """
+        Copies CA cert(s) from a file path
+
+        :param cert_id:
+            The identifier for CA cert(s). For those provided by the channel
+            system, this will be an md5 of the contents of the cert(s). For
+            user-provided certs, this is something they provide.
+
+        :param path:
+            The absolute filesystem path to a file containing the CA cert(s)
+
+        :return:
+            The contents of the CA cert(s)
+        """
+
+        if os.path.exists(path):
+            with open(path, 'rb') as f:
+                return f.read()
+
+    def save_cert(self, certs_dir, cert_id, contents):
+        """
+        Saves CA cert(s) to the certs_dir (and ca-bundle.crt file)
+
+        :param certs_dir:
+            The path of the folder that contains the cert files
+
+        :param cert_id:
+            The identifier for CA cert(s). For those provided by the channel
+            system, this will be an md5 of the contents of the cert(s). For
+            user-provided certs, this is something they provide.
+
+        :param contents:
+            The contents of the CA cert(s)
+        """
+
+        ca_bundle_path = os.path.join(certs_dir, 'ca-bundle.crt')
+        cert_path = os.path.join(certs_dir, cert_id)
+        with open(cert_path, 'wb') as f:
+            f.write(contents)
+        with open(ca_bundle_path, 'ab') as f:
+            f.write("\n" + contents)
 
     def decode_response(self, encoding, response):
         if encoding == 'gzip':
@@ -1422,6 +1534,10 @@ class CliDownloader(Downloader):
 
     def __init__(self, settings):
         self.settings = settings
+
+    def clean_tmp_file(self):
+        if os.path.exists(self.tmp_file):
+            os.remove(self.tmp_file)
 
     def find_binary(self, name):
         """
@@ -1470,7 +1586,8 @@ class CliDownloader(Downloader):
         returncode = proc.wait()
         if returncode != 0:
             error = NonCleanExitError(returncode)
-            error.output = self.stderr
+            error.stderr = self.stderr
+            error.stdout = output
             raise error
         return output
 
@@ -1562,7 +1679,8 @@ class UrlLib2Downloader(Downloader):
                 return False
             bundle_path = bundle_path.encode(sys.getfilesystemencoding())
             handlers.append(ValidatingHTTPSHandler(ca_certs=bundle_path,
-                debug=debug, passwd=password_manager))
+                debug=debug, passwd=password_manager,
+                user_agent=self.settings.get('user_agent')))
         else:
             handlers.append(DebuggableHTTPHandler(debug=debug,
                 passwd=password_manager))
@@ -1572,7 +1690,7 @@ class UrlLib2Downloader(Downloader):
             tries -= 1
             try:
                 request = urllib2.Request(url, headers={
-                    "User-Agent": "Sublime Package Control",
+                    "User-Agent": self.settings.get('user_agent'),
                     # Don't be alarmed if the response from the server does not
                     # select one of these since the server runs a relatively new
                     # version of OpenSSL which supports compression on the SSL
@@ -1580,6 +1698,7 @@ class UrlLib2Downloader(Downloader):
                     # encoding.
                     "Accept-Encoding": "gzip,deflate"})
                 http_file = urllib2.urlopen(request, timeout=timeout)
+                self.handle_rate_limit(http_file, url)
                 result = http_file.read()
                 encoding = http_file.headers.get('Content-Encoding')
                 return self.decode_response(encoding, result)
@@ -1590,7 +1709,10 @@ class UrlLib2Downloader(Downloader):
                     unicode_from_os(e), url)
 
             except (urllib2.HTTPError) as (e):
-                # Bitbucket and Github ratelimit using 503 a decent amount
+                # Make sure we obey Github's rate limiting headers
+                self.handle_rate_limit(e, url)
+
+                # Bitbucket and Github return 503 a decent amount
                 if unicode_from_os(e.code) == '503':
                     print ('%s: Downloading %s was rate limited, ' +
                         'trying again') % (__name__, url)
@@ -1611,6 +1733,27 @@ class UrlLib2Downloader(Downloader):
             break
         return False
 
+    def handle_rate_limit(self, response, url):
+        """
+        Checks the headers of a respone object to make sure we are obeying the
+        rate limit
+
+        :param response:
+            The response object that has a headers dict
+
+        :param url:
+            The URL that was requested
+
+        :raises:
+            RateLimitException when the rate limit has been hit
+        """
+
+        limit_remaining = response.headers.get('X-RateLimit-Remaining', 1)
+        if str(limit_remaining) == '0':
+            hostname = urlparse.urlparse(url).hostname
+            limit = response.headers.get('X-RateLimit-Limit', 1)
+            raise RateLimitException(hostname, limit)
+
 
 class WgetDownloader(CliDownloader):
     """
@@ -1624,9 +1767,6 @@ class WgetDownloader(CliDownloader):
     def __init__(self, settings):
         self.settings = settings
         self.wget = self.find_binary('wget')
-
-    def clean_tmp_file(self):
-        os.remove(self.tmp_file)
 
     def download(self, url, error_message, timeout, tries):
         """
@@ -1655,8 +1795,8 @@ class WgetDownloader(CliDownloader):
 
         self.tmp_file = tempfile.NamedTemporaryFile().name
         command = [self.wget, '--connect-timeout=' + str(int(timeout)), '-o',
-            self.tmp_file, '-q', '--save-headers', '-O', '-', '-U',
-            'Sublime Package Control', '--header',
+            self.tmp_file, '--save-headers', '-O', '-', '-U',
+            self.settings.get('user_agent'), '--content-on-error', '--header',
             # Don't be alarmed if the response from the server does not select
             # one of these since the server runs a relatively new version of
             # OpenSSL which supports compression on the SSL layer, and Apache
@@ -1673,7 +1813,7 @@ class WgetDownloader(CliDownloader):
 
         debug = self.settings.get('debug')
         if debug:
-            command.append('-d')
+            command.extend(['-d', '-q'])
 
         http_proxy = self.settings.get('http_proxy')
         https_proxy = self.settings.get('https_proxy')
@@ -1709,12 +1849,11 @@ class WgetDownloader(CliDownloader):
                 for header in headers.splitlines():
                     if header.lower()[0:17] == 'content-encoding:':
                         encoding = header.lower()[17:].strip()
-                        break
 
                 result = self.decode_response(encoding, result)
 
                 if debug:
-                    self.print_debug()
+                    self.print_debug(url)
 
                 self.clean_tmp_file()
                 return result
@@ -1722,7 +1861,9 @@ class WgetDownloader(CliDownloader):
             except (NonCleanExitError) as (e):
 
                 if debug:
-                    self.print_debug()
+                    self.print_debug(url)
+                else:
+                    self.handle_rate_limit(e.stdout, url)
 
                 error_line = ''
                 with open(self.tmp_file) as f:
@@ -1775,9 +1916,29 @@ class WgetDownloader(CliDownloader):
             break
         return False
 
-    def print_debug(self):
+    def handle_rate_limit(self, output, url):
+        limit_remaining = 1
+        limit = 1
+
+        for line in output.splitlines():
+            if line.strip() == '':
+                break
+            if line.lower()[0:22] == 'x-ratelimit-remaining:':
+                limit_remaining = line.lower()[22:].strip()
+            if line.lower()[0:18] == 'x-ratelimit-limit:':
+                limit = line.lower()[18:].strip()
+
+        if str(limit_remaining) == '0':
+            hostname = urlparse.urlparse(url).hostname
+            self.clean_tmp_file()
+            raise RateLimitException(hostname, limit)
+
+    def print_debug(self, url):
         with open(self.tmp_file, 'r') as f:
             debug_content = f.read()
+
+        limit_remaining = 1
+        limit = 1
 
         section = 'General'
         last_section = None
@@ -1800,8 +1961,19 @@ class WgetDownloader(CliDownloader):
             if section != last_section:
                 print "%s: Wget HTTP Debug %s" % (__name__, section)
 
+            if section == 'Read':
+                if line.lower()[0:22] == 'x-ratelimit-remaining:':
+                    limit_remaining = line.lower()[22:].strip()
+                if line.lower()[0:18] == 'x-ratelimit-limit:':
+                    limit = line.lower()[18:].strip()
+
             print '  ' + line
             last_section = section
+
+        if str(limit_remaining) == '0':
+            hostname = urlparse.urlparse(url).hostname
+            self.clean_tmp_file()
+            raise RateLimitException(hostname, limit)
 
 
 class CurlDownloader(CliDownloader):
@@ -1841,13 +2013,17 @@ class CurlDownloader(CliDownloader):
 
         if not self.curl:
             return False
-        command = [self.curl, '-f', '--user-agent', 'Sublime Package Control',
+
+        self.tmp_file = tempfile.NamedTemporaryFile().name
+        command = [self.curl, '--user-agent', self.settings.get('user_agent'),
             '--connect-timeout', str(int(timeout)), '-sSL',
             # Don't be alarmed if the response from the server does not select
             # one of these since the server runs a relatively new version of
             # OpenSSL which supports compression on the SSL layer, and Apache
             # will use that instead of HTTP-level encoding.
-            '--compressed']
+            '--compressed',
+            # We have to capture the headers to check for rate limit info
+            '--dump-header', self.tmp_file]
 
         secure_url_match = re.match('^https://([^/]+)', url)
         if secure_url_match != None:
@@ -1891,8 +2067,32 @@ class CurlDownloader(CliDownloader):
             try:
                 output = self.execute(command)
 
+                with open(self.tmp_file, 'r') as f:
+                    headers = f.read()
+                self.clean_tmp_file()
+
+                limit = 1
+                limit_remaining = 1
+                status = '200 OK'
+                for header in headers.splitlines():
+                    if header[0:5] == 'HTTP/':
+                        status = re.sub('^HTTP/\d\.\d\s+', '', header)
+                    if header.lower()[0:22] == 'x-ratelimit-remaining:':
+                        limit_remaining = header.lower()[22:].strip()
+                    if header.lower()[0:18] == 'x-ratelimit-limit:':
+                        limit = header.lower()[18:].strip()
+
                 if debug:
                     self.print_debug(self.stderr)
+
+                if str(limit_remaining) == '0':
+                    hostname = urlparse.urlparse(url).hostname
+                    raise RateLimitException(hostname, limit)
+
+                if status != '200 OK':
+                    e = NonCleanExitError(22)
+                    e.stderr = status
+                    raise e
 
                 return output
 
@@ -1900,10 +2100,12 @@ class CurlDownloader(CliDownloader):
                 # Stderr is used for both the error message and the debug info
                 # so we need to process it to extra the debug info
                 if self.settings.get('debug'):
-                    e.output = self.print_debug(e.output)
+                    e.stderr = self.print_debug(e.stderr)
+
+                self.clean_tmp_file()
 
                 if e.returncode == 22:
-                    code = re.sub('^.*?(\d+)([\w\s]+)?$', '\\1', e.output)
+                    code = re.sub('^.*?(\d+)([\w\s]+)?$', '\\1', e.stderr)
                     if code == '503':
                         # GitHub and BitBucket seem to rate limit via 503
                         print ('%s: Downloading %s was rate limited' +
@@ -1918,11 +2120,12 @@ class CurlDownloader(CliDownloader):
                         'again') % (__name__, url)
                     continue
                 else:
-                    error_string = e.output.rstrip()
+                    error_string = e.stderr.rstrip()
 
                 print '%s: %s %s downloading %s.' % (__name__, error_message,
                     error_string, url)
             break
+
         return False
 
     def print_debug(self, string):
@@ -2323,7 +2526,7 @@ class PackageManager():
                 'submit_usage', 'submit_url', 'renamed_packages',
                 'files_to_include', 'files_to_include_binary', 'certs',
                 'ignore_vcs_packages', 'proxy_username', 'proxy_password',
-                'debug']:
+                'debug', 'user_agent']:
             if settings.get(setting) == None:
                 continue
             self.settings[setting] = settings.get(setting)
@@ -2424,16 +2627,46 @@ class PackageManager():
             return False
 
         url = url.replace(' ', '%20')
+        hostname = urlparse.urlparse(url).hostname.lower()
         timeout = self.settings.get('timeout', 3)
 
+        rate_limited_cache = _channel_repository_cache.get('rate_limited_domains', {})
+        if rate_limited_cache.get('time') and rate_limited_cache.get('time') > time.time():
+            rate_limited_domains = rate_limited_cache.get('data', [])
+        else:
+            rate_limited_domains = []
+
         if self.settings.get('debug'):
-            hostname = urlparse.urlparse(url).hostname
+            try:
+                ip = socket.gethostbyname(hostname)
+            except (socket.gaierror) as (e):
+                ip = unicode_from_os(e)
+
             print u"%s: Download Debug" % __name__
             print u"  URL: %s" % url
-            print u"  Resolved IP: %s" % socket.gethostbyname(hostname)
+            print u"  Resolved IP: %s" % ip
             print u"  Timeout: %s" % str(timeout)
 
-        return downloader.download(url, error_message, timeout, 3)
+        if hostname in rate_limited_domains:
+            if self.settings.get('debug'):
+                print u"  Skipping due to hitting rate limit for %s" % hostname
+            return False
+
+        try:
+            return downloader.download(url, error_message, timeout, 3)
+        except (RateLimitException) as (e):
+
+            rate_limited_domains.append(hostname)
+            _channel_repository_cache['rate_limited_domains'] = {
+                'data': rate_limited_domains,
+                'time': time.time() + self.settings.get('cache_length',
+                    300)
+                }
+
+            print ('%s: Hit rate limit of %s for %s, skipping all futher ' +
+                'download requests for this domain') % (__name__,
+                e.limit, e.host)
+        return False
 
     def get_metadata(self, package):
         """
@@ -3450,7 +3683,10 @@ class PackageRenamer():
         if not renamed_packages:
             renamed_packages = {}
 
+        # These are packages that have been tracked as installed
         installed_pkgs = self.installed_packages
+        # There are the packages actually present on the filesystem
+        present_packages = installer.manager.list_packages()
 
         # Rename directories for packages that have changed names
         for package_name in renamed_packages:
@@ -3458,19 +3694,51 @@ class PackageRenamer():
             metadata_path = os.path.join(package_dir, 'package-metadata.json')
             if not os.path.exists(metadata_path):
                 continue
+
             new_package_name = renamed_packages[package_name]
             new_package_dir = os.path.join(sublime.packages_path(),
                 new_package_name)
-            if not os.path.exists(new_package_dir):
+
+            changing_case = package_name.lower() == new_package_name.lower()
+            case_insensitive_fs = sublime.platform() in ['windows', 'osx']
+
+            # Since Windows and OSX use case-insensitive filesystems, we have to
+            # scan through the list of installed packages if the rename of the
+            # package is just changing the case of it. If we don't find the old
+            # name for it, we continue the loop since os.path.exists() will return
+            # true due to the case-insensitive nature of the filesystems.
+            if case_insensitive_fs and changing_case:
+                has_old = False
+                for present_package_name in present_packages:
+                    if present_package_name == package_name:
+                        has_old = True
+                        break
+                if not has_old:
+                    continue
+
+            if not os.path.exists(new_package_dir) or (case_insensitive_fs and changing_case):
+
+                # Windows will not allow you to rename to the same name with
+                # a different case, so we work around that with a temporary name
+                if os.name == 'nt' and changing_case:
+                    temp_package_name = '__' + new_package_name
+                    temp_package_dir = os.path.join(sublime.packages_path(),
+                        temp_package_name)
+                    os.rename(package_dir, temp_package_dir)
+                    package_dir = temp_package_dir
+
                 os.rename(package_dir, new_package_dir)
                 installed_pkgs.append(new_package_name)
+
                 print '%s: Renamed %s to %s' % (__name__, package_name,
                     new_package_name)
+
             else:
                 installer.manager.remove_package(package_name)
                 print ('%s: Removed %s since package with new name (%s) ' +
                     'already exists') % (__name__, package_name,
                     new_package_name)
+
             try:
                 installed_pkgs.remove(package_name)
             except (ValueError):

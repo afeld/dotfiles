@@ -3,6 +3,7 @@ alias zshconfig="subl ~/.zshrc"
 alias ohmyzsh="subl ~/.oh-my-zsh"
 alias dot="cd ~/dotfiles && subl ."
 alias tb="bundle exec torquebox run -b 0.0.0.0"
+alias ding="afplay /System/Library/Sounds/Glass.aiff"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'

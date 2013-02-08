@@ -3,7 +3,9 @@
 	"installed_packages":
 	[
 		"CoffeeScript",
+		"DocBlockr",
 		"EJS",
+		"GitGutter",
 		"GitHubinator",
 		"Markdown Preview",
 		"Package Control",

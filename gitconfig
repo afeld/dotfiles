@@ -13,8 +13,8 @@
 [github]
 	user = afeld
 [alias]
-	# show branches with most recently updated commit - from https://coderwall.com/p/ndinba
-	branches = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short)' refs/heads/
+	# show top 15 remote branches with most recently updated commit - from https://coderwall.com/p/ndinba
+	branches = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short)' --count=15 refs/remotes/origin/
 	# the newest tag
 	latest = describe --abbrev=0 --tags
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --

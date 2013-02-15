@@ -62,3 +62,11 @@ if ! command_exists rvm; then
   source ~/.zshrc
 fi
 rvm -v
+
+
+# nvm
+if ! command_exists nvm; then
+  echo "Installing nvm..."
+  curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+  echo "...nvm installed"
+fi

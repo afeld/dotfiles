@@ -361,7 +361,7 @@ def select_linter(view, ignore_disabled=False):
             disabled = view.settings().get('sublimelinter_disable', [])
 
         if language not in disabled:
-            linter = LINTERS[language]
+            linter = LINTERS['' + language]
 
             # If the enabled state is False, it must be checked.
             # Enabled checking has to be deferred to first view use because
@@ -371,7 +371,7 @@ def select_linter(view, ignore_disabled=False):
                 print 'SublimeLinter: {0} {1} ({2})'.format(language, 'enabled' if enabled else 'disabled', message)
 
                 if not enabled:
-                    del LINTERS[language]
+                    del LINTERS['' + language]
                     linter = None
 
     return linter

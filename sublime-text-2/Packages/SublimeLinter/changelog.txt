@@ -417,3 +417,14 @@ SublimeLinter 1.6.11 changelog
 CHANGES/FIXES
 
 - Github (nodeload) zip url scheme changed.
+
+
+SublimeLinter 1.6.12 changelog
+==============================
+
+CHANGES/FIXES
+
+- Cpplint no longer uses a temporary file - it leverages stdin instead.
+
+- Fixed issue #298: C linter throws "KeyError"
+

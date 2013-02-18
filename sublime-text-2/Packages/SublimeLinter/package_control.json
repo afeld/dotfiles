@@ -6,12 +6,11 @@
 			"description": "Inline lint highlighting for the Sublime Text 2 editor",
 			"author": "Kronuz, Aparajita Fishman, Jake Swartwood",
 			"homepage": "http://github.com/SublimeLinter/SublimeLinter",
-			"last_modified": "2012-11-18 00:19:27",
 			"platforms": {
 				"*": [
 					{
-						"version": "1.6.11",
-						"url": "https://nodeload.github.com/SublimeLinter/SublimeLinter/zip/v1.6.11"
+						"version": "1.6.12",
+						"url": "https://nodeload.github.com/SublimeLinter/SublimeLinter/zip/v1.6.12"
 					}
 				]
 			}
@@ -24,7 +23,7 @@
 			"platforms": {
 				"*": [
 					{
-						"version": "1.7.0-beta.1",
+						"version": "1.7.0-beta.3",
 						"url": "https://nodeload.github.com/SublimeLinter/SublimeLinter/zip/beta"
 					}
 				]

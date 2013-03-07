@@ -21,7 +21,8 @@ I use the following pieces of software in my dev setup.
 
 * [ack](http://betterthangrep.com/)
 * [brew](http://mxcl.github.com/homebrew/)
-* [RVM](https://rvm.io/)
+* [Node Version Manager(NVM)](https://github.com/creationix/nvm)
+* [Ruby Version Manager (RVM)](https://rvm.io/)
 * A bunch of Sublime Text plugins (listed [here](https://github.com/afeld/dotfiles/blob/master/sublime-text-2/Packages/User/Package%20Control.sublime-settings))
 
 ### Others that need to be installed manually

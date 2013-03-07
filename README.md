@@ -41,6 +41,8 @@ I use the following pieces of software in my dev setup.
 * [XML Tree](https://chrome.google.com/webstore/detail/xml-tree/gbammbheopgpmaagmckhpjbfgdfkpadb)
 * [XPath Helper](https://chrome.google.com/webstore/detail/xpath-helper/hgimnogjllphhhkhlmebbmlgjoejdpjl)
 
+See my list of Sublime Text plugins [here](https://github.com/afeld/dotfiles/blob/master/sublime-text-2/Packages/User/Package%20Control.sublime-settings).
+
 ## See Also
 
 * [Zach Holman's](http://zachholman.com/) talk [Ruby Patterns from GitHub's Codebase](http://speakerdeck.com/u/holman/p/ruby-patterns-from-githubs-codebase?slide=7)

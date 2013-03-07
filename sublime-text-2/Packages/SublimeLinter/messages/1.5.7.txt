@@ -2,7 +2,7 @@ SublimeLinter 1.5.7 changelog
 
 CHANGES/FIXES
 
-- node.js is the preferred Javascript engine on Mac OS X and will be used if it is installed.
+- node.js is the preferred JavaScript engine on Mac OS X and will be used if it is installed.
   JavaScriptCore does not handle non-ASCII text correctly and you should install node.js
   if possible.
 

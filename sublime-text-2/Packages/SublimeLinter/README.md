@@ -15,7 +15,7 @@ SublimeLinter has built in linters for the following languages:
 * Haml - syntax check via `haml -c`
 * HTML - lint via `tidy` (actually [tidy for HTML5](http://w3c.github.com/tidy-html5/))
 * Java - lint via `javac -Xlint`
-* Javascript - lint via built in [jshint](http://jshint.org), [jslint](http://jslint.com), or the [closure linter (gjslint)](https://developers.google.com/closure/utilities/docs/linter_howto) (if installed)
+* JavaScript - lint via built in [jshint](http://jshint.org), [jslint](http://jslint.com), or the [closure linter (gjslint)](https://developers.google.com/closure/utilities/docs/linter_howto) (if installed)
 * Lua - syntax check via `luac`
 * Objective-J - lint via built-in [capp_lint](https://github.com/aparajita/capp_lint)
 * Perl - lint via [Perl:Critic](http://perlcritic.com/) or syntax+deprecation check via `perl -c`
@@ -53,13 +53,13 @@ The "Packages" directory is located at:
 
         %APPDATA%/Sublime Text 2/Packages/
 
-### Javascript-based linters
-If you plan to edit files that use a Javascript-based linter (Javascript, CSS), your system
-must have a Javascript engine installed. Mac OS X comes with a preinstalled Javascript engine called
+### JavaScript-based linters
+If you plan to edit files that use a JavaScript-based linter (JavaScript, CSS), your system
+must have a JavaScript engine installed. Mac OS X comes with a preinstalled JavaScript engine called
 JavaScriptCore, which is used if Node.js is not installed. On Windows, you **must** install the
-Javascript engine Node.js, which can be downloaded from [the Node.js site](http://nodejs.org/#download).
+JavaScript engine Node.js, which can be downloaded from [the Node.js site](http://nodejs.org/#download).
 
-On Mac OS X, you **must** install Node.js if you plan to edit Javascript or CSS files that
+On Mac OS X, you **must** install Node.js if you plan to edit JavaScript or CSS files that
 use non-ASCII characters in strings or comments, because JavaScriptCore is not Unicode-aware.
 
 After installing Node.js, if the Node.js executable ("node" on Mac OS X, "node.exe" on Windows)
@@ -92,7 +92,7 @@ Following are notes specific to individual linters that you should be aware of:
         "c_cpplint": "/Users/[my username]/Desktop/cpplint.py"
       }
 
-* **CSS** - This linter runs [csslint](http://csslint.net). This linter requires a Javascript engine (like Node.js) to be installed (see notes above for the JavaScript linters: "jshint" or "jslint").
+* **CSS** - This linter runs [csslint](http://csslint.net). This linter requires a JavaScript engine (like Node.js) to be installed (see notes above for the JavaScript linters: "jshint" or "jslint").
 
   By default all CSSLint settings are turned on. You may customize CSSLint behavior with the "csslint_options" setting. Please select `Preferences->Package Settings->SublimeLinter->Settings - Default` for more information on turning off or adjusting severity of tests. For more information about options available to CSSLint, see https://github.com/stubbornella/csslint/wiki/Rules.
 
@@ -100,7 +100,7 @@ Following are notes specific to individual linters that you should be aware of:
 
 * **Java** - Because it uses `javac` to do linting, each time you run the linter the entire dependency graph of the current file will be checked. Depending on the number of classes you import, this can be **extremely** slow. Also note that you **must** provide the `-sourcepath`, `-classpath`, `-Xlint` and `{filename}` arguments to `javac` in your per-project settings. See "Per-project settings" below for more information.
 
-* **JavaScript** - If the "javascript_linter" setting is "jshint" or "jslint", this linter runs [jshint](http://jshint.org) (or [jslint](http://jslint.com) respectively) using Node.js. See "Javascript-based linters" above for information on how to install Node.js.
+* **JavaScript** - If the "javascript_linter" setting is "jshint" or "jslint", this linter runs [jshint](http://jshint.org) (or [jslint](http://jslint.com) respectively) using Node.js. See "JavaScript-based linters" above for information on how to install Node.js.
 
   If the "javascript_linter" setting is "gjslint", this linter runs the [closure linter (gjslint)](https://developers.google.com/closure/utilities/docs/linter_howto). After installation, if gjslint cannot be found by SublimeLinter, you may have to set the path to gjslint in the "sublimelinter\_executable\_map" setting.
 
@@ -382,7 +382,7 @@ If you wish to create a new linter to support a new language, SublimeLinter make
 
 * Override `parse_errors()` and process the errors. If your linter overrides `built_in_check()`, `parse_errors()` will receive the result of that method. If your linter uses an external executable, `parse_errors()` receives the raw output of the executable, stripped of leading and trailing whitespace.
 
-* If you linter is powered via Javascript (eg. Node.js), there are few steps that will simplify the integration.
+* If you linter is powered via JavaScript (eg. Node.js), there are few steps that will simplify the integration.
 
   Create a folder matching your linter name in the `SublimeLinter/sublimelinter/modules/lib` directory. This folder should include the linting library JS file (eg. jshint.js, csslint-Node.js) and a **linter.js** file. The **linter.js** file should `require()` the actual linter library file and export a `lint()` function. The `lint()` function should return a list of errors back to the python language handler file (via the `errors` parameter to the `parse_errors()` method).
 

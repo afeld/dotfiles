@@ -53,6 +53,7 @@ CONFIG = {
     'language': 'Python'
 }
 
+
 class PythonLintError(pyflakes.messages.Message):
 
     def __init__(self, filename, loc, level, message, message_args, offset=None, text=None):
@@ -60,8 +61,10 @@ class PythonLintError(pyflakes.messages.Message):
         self.level = level
         self.message = message
         self.message_args = message_args
-        if offset is not None: self.offset = offset
-        if text is not None: self.text = text
+        if offset is not None:
+            self.offset = offset
+        if text is not None:
+            self.text = text
 
 
 class Pep8Error(PythonLintError):
@@ -142,30 +145,39 @@ class Linter(BaseLinter):
         _lines = code.split('\n')
 
         if _lines:
-            def report_error(self, line_number, offset, text, check):
-                code = text[:4]
-                msg = text[5:]
+            class SublimeLinterReport(pep8.BaseReport):
+                def error(self, line_number, offset, text, check):
+                    """Report an error, according to options."""
+                    code = text[:4]
+                    message = text[5:]
 
-                if pep8.ignore_code(code):
-                    return
-                elif code.startswith('E'):
-                    messages.append(Pep8Error(filename, line_number, offset, code, msg))
-                else:
-                    messages.append(Pep8Warning(filename, line_number, offset, code, msg))
+                    if self._ignore_code(code):
+                        return
+                    if code in self.counters:
+                        self.counters[code] += 1
+                    else:
+                        self.counters[code] = 1
+                        self.messages[code] = message
 
-            pep8.Checker.report_error = report_error
+                    # Don't care about expected errors or warnings
+                    if code in self.expected:
+                        return
+
+                    self.file_errors += 1
+                    self.total_errors += 1
+
+                    if code.startswith('E'):
+                        messages.append(Pep8Error(filename, line_number, offset, code, message))
+                    else:
+                        messages.append(Pep8Warning(filename, line_number, offset, code, message))
+
+                    return code
+
             _ignore = ignore + pep8.DEFAULT_IGNORE.split(',')
 
-            class FakeOptions:
-                verbose = 0
-                select = []
-                ignore = _ignore
+            options = pep8.StyleGuide(reporter=SublimeLinterReport, ignore=_ignore).options
+            options.max_line_length = pep8.MAX_LINE_LENGTH
 
-            pep8.options = FakeOptions()
-            pep8.options.physical_checks = pep8.find_checks('physical_line')
-            pep8.options.logical_checks = pep8.find_checks('logical_line')
-            pep8.options.max_line_length = pep8.MAX_LINE_LENGTH
-            pep8.options.counters = dict.fromkeys(pep8.BENCHMARK_KEYS, 0)
             good_lines = [l + '\n' for l in _lines]
             good_lines[-1] = good_lines[-1].rstrip('\n')
 
@@ -173,7 +185,7 @@ class Linter(BaseLinter):
                 good_lines = good_lines[:-1]
 
             try:
-                pep8.Checker(filename, good_lines).check_all()
+                pep8.Checker(filename, good_lines, options).check_all()
             except Exception, e:
                 print "An exception occured when running pep8 checker: %s" % e
 
@@ -242,7 +254,7 @@ class Linter(BaseLinter):
                                     pyflakes.messages.UndefinedName,
                                     pyflakes.messages.UndefinedExport,
                                     pyflakes.messages.UndefinedLocal,
-                                    pyflakes.messages.RedefinedFunction,
+                                    pyflakes.messages.Redefined,
                                     pyflakes.messages.UnusedVariable)):
                 underline_word(error.lineno, error.message, underlines)
 

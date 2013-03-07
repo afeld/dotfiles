@@ -93,7 +93,7 @@
     // If true, when the file is saved any errors will appear in a popup list
     "sublimelinter_popup_errors_on_save": false,
 
-    // Javascript linter: "gjslint" to use the closure javascript linter (if available),
+    // JavaScript linter: "gjslint" to use the closure javascript linter (if available),
     // or either "jshint" or "jslint" to use a built in linter.
     "javascript_linter": "jshint",
 

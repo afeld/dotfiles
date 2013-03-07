@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# javascript.py - sublimelint package for checking Javascript files
+# javascript.py - sublimelint package for checking JavaScript files
 
 import json
 import re

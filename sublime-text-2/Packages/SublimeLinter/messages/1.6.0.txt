@@ -2,7 +2,7 @@ SublimeLinter 1.6.0 changelog
 
 NEW FEATURES
 
-- Simpler abstraction of Javascript engines for JS powered linters.
+- Simpler abstraction of JavaScript engines for JS powered linters.
 
   To leverage a JS linter, include a "linter.js" file; this file should
   `require` the actual linter library file and export a `lint` function.
@@ -22,7 +22,7 @@ NEW FEATURES
   python code of "css.py" and "javascript.py" in
   "SublimeLinter/sublimelinter/modules".
 
-- Douglas Crockford's JSLint Javascript linter (jslint) is now supported
+- Douglas Crockford's JSLint JavaScript linter (jslint) is now supported
   (http://jslint.com). To use JSLint set the "javascript_linter" setting
   to "jslint". You may also customize jslint behavior with the
   "jslint_options" setting. For more information about options available

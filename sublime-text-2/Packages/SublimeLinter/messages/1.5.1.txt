@@ -40,7 +40,7 @@ NEW FEATURES
   override any temporary changes you may have made to the settings in
   a given view.
 
-- The google closure Javascript linter (gjslint) is now supported
+- The google closure JavaScript linter (gjslint) is now supported
   (https://developers.google.com/closure/utilities/docs/linter_howto).
   There is a new setting, "javascript_linter", which determines which
   linter to use, jshint or gjslinter. You may also customize gjslint

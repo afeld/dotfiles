@@ -38,7 +38,7 @@ NEW FEATURES
   override any temporary changes you may have made to the settings in
   a given view.
 
-- The google closure Javascript linter (gjslint) is now supported
+- The google closure JavaScript linter (gjslint) is now supported
   (https://developers.google.com/closure/utilities/docs/linter_howto).
   There is a new setting, "javascript_linter", which determines which
   linter to use, jshint or gjslinter. You may also customize gjslint
@@ -145,7 +145,7 @@ SublimeLinter 1.5.7 changelog
 =============================
 CHANGES/FIXES
 
-- node.js is the preferred Javascript engine on Mac OS X and will be used if it is installed.
+- node.js is the preferred JavaScript engine on Mac OS X and will be used if it is installed.
   JavaScriptCore does not handle non-ASCII text correctly and you should install node.js
   if possible.
 
@@ -157,7 +157,7 @@ SublimeLinter 1.6.0 changelog
 =============================
 NEW FEATURES
 
-- Simpler abstraction of Javascript engines for JS powered linters.
+- Simpler abstraction of JavaScript engines for JS powered linters.
 
   To leverage a JS linter, include a "linter.js" file; this file should
   `require` the actual linter library file and export a `lint` function.
@@ -177,7 +177,7 @@ NEW FEATURES
   python code of "css.py" and "javascript.py" in
   "SublimeLinter/sublimelinter/modules".
 
-- Douglas Crockford's JSLint Javascript linter (jslint) is now supported
+- Douglas Crockford's JSLint JavaScript linter (jslint) is now supported
   (http://jslint.com). To use JSLint set the "javascript_linter" setting
   to "jslint". You may also customize jslint behavior with the
   "jslint_options" setting. For more information about options available
@@ -201,7 +201,7 @@ CHANGES/FIXES
 - Updated CSSLint, JSLint, JSHint to latest stable releases.
 
 - Added additional debugging output (in Sublime console) when
-  errors occur running linters written in Javascript.
+  errors occur running linters written in JavaScript.
 
 
 SublimeLinter 1.6.2 changelog
@@ -428,3 +428,21 @@ CHANGES/FIXES
 
 - Fixed issue #298: C linter throws "KeyError"
 
+
+SublimeLinter 1.6.13 changelog
+==============================
+
+CHANGES/FIXES
+
+- Updated PEP8 to version v1.4
+
+- Updated PyFlakes to v0.6.1
+
+- Updated CSSLint to v0.9.10
+
+- Update JSHint to v1.0.0
+
+- Update JSLint to latest
+
+- Fixed issues with attempting to encode file name when using 
+  scratch space.

@@ -479,3 +479,21 @@ class GenerateTestFile:
           if not os.path.exists(parent):
               self.create_folder(parent)
           os.mkdir(base)
+
+class GenerateFile(sublime_plugin.WindowCommand):
+  def run(self):
+    GenerateNewFile(self.window).doIt()
+
+class GenerateNewFile(GenerateTestFile):
+  def __init__(self, window):
+    self.window = window
+    self.split_view = False
+
+  def active_project(self, folders):
+    return folders
+
+  def is_valid_path(self, path):
+    return not re.search('\.\w+', path)
+
+  def suggest_file_name(self, path):
+    return ""

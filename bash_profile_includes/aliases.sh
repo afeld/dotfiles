@@ -27,3 +27,8 @@ alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 alias bclean='git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d'
 
 alias rbp="git pull --rebase && git push"
+
+# most recent branches not merged into `deployed`
+function undeployed {
+  git for-each-ref --sort=-committerdate --format="%(committerdate:short) %(refname:short)" --count=15 $(git branch -r --no-merged origin/deployed | grep -v HEAD | sed -e 's#^ *#refs/remotes/#')
+}

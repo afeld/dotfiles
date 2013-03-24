@@ -3,6 +3,7 @@
 	"installed_packages":
 	[
 		"CoffeeScript",
+		"DashDoc",
 		"DocBlockr",
 		"EJS",
 		"GitGutter",

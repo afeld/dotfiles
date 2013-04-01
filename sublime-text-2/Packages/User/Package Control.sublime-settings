@@ -15,6 +15,7 @@
 		"RubyTest",
 		"Sass",
 		"sublime-github",
-		"SublimeLinter"
+		"SublimeLinter",
+		"TrailingSpaces"
 	]
 }

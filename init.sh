@@ -42,7 +42,10 @@ if ! command_exists brew; then
   echo "...Homebrew installed"
 fi
 brew -v
+
+mkdir -p /usr/local/Cellar
 sudo chown -R $USER /usr/local/Cellar
+
 brew update
 
 
@@ -62,6 +65,7 @@ if ! command_exists rvm; then
   source ~/.zshrc
 fi
 rvm -v
+rvm autolibs enable
 
 
 # nvm

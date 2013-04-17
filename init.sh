@@ -74,3 +74,7 @@ if ! command_exists nvm; then
   curl https://raw.github.com/creationix/nvm/master/install.sh | sh
   echo "...nvm installed"
 fi
+
+
+# set default shell to ZSH
+chsh -s /bin/zsh

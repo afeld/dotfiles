@@ -2,7 +2,10 @@ DashDoc provides integration of [Dash][1] into Sublime Text.
 
 ## Usage
 
-You can look up the word under the cursor or selected text in Dash using `Ctrl+h`.
+You can look up the word under the cursor or selected text in Dash using `ctrl+h`.
+
+## Installation
+Use [Sublime Package Control][5].
 
 ## Options
 
@@ -10,13 +13,9 @@ As usual, you will find the associated settings under the *Preferences / Package
 
 ### Syntax sensitivity
 
-DashDoc can be made sensitive to the syntax used in the current view. Dash will then consult the docset that matches the current syntax.  Example: a lookup for `map` in a Haskell buffer will instruct Dash to search in its `haskell` docset, a search for the same word in a Python buffer will consult the `python2` docset instead.  
+DashDoc can be made sensitive to the syntax used in the current view. Dash will then consult the docset that matches the current syntax.  Example: a lookup for `map` in a Haskell buffer will instruct Dash to search in its `haskell` docset, a search for the same word in a Python buffer will consult the `python2` docset instead.
 
-Enable syntax sensitivity (default `False`):
-
-    "syntax_sensitive": True
-
-If you leave syntax sensitivity disabled, Dash will search all installed docsets.  Syntax sensitivity may then still be used in a one-off fashion: simply look up via `Ctrl-Alt-h`.
+Syntax-sensitive search may be invoked using `ctrl+alt+h` hotkey. You have an option to switch the default method of searching with config option `syntax_sensitive_as_default`, which defaults to false. If you set it to true, then `ctrl+h` becomes syntax-sensitive, and `ctrl+alt+h` becomes the insensetive option.
 
 ### Choosing a Dash docset for a given syntax
 
@@ -59,3 +58,5 @@ More information on [Dash docsets][2].
 [2]: http://kapeli.com/docsets/
 [3]: http://farcaller.net/
 [4]: http://db.inf.uni-tuebingen.de/team/grust/
+[5]: http://wbond.net/sublime_packages/package_control
+

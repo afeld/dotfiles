@@ -40,7 +40,7 @@ source $ZSH/oh-my-zsh.sh
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 EDITOR=vim
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_09.jdk/Contents/Home
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

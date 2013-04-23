@@ -6,3 +6,6 @@ for file in ~/.bash_profile_includes/*.sh; do
 done
 
 [[ -s /Users/aidan/.nvm/nvm.sh ]] && . /Users/aidan/.nvm/nvm.sh # This loads NVM
+
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+

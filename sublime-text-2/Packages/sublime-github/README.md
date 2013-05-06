@@ -1,7 +1,8 @@
 # Sublime GitHub
 
 This is a plugin for the [Sublime Text 2](http://www.sublimetext.com/) text
-editor that allows you to create and browse your [GitHub Gists](http://gist.github.com).
+editor that provides a number of useful commands for GitHub, including creating and browsing gists,
+opening and editing files on GitHub, and bringing up the blame and commit history views.
 
 ## Installation
 
@@ -32,6 +33,10 @@ stored anywhere, but if you would rather generate the access token yourself, see
 the "Generating Your Own Access Token" section below.
 
 The following commands are available in the Command Palette:
+
+* **GitHub: Switch Accounts**
+
+    Switch to another GitHub account (see Adding Additional Accounts below)
 
 * **GitHub: Private Gist from Selection**
 
@@ -77,21 +82,27 @@ The following commands are available in the Command Palette:
 
     Update the gist open in the current editor.
 
-* **GitHub: Switch Accounts**
-
-    Switch to another GitHub account (see Adding Additional Accounts below)
+**The following commands require the Git plugin, available through the Package Manager. After installing, restart Sublime Text.**
 
 * **GitHub: Open Remote URL in Browser**
 
-    Open the current file's location in the repository in the browser. *Note:* Requires
-    the Git plugin, available through the Package Manager. After installing, restart
-    Sublime Text.
+    Open the current file's location in the repository in the browser.
 
 * **GitHub: Copy Remote URL to Clipboard**
 
     Put the url of the current file's location in the repository into the clipboard.
-    *Note:* Requires the Git plugin, available through the Package Manager. After
-    installing, restart Sublime Text.
+
+* **GitHub: Blame**
+
+    Open the GitHub blame view of the current file in the browser
+
+* **GitHub: History**
+
+    Open the GitHub commit history view of the current file in the browser.
+
+* **GitHub: Edit**
+
+    Open the current file for editing on GitHub. I'm not sure why you'd want to do that, but it was easy enough to add.
 
 ## Adding Additional Accounts
 
@@ -116,8 +127,7 @@ whatever the base url is for your private GitHub, plus "/api/v3". For example:
         {
             "base_uri": "https://github.yourco.com/api/v3",
             "github_token": ""
-        },
-
+        }
     }
 
 Don't worry about setting the `github_token`--that will be set for you automatically, after you
@@ -130,7 +140,7 @@ switch accounts (Shift-Cmd-P, "GitHub: Switch Accounts").
 
 * Depending on the number of gists you have, there can be a considerable delay the first time
 your list of gists is fetched. Subsequent requests will be cached and should be a bit faster
-(although the GitHub API's ETags are currently not correct; once that fix that, it should speed
+(although the GitHub API's ETags are currently not correct; once they fix that, it should speed
 things up). In the meantime, if there are gists that you open frequently, open them on GitHub and
 "Star" them, then access them via the Open/Copy Starred Gist commands.
 

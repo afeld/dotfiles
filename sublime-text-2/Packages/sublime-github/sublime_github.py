@@ -290,9 +290,9 @@ class GistFromSelectionCommand(BaseGitHubCommand):
 
         try:
             gist = self.gistapi.create_gist(description=self.description,
-                                           filename=self.filename,
-                                           content=text,
-                                           public=self.public)
+                                            filename=self.filename,
+                                            content=text,
+                                            public=self.public)
             self.view.settings().set('gist', gist)
             sublime.set_clipboard(gist["html_url"])
             sublime.status_message(self.MSG_SUCCESS)
@@ -369,6 +369,8 @@ class SwitchAccountsCommand(BaseGitHubCommand):
 
 if git:
     class RemoteUrlCommand(git.GitTextCommand):
+        url_type = 'blob'
+
         def run(self, edit):
             self.run_command("git remote -v".split(), self.done_remote)
 
@@ -387,7 +389,19 @@ if git:
             # get file path within repo
             repo_name = self.repo_url.split("/").pop()
             relative_path = self.view.file_name().split(repo_name).pop()
-            self.url = "%s/blob/%s%s" % (self.repo_url, current_branch, relative_path)
+            line_nums = ""
+            if self.allows_line_highlights:
+                # if any lines are selected, the first of those
+                non_empty_regions = [region for region in self.view.sel() if not region.empty()]
+                if non_empty_regions:
+                    selection = non_empty_regions[0]
+                    (start_row, _) = self.view.rowcol(selection.begin())
+                    (end_row, _) = self.view.rowcol(selection.end())
+                    line_nums = "#L%s" % (start_row + 1)
+                    if end_row > start_row:
+                        line_nums += "-L%s" % (end_row + 1)
+
+            self.url = "%s/%s/%s%s%s" % (self.repo_url, self.url_type, current_branch, relative_path, line_nums)
             self.on_done()
 else:
     class RemoteUrlCommand(sublime_plugin.TextCommand):
@@ -396,6 +410,8 @@ else:
 
 
 class OpenRemoteUrlCommand(RemoteUrlCommand):
+    allows_line_highlights = True
+
     def run(self, edit):
         super(OpenRemoteUrlCommand, self).run(edit)
 
@@ -410,3 +426,17 @@ class CopyRemoteUrlCommand(RemoteUrlCommand):
     def on_done(self):
         sublime.set_clipboard(self.url)
         sublime.status_message("Remote URL copied to clipboard")
+
+
+class BlameCommand(OpenRemoteUrlCommand):
+    url_type = 'blame'
+
+
+class HistoryCommand(OpenRemoteUrlCommand):
+    url_type = 'commits'
+    allows_line_highlights = False
+
+
+class EditCommand(OpenRemoteUrlCommand):
+    url_type = 'edit'
+    allows_line_highlights = False

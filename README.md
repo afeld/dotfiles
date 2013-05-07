@@ -40,6 +40,10 @@ I use the following pieces of software in my dev setup.
     - [Skitch](https://itunes.apple.com/us/app/skitch/id425955336?mt=12)
     - [Sublime Text 2](http://www.sublimetext.com/)
 * Chrome extensions
+    - [Auto Refresh Plus](https://chrome.google.com/webstore/detail/auto-refresh-plus/oilipfekkmncanaajkapbpancpelijih)
+    - [Boomerang](http://www.boomeranggmail.com/)
+    - [Github Find](https://chrome.google.com/webstore/detail/github-find/blocadmfchabihonegcgjjikbbmpliph)
+    - [Github Notifier](https://chrome.google.com/webstore/detail/github-notifier/lmjdlojahmbbcodnpecnjnmlddbkjhnn)
     - [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
     - [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh)
     - [XML Tree](https://chrome.google.com/webstore/detail/xml-tree/gbammbheopgpmaagmckhpjbfgdfkpadb)

@@ -35,6 +35,7 @@ I use the following pieces of software in my dev setup.
     - [Go2Shell](https://itunes.apple.com/us/app/go2shell/id445770608?mt=12)
     - [Growl](https://itunes.apple.com/us/app/growl/id467939042?mt=12)
     - [iTerm 2](http://www.iterm2.com/#/section/home)
+    - [LimeChat](http://limechat.net/mac/)
     - [Moom](http://manytricks.com/moom/)
     - [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
     - [Skitch](https://itunes.apple.com/us/app/skitch/id425955336?mt=12)

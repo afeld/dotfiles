@@ -21,6 +21,14 @@ alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/serv
 alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
 
 
+# do inline replace for all files in given dir
+#
+#   $ rep . foo bar
+function rep {
+  perl -e "s/$2/$3/g;" -pi $(find $1 -type f)
+}
+
+
 ## Git stuff ##
 
 # delete merged branches

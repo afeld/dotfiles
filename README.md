@@ -43,6 +43,7 @@ I use the following pieces of software in my dev setup.
 * Chrome extensions
     - [Auto Refresh Plus](https://chrome.google.com/webstore/detail/auto-refresh-plus/oilipfekkmncanaajkapbpancpelijih)
     - [Boomerang](http://www.boomeranggmail.com/)
+    - [Cloud-To-Butt](https://github.com/panicsteve/cloud-to-butt)
     - [Github Find](https://chrome.google.com/webstore/detail/github-find/blocadmfchabihonegcgjjikbbmpliph)
     - [Github Notifier](https://chrome.google.com/webstore/detail/github-notifier/lmjdlojahmbbcodnpecnjnmlddbkjhnn)
     - [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)

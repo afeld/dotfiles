@@ -36,7 +36,7 @@ alias bclean='git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d'
 # "remote branch clean": same as above, on origin
 function rbclean {
   git remote prune origin
-  git branch -r --merged | grep origin/ | grep -v "HEAD\|master" | sed "s/\// :/" | xargs git push
+  git branch -r --merged | grep origin/ | grep -v "HEAD\|master" | sed "s/^.*\//:/" | xargs git push origin
 }
 
 alias rbp="git pull --rebase && git push"

@@ -1,5 +1,6 @@
 bash_profile_includes/keys.sh
 sublime-text-2/
+!sublime-text-2/User/
 
 *.pyc
 *.cache

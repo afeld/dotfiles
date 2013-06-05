@@ -1,7 +1,6 @@
 {
 	"extensions":
 	[
-		"rabl",
-		"jbuilder"
+		".bowerrc"
 	]
 }

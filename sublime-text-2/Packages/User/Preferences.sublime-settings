@@ -4,9 +4,11 @@
 		".git",
 		".hg",
 		".svn",
+		"bower_components",
 		"CVS",
 		"log",
-		"node_modules"
+		"node_modules",
+		"tmp/cache"
 	],
 	"font_face": "Monaco",
 	"font_size": 12.0,

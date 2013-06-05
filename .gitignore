@@ -1,4 +1,6 @@
 bash_profile_includes/keys.sh
+sublime-text-2/
 
 *.pyc
 *.cache
+

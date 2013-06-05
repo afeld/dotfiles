@@ -1,10 +1,12 @@
-import sublime
+import sys
 import os.path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import sublime
 import json
 import sublime_requests as requests
-import sys
 import logging
 from requests.exceptions import ConnectionError
+import pprint
 
 logging.basicConfig(format='%(asctime)s %(message)s')
 logger = logging.getLogger()
@@ -39,7 +41,15 @@ class GitHubApi(object):
         self.proxies = proxies
 
         if debug:
+            try:
+                import http.client as httplib
+            except ImportError:
+                import httplib
+            httplib.HTTPConnection.debuglevel = 1
             logger.setLevel(logging.DEBUG)
+            requests_log = logging.getLogger("requests.packages.urllib3")
+            requests_log.setLevel(logging.DEBUG)
+            requests_log.propagate = True
 
         # set up requests session with the root CA cert bundle
         cert_path = os.path.join(sublime.packages_path(), "sublime-github", "ca-bundle.crt")
@@ -47,7 +57,6 @@ class GitHubApi(object):
             logger.warning("Root CA cert bundle not found at %s! Not verifying requests." % cert_path)
             cert_path = None
         self.rsession = requests.session(verify=cert_path,
-                                         config={'verbose': sys.stderr if self.debug else None},
                                          force_curl=force_curl)
 
     def get_token(self, username, password):
@@ -61,6 +70,7 @@ class GitHubApi(object):
                                   proxies=self.proxies,
                                   data=json.dumps(auth_data))
         if resp.status_code == requests.codes.CREATED:
+            logger.debug(pprint.saferepr(resp))
             data = json.loads(resp.text)
             return data["token"]
         elif resp.status_code == requests.codes.UNAUTHORIZED:
@@ -102,7 +112,7 @@ class GitHubApi(object):
                                      allow_redirects=True)
             if not resp:
                 raise self.NullResponseException("Empty response received.")
-        except ConnectionError, e:
+        except ConnectionError as e:
             raise self.ConnectionException("Connection error, "
                 "please verify your internet connection: %s" % e)
 
@@ -134,7 +144,7 @@ class GitHubApi(object):
                                     "files": {filename: {"content": content}}})
 
     def update_gist(self, gist, content):
-        filename = gist["files"].keys()[0]
+        filename = list(gist["files"].keys())[0]
         return self.patch("/gists/" + gist["id"],
                          {"description": gist["description"],
                           "files": {filename: {"content": content}}})

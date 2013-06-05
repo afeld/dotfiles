@@ -1,14 +1,20 @@
 import sys
 import os.path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib"))
 import re
 import requests
 from requests.status_codes import codes
-import httplib
+try:
+    import http.client as httplib
+except ImportError:
+    import httplib
 import commandline
 import sublime
-from StringIO import StringIO
-from httplib import HTTPResponse
+try:
+    from io import StringIO
+except ImportError:
+    from StringIO import StringIO  # Linux version blows up when importing io.StringIO
 import logging
 
 logging.basicConfig(format='%(asctime)s %(message)s')
@@ -20,8 +26,8 @@ class CurlSession(object):
     CURL_ERRORS = {
         2: "Curl failed initialization.",
         5: "Curl could not resolve the proxy specified.",
-        6: "Curl could not resolve the remote host.\n\nPlease verify that your Internet"\
-            " connection works properly."
+        6: "Curl could not resolve the remote host.\n\nPlease verify that your Internet"
+           " connection works properly."
     }
 
     class FakeSocket(StringIO):
@@ -70,7 +76,7 @@ class CurlSession(object):
 
         logger.debug("CurlSession - getting socket from %s" % text)
         socket = self.FakeSocket(text)
-        response = HTTPResponse(socket)
+        response = httplib.HTTPResponse(socket)
         response.begin()
         return response
 
@@ -97,15 +103,15 @@ class CurlSession(object):
         if self.verify:
             curl_options.extend(['--cacert', self.verify])
         if headers:
-            for k, v in headers.iteritems():
+            for k, v in headers.items():
                 curl_options.extend(['-H', "%s: %s" % (k, v)])
         if method in ('post', 'patch'):
             curl_options.extend(['-d', data])
         if method == 'patch':
             curl_options.extend(['-X', 'PATCH'])
         if params:
-            url += '?' + '&'.join(['='.join([k, str(v)]) for k, v in params.iteritems()])
-        if proxies and proxies.get('https', None) :
+            url += '?' + '&'.join(['='.join([k, str(v)]) for k, v in params.items()])
+        if proxies and proxies.get('https', None):
             curl_options.extend(['-x', proxies['https']])
 
         command = [curl] + curl_options + [url]
@@ -113,7 +119,7 @@ class CurlSession(object):
         logger.debug("CurlSession: invoking curl with %s" % command)
         try:
             command_response = commandline.execute(command)
-        except commandline.CommandExecutionError, e:
+        except commandline.CommandExecutionError as e:
             logger.error("Curl execution: %s" % repr(e))
             self._handle_curl_error(e.errorcode)
             return
@@ -127,12 +133,13 @@ class CurlSession(object):
 
     def _handle_curl_error(self, error):
         sublime.error_message(
-            self.CURL_ERRORS.get(error,
-                            "%s: %s" % (self.ERR_UNKNOWN_CODE, error)))
+            self.CURL_ERRORS.get(error, "%s: %s" % (self.ERR_UNKNOWN_CODE, error)))
 
 
-def session(verify=None, config=None, force_curl=False):
+def session(verify=None, force_curl=False):
     if not force_curl and hasattr(httplib, "HTTPSConnection"):
-        return requests.session(verify=verify, config=config)
+        session = requests.Session()
+        session.verify = verify
+        return session
     else:  # try curl
         return CurlSession(verify=verify)

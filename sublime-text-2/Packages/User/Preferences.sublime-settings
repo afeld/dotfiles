@@ -3,6 +3,7 @@
 	[
 		".git",
 		".hg",
+		".sass-cache",
 		".svn",
 		"bower_components",
 		"CVS",

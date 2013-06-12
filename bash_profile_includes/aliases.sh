@@ -45,3 +45,10 @@ alias rbp="git pull --rebase && git push"
 function undeployed {
   git for-each-ref --sort=-committerdate --format="%(committerdate:short) %(refname:short)" --count=15 $(git branch -r --no-merged origin/deployed | grep -v HEAD | sed -e 's#^ *#refs/remotes/#')
 }
+
+# display the top contributors to a file
+#
+#   $ fault app/models/user.rb
+function fault {
+  git blame -w -p $1 | grep '^author ' | sed 's/^author //' | sort -f | uniq -ic | sort -nr | head -n 4
+}

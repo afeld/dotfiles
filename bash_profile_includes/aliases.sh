@@ -47,6 +47,7 @@ function undeployed {
 }
 
 # display the top contributors to a file
+# http://www.commandlinefu.com/commands/view/3889/prints-per-line-contribution-per-author-for-a-git-repository
 #
 #   $ fault app/models/user.rb
 function fault {

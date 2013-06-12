@@ -52,3 +52,21 @@ def paste
 end
 
 # load File.dirname(__FILE__) + '/.railsrc' if ($0 == 'irb' && ENV['RAILS_ENV']) || ($0 == 'script/rails' && Rails.env)
+
+
+# pry everywhere
+# http://lucapette.com/pry/pry-everywhere/
+# alternatively, pry-rails can be used within a project (https://github.com/rweng/pry-rails)
+begin
+  require 'pry'
+rescue LoadError
+  puts "WARN: couldn't load pry."
+else
+  begin
+    require 'pry-debugger'
+  rescue LoadError
+    puts "WARN: couldn't load pry-debugger."
+  end
+  Pry.start
+  exit
+end

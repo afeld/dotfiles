@@ -9,6 +9,8 @@ done
 
 export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
 
+export GOPATH=$HOME/dev/go
+
 # set up X11 for use in normal terminal
 #alias x11='export DISPLAY=:0 && open /Applications/Utilities/X11.app'
 

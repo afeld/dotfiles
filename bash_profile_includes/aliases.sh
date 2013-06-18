@@ -45,9 +45,9 @@ function rbclean {
 
 alias rbp="git pull --rebase && git push"
 
-# most recent branches not merged into `deployed`
-function undeployed {
-  git for-each-ref --sort=-committerdate --format="%(committerdate:short) %(refname:short)" --count=15 $(git branch -r --no-merged origin/deployed | grep -v HEAD | sed -e 's#^ *#refs/remotes/#')
+# most recent branches not merged into `upstream/master`
+function unreleased {
+  git for-each-ref --sort=-committerdate --format="%(committerdate:short) %(refname:short)" --count=15 $(git branch -r --no-merged upstream/master | grep -v HEAD | sed -e 's#^ *#refs/remotes/#')
 }
 
 # display the top contributors to a file

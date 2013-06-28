@@ -7,6 +7,8 @@ oh-my-zsh/
 !oh-my-zsh/oh-my-zsh.sh
 !oh-my-zsh/custom/
 
+vim/.netrwhist
+
 *.pyc
 *.cache
 

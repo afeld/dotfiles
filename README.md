@@ -34,6 +34,7 @@ I use the following pieces of software in my dev setup.
     - [Dash](https://itunes.apple.com/us/app/dash/id458034879)
     - [Dropbox](http://db.tt/y5bnAOst)
     - [Go2Shell](https://itunes.apple.com/us/app/go2shell/id445770608?mt=12)
+    - [grip](https://github.com/joeyespo/grip) (Github Readme Instant Preview)
     - [Growl](https://itunes.apple.com/us/app/growl/id467939042?mt=12)
     - [iTerm 2](http://www.iterm2.com/#/section/home)
     - [LimeChat](http://limechat.net/mac/)

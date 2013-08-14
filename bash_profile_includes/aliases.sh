@@ -35,25 +35,9 @@ function rep {
 
 ## Git stuff ##
 
-# "branch clean": delete branches merged into the current one
-alias bclean='git branch --merged | grep -v "\\*" | xargs -n 1 git branch -d'
-# "remote branch clean": same as above, on origin
-function rbclean {
-  git remote prune origin
-  git branch -r --merged | grep origin/ | grep -v "HEAD\|master" | sed "s/^.*\//:/" | xargs git push origin
-}
-
 alias rbp="git pull --rebase && git push"
 
 # most recent branches not merged into `upstream/master`
 function unreleased {
   git for-each-ref --sort=-committerdate --format="%(committerdate:short) %(refname:short)" --count=15 $(git branch -r --no-merged upstream/master | grep -v HEAD | sed -e 's#^ *#refs/remotes/#')
-}
-
-# display the top contributors to a file
-# http://www.commandlinefu.com/commands/view/3889/prints-per-line-contribution-per-author-for-a-git-repository
-#
-#   $ fault app/models/user.rb
-function fault {
-  git blame -w -p $1 | grep '^author ' | sed 's/^author //' | sort -f | uniq -ic | sort -nr | head -n 4
 }

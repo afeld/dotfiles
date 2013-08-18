@@ -32,6 +32,20 @@ function rep {
   perl -e "s/$2/$3/g;" -pi $(find $1 -type f)
 }
 
+# create a new project directory with the given name
+#
+#   $ mkproj foo
+function mkproj {
+  if [ "$1" == "" ]; then
+    echo -e "ERROR: please provide a project name.\n\n\t\$ mkproj foo"
+  else
+    cd ~/dev
+    mkdir $1
+    cd $1
+    git init
+  fi
+}
+
 
 ## Git stuff ##
 

@@ -2,7 +2,7 @@
 	email = aidan.feldman@gmail.com
 	name = Aidan Feldman
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /opt/boxen/config/git/gitignore
 	editor = vim
 [color]
 	ui = true
@@ -27,3 +27,9 @@
 [push]
 	# only push the current branch
 	default = upstream
+
+[credential]
+helper = /opt/boxen/bin/boxen-git-credential
+
+[hub]
+protocol = https

@@ -7,8 +7,6 @@ done
 
 [[ -s /Users/aidan/.nvm/nvm.sh ]] && . /Users/aidan/.nvm/nvm.sh # This loads NVM
 
-export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
-
 export GOPATH=$HOME/dev/go
 
 # set up X11 for use in normal terminal

@@ -41,5 +41,11 @@ export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 EDITOR=vim
 
+# http://superuser.com/a/221291
+setopt extended_glob
+
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+# added by travis gem
+source /Users/afeld/.travis/travis.sh

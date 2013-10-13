@@ -1,0 +1,11 @@
+{
+	"installed_packages":
+	[
+		"Better CoffeeScript",
+		"GitGutter",
+		"GitHubinator",
+		"Sass",
+		"TrailingSpaces",
+		"WordCount"
+	]
+}

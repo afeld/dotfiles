@@ -1,7 +1,8 @@
 bash_profile_includes/keys.sh
 
-sublime-text-2/
-!sublime-text-2/User/
+sublime-text-*/*
+!sublime-text-*/Packages/User/*.sublime-keymap
+!sublime-text-*/Packages/User/*.sublime-settings
 
 oh-my-zsh/
 !oh-my-zsh/oh-my-zsh.sh

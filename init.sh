@@ -37,6 +37,10 @@ ln -s "$(pwd)/bin" "$HOME/bin"
 rm -rf $HOME/Library/Application\ Support/Sublime\ Text\ 2
 ln -s $dir/sublime-text-2 $HOME/Library/Application\ Support/Sublime\ Text\ 2
 
+rm -rf $HOME/Library/Application\ Support/Sublime\ Text\ 3
+ln -s $dir/sublime-text-3 $HOME/Library/Application\ Support/Sublime\ Text\ 3
+
+
 
 # Homebrew
 if ! command_exists brew; then

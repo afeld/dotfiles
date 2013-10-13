@@ -1,4 +1,4 @@
-alias subl="/Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl"
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
 alias dot="cd ~/dotfiles && subl ."
 alias ohmyzsh="subl ~/.oh-my-zsh"

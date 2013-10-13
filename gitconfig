@@ -17,6 +17,7 @@
 	latest = latest-tag
 	lg = pretty-log
 	mw = merge-no-whitespace
+	um = upstream-master
 [branch]
 	autosetupmerge = true
 [mergetool "custom"]
@@ -27,3 +28,7 @@
 [push]
 	# only push the current branch
 	default = upstream
+[hub]
+	protocol = https
+[credential]
+	helper = osxkeychain

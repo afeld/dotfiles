@@ -1,4 +1,8 @@
 {
+	"file_exclude_patterns":
+	[
+		"*.log"
+	],
 	"folder_exclude_patterns":
 	[
 		".git",
@@ -8,7 +12,6 @@
 		"_site",
 		"bower_components",
 		"CVS",
-		"log",
 		"node_modules",
 		"tmp/cache",
 		"vendor/gems"

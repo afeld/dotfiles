@@ -1,6 +1,6 @@
 bash_profile_includes/keys.sh
 
-/atom/storage/
+atom/storage/
 
 sublime-text-*/*
 !sublime-text-*/Packages/User/*.sublime-keymap
@@ -14,4 +14,3 @@ vim/.netrwhist
 
 *.pyc
 *.cache
-

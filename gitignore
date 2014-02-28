@@ -6,5 +6,4 @@
 *.sublime-workspace
 .DS_Store
 .junk
-.tm_properties
 bundler_stubs/

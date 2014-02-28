@@ -33,7 +33,7 @@ REPORTTIME=10
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(gem git github heroku node npm rvm)
+plugins=(gem git heroku node npm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -43,9 +43,6 @@ EDITOR=vim
 
 # http://superuser.com/a/221291
 setopt extended_glob
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
 
 # added by travis gem
 source /Users/afeld/.travis/travis.sh

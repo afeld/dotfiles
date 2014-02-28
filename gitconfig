@@ -2,7 +2,7 @@
 	email = aidan.feldman@gmail.com
 	name = Aidan Feldman
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /opt/boxen/config/git/gitignore
 	editor = vim
 [color]
 	ui = true
@@ -31,4 +31,5 @@
 [hub]
 	protocol = https
 [credential]
-	helper = osxkeychain
+	helper = /opt/boxen/bin/boxen-git-credential
+

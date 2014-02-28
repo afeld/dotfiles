@@ -12,3 +12,5 @@ export GOPATH=$HOME/dev/go
 # set up X11 for use in normal terminal
 #alias x11='export DISPLAY=:0 && open /Applications/Utilities/X11.app'
 
+# this should go last, since the PATH order it sets is important
+source /opt/boxen/env.sh

@@ -7,10 +7,6 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-# for bash compatability
-alias shopt=':'
-source ~/.bash_profile
-
 # Set to this to use case-sensitive completion
 CASE_SENSITIVE="true"
 
@@ -37,9 +33,15 @@ plugins=(gem git heroku node npm)
 
 source $ZSH/oh-my-zsh.sh
 
+export EDITOR=vim
+export GOPATH=$HOME/dev/go
 export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
-EDITOR=vim
+for file in ~/.zshrc_includes/*.sh; do
+  [[ -r $file ]] && source $file;
+done
+
+source /opt/boxen/env.sh
 
 # http://superuser.com/a/221291
 setopt extended_glob

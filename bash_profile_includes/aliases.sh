@@ -8,16 +8,11 @@ alias zshconfig="subl ~/.zshrc"
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'
 
-# PostgreSQL commands
-alias pgstart="pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start"
-alias pgstop="pg_ctl -D /usr/local/var/postgres stop -s -m fast"
-
 
 function update {
   sudo port selfupdate
   brew update
 
-  rvm get stable
   gem update --system
   gem update bundler
 

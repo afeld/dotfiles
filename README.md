@@ -1,6 +1,6 @@
 # Aidan's dotfiles
 
-Moving towards one-liner setup of a development machine.
+Moving towards one-liner setup of a development machine.  Some configuration is missing from this repository, because the installation is done by [Boxen](http://boxen.github.com/).
 
 ## Getting Started
 
@@ -19,11 +19,7 @@ I use the following pieces of software in my dev setup.
 
 ### Installed automatically by `init.sh`
 
-* [ack](http://betterthangrep.com/)
-* [brew](http://mxcl.github.com/homebrew/)
 * [gifify](https://github.com/jclem/gifify)
-* [Node Version Manager (NVM)](https://github.com/creationix/nvm)
-* [Ruby Version Manager (RVM)](https://rvm.io/)
 * A bunch of Sublime Text plugins (listed [here](https://github.com/afeld/dotfiles/blob/master/sublime-text-2/Packages/User/Package%20Control.sublime-settings))
 
 ### Others that need to be installed manually

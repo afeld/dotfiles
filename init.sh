@@ -30,9 +30,6 @@ find "$dir" -maxdepth 1 | while read file; do
 done
 
 
-ln -f -s "$(pwd)/bin" "$HOME/bin"
-
-
 # symlink Sublime Text files
 rm -rf $HOME/Library/Application\ Support/Sublime\ Text\ 3
 ln -s $dir/sublime-text-3 $HOME/Library/Application\ Support/Sublime\ Text\ 3

@@ -47,4 +47,4 @@ source /opt/boxen/env.sh
 setopt extended_glob
 
 # added by travis gem
-source /Users/afeld/.travis/travis.sh
+[ -f /Users/afeld/.travis/travis.sh ] && source /Users/afeld/.travis/travis.sh

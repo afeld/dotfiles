@@ -23,7 +23,7 @@ find "$dir" -maxdepth 1 | while read file; do
       continue
       ;;
   esac
-  
+
   name=".`basename $file`"
   rm -rf "$HOME/$name"
   ln -s "$file" "$HOME/$name"
@@ -34,8 +34,5 @@ ln -s "$(pwd)/bin" "$HOME/bin"
 
 
 # symlink Sublime Text files
-rm -rf $HOME/Library/Application\ Support/Sublime\ Text\ 2
-ln -s $dir/sublime-text-2 $HOME/Library/Application\ Support/Sublime\ Text\ 2
-
 rm -rf $HOME/Library/Application\ Support/Sublime\ Text\ 3
 ln -s $dir/sublime-text-3 $HOME/Library/Application\ Support/Sublime\ Text\ 3

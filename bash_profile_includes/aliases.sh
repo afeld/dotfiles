@@ -1,9 +1,7 @@
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
-alias dot="cd ~/dotfiles && subl ."
-alias ohmyzsh="subl ~/.oh-my-zsh"
+alias dot="cd ~/dotfiles && atom ."
 alias ss="python -m SimpleHTTPServer"
-alias zshconfig="subl ~/.zshrc"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'
@@ -43,7 +41,7 @@ function mkproj {
     mkdir $1
     cd $1
     git init
-    subl .
+    atom .
   fi
 }
 

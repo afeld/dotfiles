@@ -1,0 +1,11 @@
+{
+  "name": "twilight-syntax",
+  "theme": "syntax",
+  "version": "0.1.1",
+  "description": "Twilight syntax theme for GitHub's Atom IDE",
+  "repository": "https://github.com/cannikin/twilight-syntax",
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  }
+}

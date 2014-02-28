@@ -1,5 +1,7 @@
 bash_profile_includes/keys.sh
 
+/atom/storage/
+
 sublime-text-*/*
 !sublime-text-*/Packages/User/*.sublime-keymap
 !sublime-text-*/Packages/User/*.sublime-settings

@@ -30,7 +30,7 @@ find "$dir" -maxdepth 1 | while read file; do
 done
 
 
-ln -s "$(pwd)/bin" "$HOME/bin"
+ln -f -s "$(pwd)/bin" "$HOME/bin"
 
 
 # symlink Sublime Text files

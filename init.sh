@@ -36,3 +36,9 @@ ln -f -s "$(pwd)/bin" "$HOME/bin"
 # symlink Sublime Text files
 rm -rf $HOME/Library/Application\ Support/Sublime\ Text\ 3
 ln -s $dir/sublime-text-3 $HOME/Library/Application\ Support/Sublime\ Text\ 3
+
+
+git_plugins=~/dev/git-plugins
+if [ ! -d "$git_plugins" ]; then
+  git clone https://github.com/afeld/git-plugins $git_plugins
+fi

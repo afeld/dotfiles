@@ -8,14 +8,33 @@
  * http://www.lesscss.org
  */
 
-.tree-view {
-
-}
-
 .editor {
+  .cursor {}
 
-}
+  &,
+  & .gutter {
+    background-color: #0F0F0F;
+  }
 
-.editor .cursor {
+  &.is-focused .line-number.cursor-line-no-selection,
+  &.is-focused .line.cursor-line {
+    background-color: #222;
+  }
+  &.is-focused .selection .region {
+    background-color: #444;
+  }
 
+  .comment {
+    color: #757575;
+  }
+
+
+  .gfm {
+    .link {
+      color: #808080;
+      .entity {
+        color: #F8F8F2;
+      }
+    }
+  }
 }

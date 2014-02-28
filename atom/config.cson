@@ -1,7 +1,7 @@
 'exception-reporting':
   'userId': '6ade4c18-1386-9952-37d5-6ba13e9409f5'
 'release-notes':
-  'viewedVersion': '0.60.0'
+  'viewedVersion': '0.61.0'
 'welcome':
   'showOnStartup': false
 'metrics':
@@ -12,7 +12,7 @@
 'core':
   'themes': [
     'atom-dark-ui'
-    'atom-dark-syntax'
+    'monokai'
   ]
   'ignoredNames': [
     '.git'

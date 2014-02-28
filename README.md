@@ -29,6 +29,7 @@ I use the following pieces of software in my dev setup.
 ### Others that need to be installed manually
 
 * Apps
+    - [Atom](http://atom.io/)
     - [Caffeine](http://itunes.apple.com/us/app/caffeine/id411246225)
     - [Cloud](http://itunes.apple.com/us/app/cloud/id417602904)
     - [Dash](https://itunes.apple.com/us/app/dash/id458034879)

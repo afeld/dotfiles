@@ -1,0 +1,26 @@
+{
+  "name": "twilight-syntax",
+  "theme": "syntax",
+  "version": "0.1.1",
+  "description": "Twilight syntax theme for GitHub's Atom IDE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cannikin/twilight-syntax"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "readme": "twilight-syntax\n===============\n\nTwilight theme for GitHub's Atom IDE.\n\nPorted from the Twilight Textmate theme.\n\n![screenshot](http://ridingtheclutch.com.s3.amazonaws.com/images/twilight-syntax.png)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/cannikin/twilight-syntax/issues"
+  },
+  "homepage": "https://github.com/cannikin/twilight-syntax",
+  "_id": "twilight-syntax@0.1.1",
+  "dist": {
+    "shasum": "415ad1ad9fccf5d6e8de70bafcd2a4f7a9d38865"
+  },
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114128-5184-hdzoon/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114128-5184-hdzoon/package.tgz"
+}

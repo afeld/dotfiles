@@ -1,5 +1,5 @@
 [user]
-	email = aidan.feldman@gmail.com
+	email = afeld@github.com
 	name = Aidan Feldman
 [core]
 	excludesfile = /opt/boxen/config/git/gitignore

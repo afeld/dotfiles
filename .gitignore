@@ -1,5 +1,6 @@
 bash_profile_includes/keys.sh
 
+atom/.node-gyp/
 atom/storage/
 
 sublime-text-*/*

@@ -1,13 +1,12 @@
 'exception-reporting':
   'userId': '6ade4c18-1386-9952-37d5-6ba13e9409f5'
 'release-notes':
-  'viewedVersion': '0.61.0'
+  'viewedVersion': '0.73.0'
 'welcome':
   'showOnStartup': false
 'metrics':
   'userId': 'd7e3485a7b97b0a61edfca6f8e3052bcb8a07ee5'
 'editor':
-  'fontSize': 16
   'softWrap': true
 'core':
   'themes': [
@@ -19,3 +18,4 @@
     '.svn'
     '.DS_Store'
   ]
+  'disabledPackages': []

@@ -1,0 +1,31 @@
+{
+  "name": "asteroids",
+  "main": "./lib/asteroids",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Destroy your editor, Asteroids style!",
+  "activationEvents": [
+    "asteroids:play"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mojombo/asteroids"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# Asteroids for Atom\n\nRemember that awesome hack from a few years ago that allowed you to spawn an\nAsteroids shooter on any web page and then blast away at all the HTML DOM\nelements? Well, since Atom is built with web technologies, now you can do the\nsame right in your editor!\n\nAll credit for the Asteroids game code go to Rootof Creations HB <rootof.com>.\nYou can find their original code at https://github.com/erkie/erkie.github.com.\n\nTo play, select `Packages->Asteroids->Play` from the menu bar. Use arrow keys\nto move around and spacebar to fire.\n\nTo return your editor window to normal, select `Window: Reload` from the\ncommand pallette.\n\n![Atom Asteroids](https://f.cloud.github.com/assets/1/2313785/895ea42e-a30d-11e3-96e0-1bcd606a318c.gif)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/mojombo/asteroids/issues"
+  },
+  "homepage": "https://github.com/mojombo/asteroids",
+  "_id": "asteroids@0.2.0",
+  "dist": {
+    "shasum": "2c44a5d1b0fb9a90ab77d38df158f7d978ad9514"
+  },
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-11424-8283-1tu4uyv/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-11424-8283-1tu4uyv/package.tgz"
+}

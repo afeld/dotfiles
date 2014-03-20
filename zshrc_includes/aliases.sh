@@ -8,7 +8,6 @@ alias diff='diff -W $(( $(tput cols) - 2 ))'
 
 
 function update {
-  sudo port selfupdate
   brew update
 
   gem update --system

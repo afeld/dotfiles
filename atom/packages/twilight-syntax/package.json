@@ -1,7 +1,7 @@
 {
   "name": "twilight-syntax",
   "theme": "syntax",
-  "version": "0.1.1",
+  "version": "0.3.0",
   "description": "Twilight syntax theme for GitHub's Atom IDE",
   "repository": {
     "type": "git",
@@ -17,10 +17,10 @@
     "url": "https://github.com/cannikin/twilight-syntax/issues"
   },
   "homepage": "https://github.com/cannikin/twilight-syntax",
-  "_id": "twilight-syntax@0.1.1",
+  "_id": "twilight-syntax@0.3.0",
   "dist": {
-    "shasum": "415ad1ad9fccf5d6e8de70bafcd2a4f7a9d38865"
+    "shasum": "a8b7dd290f3274819e379decc4dd7789fc702b49"
   },
-  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114128-5184-hdzoon/package.tgz",
-  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114128-5184-hdzoon/package.tgz"
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114219-13760-1ok8z4w/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114219-13760-1ok8z4w/package.tgz"
 }

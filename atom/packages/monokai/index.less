@@ -8,7 +8,7 @@
   }
 
   &, .gutter {
-    background-color: #272822;
+    background-color: #282828;
     color: #F8F8F2;
   }
 
@@ -20,9 +20,13 @@
     background-color: #49483E;
   }
 
-  &.is-focused .line-number.cursor-line-no-selection,
-  &.is-focused .line.cursor-line {
+  &.is-focused .line-number.cursor-line-no-selection {
     background-color: #49483E;
+  }
+
+  .invisible-character
+  {
+    color: rgba(215, 215, 215, 0.15);
   }
 
   .comment {
@@ -77,6 +81,10 @@
     color: #A6E22E;
   }
 
+  .entity.name.instance {
+    color: #66D9EF;
+  }
+
   .variable.parameter {
     font-style: italic;
     color: #FD971F;
@@ -112,5 +120,10 @@
   .invalid.deprecated {
     color: #F8F8F0;
     background-color: #AE81FF;
+  }
+  
+  // Jade syntax
+  .class.jade {
+    color: #AE81FF;
   }
 }

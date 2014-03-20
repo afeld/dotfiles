@@ -14,6 +14,10 @@ function update {
   gem update bundler
 
   npm update -g
+
+  cd ~/.atom
+  apm upgrade -c false
+  cd -
 }
 
 

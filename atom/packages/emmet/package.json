@@ -2,7 +2,7 @@
   "name": "emmet",
   "description": "Adds emmet snippet support",
   "main": "./lib/emmet",
-  "version": "0.7.0",
+  "version": "0.9.0",
   "private": true,
   "dependencies": {
     "loophole": "^1.0.0",
@@ -21,10 +21,10 @@
     "url": "https://github.com/atom/emmet/issues"
   },
   "homepage": "https://github.com/atom/emmet",
-  "_id": "emmet@0.7.0",
+  "_id": "emmet@0.9.0",
   "dist": {
-    "shasum": "31d167065ae555774a697263aa8bbea3536b13df"
+    "shasum": "8f5fac631f690fbb0ecc56b4926ccb067cf80a21"
   },
-  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114219-11819-o2wo94/package.tgz",
-  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114219-11819-o2wo94/package.tgz"
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114228-15867-eo5bwc/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114228-15867-eo5bwc/package.tgz"
 }

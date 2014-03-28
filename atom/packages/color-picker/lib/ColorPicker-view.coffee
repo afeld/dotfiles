@@ -294,64 +294,88 @@
     # -------------------------------------
 
         # Set the current color after control interaction
-        setColor: (color) ->
+        setColor: (color, preferredColorType) ->
             unless color then this.removeClass 'is--initial'
             else _setInitialColor = true
 
             _saturation = @storage.saturation
             color ?= SaturationSelector.getColorAtPosition _saturation.x, _saturation.y
-            _color = color.color
+            _color = _displayColor = color.color
 
             _alphaValue = 100 - (((@storage.alpha / AlphaSelector.height) * 100) << 0)
 
+            # Spit the same color type as the input (selected) color
+            if preferredColorType
+                # TODO: This is far from optimal
+                if preferredColorType isnt 'hsl' and preferredColorType isnt 'hsla'
+                    _hexRgbFragments = (Convert.hexToRgb _color).join ', '
+                else [_h, _s, _l] = Convert.hsvToHsl Convert.rgbToHsv Convert.hexToRgb _color
+
+                if _alphaValue is 100 then _displayColor = switch preferredColorType
+                    when 'rgb', 'rgba' then "rgb(#{ _hexRgbFragments })"
+                    when 'hsl', 'hsla' then "hsl(#{ (_h << 0) }, #{ (_s * 100) << 0 }%, #{ (_l * 100) << 0 }%)"
+                    else _displayColor = _color
+                else _displayColor = switch preferredColorType
+                    when 'rgb', 'rgba', 'hex' then "rgba(#{ _hexRgbFragments }, " + _alphaValue / 100 + ')'
+                    when 'hexa' then "rgba(#{ _color }, " + _alphaValue / 100 + ')'
+                    when 'hsl', 'hsla' then "hsla(#{ (_h << 0) }, #{ (_s * 100) << 0 }%, #{ (_l * 100) << 0 }%, " + _alphaValue / 100 + ')'
+
+            # Translate the color to rgba if an alpha value is set
             if _alphaValue isnt 100
                 _rgb = switch color.type
-                    when 'hex' then Convert.hexToRgb color.color
-                    when 'rgb' then color.color
+                    when 'hexa' then Convert.hexaToRgb _color
+                    when 'hex' then Convert.hexToRgb _color
+                    when 'rgb' then _color
                 if _rgb then _color = "rgba(#{ _rgb.join ', ' }, #{ _alphaValue / 100 })"
 
-            @storage.pickedColor = _color
+            @storage.pickedColor = _displayColor
 
-            (this.find '#ColorPicker-value').html _color
+            # Set the color
+            (this.find '#ColorPicker-value').html _displayColor
             (this.find '#ColorPicker-color')
                 .css 'background-color', _color
                 .css 'border-bottom-color', _color
 
+            # Save the initial color this function is given it
             if _setInitialColor
                 (this.find '#ColorPicker-initial')
                     .css 'background-color', _color
                     .html _color
 
+            # The color is a variable
             if color.hasOwnProperty 'pointer'
                 this.removeClass 'is--searching'
                     .find '#ColorPicker-value'
                     .attr 'data-variable', color.match
 
-
         refreshColor: (trigger) ->
             if trigger is 'hue' then @refreshSaturationCanvas()
             if trigger is 'hue' or trigger is 'saturation' then @refreshAlphaCanvas()
 
-            @setColor()
+            # Send the preferred color type as well
+            @setColor undefined, @storage.selectedColor.type
 
         # User selects a new color => reflect the change
         inputColor: (color) ->
+            _hasClass = this[0].className.match /(is\-\-color\_(\w+))\s/
+            this.removeClass _hasClass[1] if _hasClass
+            this.addClass 'is--color_' + color.type
+
             _color = color.color
 
-            # TODO: Don't do this
-            if color.type is 'hexa'
-                _hex = (_color.match /rgba\((\#.+),/)[1]
-                color.type = 'rgba'
-                _color = color.color = _color.replace _hex, (Convert.hexToRgb _hex).join ', '
-
             # Convert the color to HSV
+            # _hsv needs to be an array [h, s, v]
             _hsv = switch color.type
-                when 'rgba' then Convert.rgbToHsv _color
-                when 'rgb' then Convert.rgbToHsv _color
                 when 'hex' then Convert.rgbToHsv Convert.hexToRgb _color
+                when 'hexa' then Convert.rgbToHsv Convert.hexaToRgb _color
+                when 'rgb', 'rgba' then Convert.rgbToHsv _color
+                when 'hsl', 'hsla' then Convert.hslToHsv [
+                    parseInt color.regexMatch[1], 10
+                    (parseInt color.regexMatch[2], 10) / 100
+                    (parseInt color.regexMatch[3], 10) / 100]
             return unless _hsv
 
-            # Set all controls in the right place to reflect the new color
+            # Set all controls in the right place to reflect the input color
 
             # Get the hue. 360 is the H max
             @setHue (HueSelector.height / 360) * _hsv[0]
@@ -363,13 +387,15 @@
             @refreshSaturationCanvas()
 
             # Get the alpha
-            if color.type is 'rgba'
-                _alpha = parseFloat (_color.match /rgba\((.+),(.+),(.+),(.+)\)/)[4]
-                if _alpha isnt 1 then @setAlpha AlphaSelector.height * (1 - _alpha)
-            if not _alpha then @setAlpha 0
+            _alpha = switch color.type
+                when 'rgba' then color.regexMatch[7]
+                when 'hexa' then color.regexMatch[4]
+                when 'hsla' then color.regexMatch[4]
+            # Set the alpha
+            if _alpha then @setAlpha AlphaSelector.height * (1 - parseFloat _alpha)
+            else if not _alpha then @setAlpha 0
 
             @refreshAlphaCanvas()
-
             @setColor color
 
     # -------------------------------------

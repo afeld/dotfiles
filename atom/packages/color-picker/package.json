@@ -1,7 +1,7 @@
 {
   "name": "color-picker",
   "main": "./lib/ColorPicker",
-  "version": "0.11.0",
+  "version": "0.13.0",
   "private": true,
   "description": "A Color Picker for the Atom Editor. Right click a color and select color picker to open it.",
   "repository": {
@@ -12,16 +12,16 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or place the cursor on a color and hit `CMD-SHIFT-C`. Currently reads HEXA, RGBA, RGB and HEX.\n\n**NEW:** Now also inspects Sass/LESS variables! [Take a look here.](http://t.hom.as/colorpicker4.mov)\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/1J232z2S111Y2G2s1A45/output.gif)\n\n## Incoming\n\n- Code cleanup\n- If RGB is read, spit RGB\n- If HEXA is read, spit HEXA\n- Preview color manipulation functions (lighten, darken)\n- Convertions\n- Stylus variable lookup\n- Edit the color value\n- Tests\n",
+  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or place the cursor on a color and hit `CMD-SHIFT-C`. Currently reads HEX, HEXA, RGB, RGBA, HSL and HSLA.\n\nNow also inspects Sass/LESS variables! [Take a look here.](http://t.hom.as/colorpicker4.mov)\n\n**NEW:** Now also supports HSL and HSLA!\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/1J232z2S111Y2G2s1A45/output.gif)\n\n## To do\n\n- Code cleanup\n- Preview color manipulation functions (lighten, darken)\n- Convertions\n- Stylus variable lookup\n- Edit the color value\n- Tests\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/thomaslindstrom/color-picker/issues"
   },
   "homepage": "https://github.com/thomaslindstrom/color-picker",
-  "_id": "color-picker@0.11.0",
+  "_id": "color-picker@0.13.0",
   "dist": {
-    "shasum": "08675f3729729fb02ad0662dcda8ff8453c7e2d4"
+    "shasum": "c63c617e9eff50abcd038ac25923b5019194949f"
   },
-  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114219-13760-4v6iqi/package.tgz",
-  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114219-13760-4v6iqi/package.tgz"
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114228-15867-bojo8b/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114228-15867-bojo8b/package.tgz"
 }

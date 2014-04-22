@@ -5,6 +5,7 @@
 	excludesfile = /opt/boxen/config/git/gitignore
 	editor = vim
 	autocrlf = input
+	precomposeunicode = true
 [color]
 	ui = true
 [merge]

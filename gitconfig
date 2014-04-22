@@ -14,8 +14,10 @@
 [github]
 	user = afeld
 [alias]
+	bclean = clean-branches
 	branches = latest-branches
 	latest = latest-tag
+	lbclean = clean-local-branches
 	lg = pretty-log
 	mw = merge-no-whitespace
 	um = upstream-master

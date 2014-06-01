@@ -8,8 +8,8 @@
     #  Variable patterns
     # -------------------------------------
         _variablePatterns = {
-            'variable:sass': '\\$__VARIABLE__\\:[\\s?](.+)[\\;|\\n]'
-            'variable:less': '\\@__VARIABLE__\\:[\\s?](.+)[\\;|\\n]'
+            'variable:sass': '\\${{ VARIABLE }}[\\s]*\\:[\\s]*(.+)[\\;|\\n]?'
+            'variable:less': '\\@{{ VARIABLE }}[\\s]*\\:[\\s]*(.+)[\\;|\\n]?'
         }
 
     # -------------------------------------
@@ -29,7 +29,7 @@
             # @String type
             findDefinition: (name, type) ->
                 return unless _regexString = _variablePatterns[type]
-                _regex = RegExp (_regexString.replace '__VARIABLE__', name)
+                _regex = RegExp (_regexString.replace '{{ VARIABLE }}', name)
 
                 _results = []
 
@@ -39,7 +39,13 @@
 
                     return (atom.project.bufferForPath _pointer.filePath).then (buffer) =>
                         _text = buffer.getTextInRange _pointer.range
-                        _definition.definition = (_text.match _regex)[1]
+                        _match = _text.match _regex
+
+                        unless _match
+                            _definitions[name] = null
+                            return @findDefinition name, type
+
+                        _definition.definition = _match[1]
                         return _definition
 
                 _options = unless _globPatterns[type] then null else {

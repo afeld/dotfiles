@@ -1,7 +1,7 @@
 {
   "name": "color-picker",
   "main": "./lib/ColorPicker",
-  "version": "0.13.0",
+  "version": "1.1.0",
   "private": true,
   "description": "A Color Picker for the Atom Editor. Right click a color and select color picker to open it.",
   "repository": {
@@ -12,16 +12,16 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or place the cursor on a color and hit `CMD-SHIFT-C`. Currently reads HEX, HEXA, RGB, RGBA, HSL and HSLA.\n\nNow also inspects Sass/LESS variables! [Take a look here.](http://t.hom.as/colorpicker4.mov)\n\n**NEW:** Now also supports HSL and HSLA!\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/1J232z2S111Y2G2s1A45/output.gif)\n\n## To do\n\n- Code cleanup\n- Preview color manipulation functions (lighten, darken)\n- Convertions\n- Stylus variable lookup\n- Edit the color value\n- Tests\n",
+  "readme": "# A Color Picker for Atom\n\nA color picker for Atom. Either right click a color and select `Color picker`, or hit `CMD-SHIFT-C`/`CTRL-ALT-C` anywhere. Currently reads HEX, HEXA, RGB, RGBA, HSL and HSLA.\n\nInspects Sass/LESS variables! [Take a look here.](http://t.hom.as/colorpicker4.mov)\n\n**NEW:** You can now open the color picker whenever, without input, using `CMD-SHIFT-C`/`CTRL-ALT-C`!\n\n## Preview\n\n![Color Picker in action](http://f.cl.ly/items/3g3T401o0o0F2m2O1z1K/output.gif)\n\n## To do\n\n- Stylus variable lookup\n- Context menu convertions\n- Preview color manipulation functions (lighten, darken)\n- Edit the color value\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/thomaslindstrom/color-picker/issues"
   },
   "homepage": "https://github.com/thomaslindstrom/color-picker",
-  "_id": "color-picker@0.13.0",
+  "_id": "color-picker@1.1.0",
   "dist": {
-    "shasum": "c63c617e9eff50abcd038ac25923b5019194949f"
+    "shasum": "0fb75b30ead90a65abcb6be0c35715904ab95fdc"
   },
-  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114228-15867-bojo8b/package.tgz",
-  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114228-15867-bojo8b/package.tgz"
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114427-37836-cwpid6/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114427-37836-cwpid6/package.tgz"
 }

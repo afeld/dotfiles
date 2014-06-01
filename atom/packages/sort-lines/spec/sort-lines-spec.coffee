@@ -13,6 +13,16 @@ describe "sorting lines", ->
     waitsForPromise -> activationPromise
     runs(callback)
 
+  uniqueLines = (callback) ->
+    editorView.trigger "sort-lines:unique"
+    waitsForPromise -> activationPromise
+    runs(callback)
+
+  sortLineCaseInsensitive = (callback) ->
+    editorView.trigger "sort-lines:case-insensitive-sort"
+    waitsForPromise -> activationPromise
+    runs(callback)
+
   beforeEach ->
     atom.workspaceView = new WorkspaceView
     atom.workspaceView.openSync()
@@ -36,6 +46,23 @@ describe "sorting lines", ->
           Helium
           Hydrogen
           Lithium
+        """
+
+    it "sorts all lines, ignoring the trailing new line", ->
+      editor.setText """
+        Hydrogen
+        Helium
+        Lithium
+
+      """
+      editor.setCursorBufferPosition([0, 0])
+
+      sortLines ->
+        expect(editor.getText()).toBe """
+          Helium
+          Hydrogen
+          Lithium
+
         """
 
   describe "when entire lines are selected", ->
@@ -120,4 +147,55 @@ describe "sorting lines", ->
           Lithium
           Hydrogen
           Helium
+        """
+
+  describe "uniqueing", ->
+    it "uniques all lines but does not change order", ->
+      editor.setText """
+        Hydrogen
+        Hydrogen
+        Helium
+        Lithium
+        Hydrogen
+        Hydrogen
+        Helium
+        Lithium
+        Hydrogen
+        Hydrogen
+        Helium
+        Lithium
+        Hydrogen
+        Hydrogen
+        Helium
+        Lithium
+      """
+
+      editor.setCursorBufferPosition([0, 0])
+
+      uniqueLines ->
+        expect(editor.getText()).toBe """
+          Hydrogen
+          Helium
+          Lithium
+        """
+
+  describe "case-insensitive sorting", ->
+    it "sorts all lines, ignoring case", ->
+      editor.setText """
+        Hydrogen
+        lithium
+        helium
+        Helium
+        Lithium
+      """
+
+      editor.setCursorBufferPosition([0, 0])
+
+      sortLineCaseInsensitive ->
+        expect(editor.getText()).toBe """
+          helium
+          Helium
+          Hydrogen
+          lithium
+          Lithium
         """

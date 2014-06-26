@@ -21,7 +21,10 @@
 	lbclean = clean-local-branches
 	lg = pretty-log
 	mw = merge-no-whitespace
-	um = upstream-master
+	um = checkout-upstream-master
+	co = checkout
+	pr = create-pull-request
+	feature = create-feature-branch
 [branch]
 	autosetupmerge = true
 [mergetool "custom"]

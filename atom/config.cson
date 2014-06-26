@@ -17,5 +17,8 @@
     'autocomplete-plus'
     'trailing-spaces'
     'feedback'
+    'Sublime-Style-Column-Selection'
+    'autosave'
+    'linter'
   ]
 'tree-view': {}

@@ -9,7 +9,7 @@
   "main": "./lib/init",
   "linter-package": true,
   "activationEvents": [],
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Lint CSS on the fly, using csslint",
   "repository": {
     "type": "git",
@@ -22,16 +22,16 @@
   "dependencies": {
     "csslint": "~0.10.0"
   },
-  "readme": "linter-csslint\n=========================\n\nThis linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [csslint](https://github.com/CSSLint/csslint). It will be used with files that have the “CSS” or “HTML” syntax.\n\n## Installation\nLinter package must be installed in order to use this plugin. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).\n\n### Plugin installation\n```\n$ apm install linter-csslint\n```\n\n## Settings\nYou can configure linter-csslint by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):\n```\n'linter-csslint':\n  'csslintExecutablePath': null #csslint path. run 'which csslint' to find the path\n```\n\n## Contributing\nIf you would like to contribute enhancements or fixes, please do the following:\n\n1. Fork the plugin repository.\n1. Hack on a separate topic branch created from the latest `master`.\n1. Commit and push the topic branch.\n1. Make a pull request.\n1. welcome to the club\n\nPlease note that modications should follow these coding guidelines:\n\n- Indent is 2 spaces.\n- Code should pass coffeelint linter.\n- Vertical whitespace helps readability, don’t be afraid to use it.\n\nThank you for helping out!\n",
+  "readme": "linter-csslint\n=========================\n\nThis linter plugin for [Linter](https://github.com/AtomLinter/Linter) provides an interface to [csslint](https://github.com/CSSLint/csslint). It will be used with files that have the “CSS” or “HTML” syntax.\n\n## Installation\nLinter package must be installed in order to use this plugin. If Linter is not installed, please follow the instructions [here](https://github.com/AtomLinter/Linter).\n\n### Plugin installation\n```\n$ apm install linter-csslint\n```\n\n## Settings\nYou can configure linter-csslint by editing ~/.atom/config.cson (choose Open Your Config in Atom menu):\n```\n'linter-csslint':\n  'csslintExecutablePath': null #csslint path. run 'which csslint' to find the path\n```\n\n## Contributing\nIf you would like to contribute enhancements or fixes, please do the following:\n\n1. Fork the plugin repository.\n1. Hack on a separate topic branch created from the latest `master`.\n1. Commit and push the topic branch.\n1. Make a pull request.\n1. welcome to the club\n\nPlease note that modifications should follow these coding guidelines:\n\n- Indent is 2 spaces.\n- Code should pass coffeelint linter.\n- Vertical whitespace helps readability, don’t be afraid to use it.\n\nThank you for helping out!\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/AtomLinter/linter-csslint/issues"
   },
   "homepage": "https://github.com/AtomLinter/linter-csslint",
-  "_id": "linter-csslint@0.0.9",
+  "_id": "linter-csslint@0.0.10",
   "dist": {
-    "shasum": "d7c3826a8bbf96865c3e1d52e17eb7352fdbedb8"
+    "shasum": "31ab398e57f4d8622e3585fcb6dd66d19946929c"
   },
-  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114414-24702-1wt7m38/package.tgz",
-  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114414-24702-1wt7m38/package.tgz"
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114515-15316-12kwq45/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114515-15316-12kwq45/package.tgz"
 }

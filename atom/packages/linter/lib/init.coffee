@@ -2,17 +2,19 @@ Linter = require './linter'
 LinterView = require './linter-view'
 StatusBarView = require './statusbar-view'
 
-# Public: linter package initialization, sets up the linter for ussages by atom
+# Public: linter package initialization, sets up the linter for usages by atom
 class LinterInitializer
 
   # Internal: Configuration Option defaults
   configDefaults:
     lintOnSave: true
-    lintOnModified: true
+    lintOnChange: true
+    lintOnEditorFocus: true
     showHightlighting: true
     showGutters: true
-    showMessagesAroundCursor: true
-    'Lint on modify interval (in ms)': 1000
+    showErrorInStatusBar: true
+    lintOnChangeInterval: 1000
+    showStatusBarWhenCursorIsInErrorRange: false
 
   # Public: Activate the plugin setting up StatusBarView and dicovering linters
   activate: ->
@@ -21,8 +23,7 @@ class LinterInitializer
 
     for atomPackage in atom.packages.getLoadedPackages()
       if atomPackage.metadata['linter-package'] is true
-        implemention =
-          atomPackage.metadata['linter-implementation'] ? atomPackage.name
+        implemention = atomPackage.metadata['linter-implementation'] ? atomPackage.name
         @linters.push(require "#{atomPackage.path}/lib/#{implemention}")
 
     @enabled = true
@@ -32,7 +33,6 @@ class LinterInitializer
     @editorViewSubscription = atom.workspaceView.eachEditorView (editorView) =>
       linterView = @injectLinterViewIntoEditorView(editorView, @statusBarView)
       editorView.editor.on 'grammar-changed', =>
-        console.log 'linter: grammar changed'
         linterView.initLinters(@linters)
         linterView.lint()
         @linterViews.push(linterView)
@@ -42,8 +42,7 @@ class LinterInitializer
     return unless editorView.getPane()?
     return unless editorView.attached
     return if editorView.linterView?
-    console.log "editorView.editor.getGrammar().scopeName" +
-      editorView.editor.getGrammar().scopeName
+
     linterView = new LinterView(editorView, statusBarView, @linters)
     linterView
 

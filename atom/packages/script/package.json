@@ -1,0 +1,149 @@
+{
+  "name": "script",
+  "main": "./lib/script",
+  "version": "2.7.0",
+  "private": false,
+  "description": "Run code in Atom!",
+  "author": {
+    "name": "Kyle Kelley",
+    "email": "rgbkrk@gmail.com"
+  },
+  "contributors": [
+    {
+      "name": "Kyle Kelley",
+      "email": "rgbkrk@gmail.com"
+    },
+    {
+      "name": "Erran Carey",
+      "email": "me@errancarey.com"
+    },
+    {
+      "name": "Lance Batson",
+      "email": "lancebatsondev@gmail.com"
+    },
+    {
+      "name": "Pedro Rodriguez",
+      "email": "ski.rodriguez@gmail.com"
+    },
+    {
+      "name": "Ash Wilson",
+      "email": "smashwilson@gmail.com"
+    },
+    {
+      "name": "Hans Rødtang",
+      "email": "hansrodtang@gmail.com"
+    },
+    {
+      "name": "Ciaran Downey",
+      "email": "me@ciarand.me"
+    },
+    {
+      "name": "Hikaru Ojima",
+      "email": "hikaru.ojima@mixi.co.jp"
+    },
+    {
+      "name": "Rafael Belvederese",
+      "email": "rafael@blvz.im"
+    },
+    {
+      "name": "Ivan Storck",
+      "email": "ivanoats@gmail.com"
+    },
+    {
+      "name": "Alexey Slaykovsky",
+      "email": "alexey@macbook.dlink"
+    },
+    {
+      "name": "Christian Kjaer Laustsen",
+      "email": "christianlaustsen@gmail.com"
+    },
+    {
+      "name": "Otto Robba",
+      "email": "OttoRobba@users.noreply.github.com"
+    },
+    {
+      "name": "Will Sahatdjian",
+      "email": "ws@kindwave.com"
+    },
+    {
+      "name": "Rnhmjoj",
+      "email": "micheleguerinirocco@me.com"
+    },
+    {
+      "name": "Yeonghoon Park",
+      "email": "sola92@gmail.com"
+    },
+    {
+      "name": "cormullion",
+      "email": "cormullion@mac.com"
+    },
+    {
+      "name": "Andy Hayden",
+      "email": "andyhayden1@gmail.com"
+    },
+    {
+      "name": "jbtule",
+      "email": "jay+code@tuley.name"
+    },
+    {
+      "name": "bryanweatherly",
+      "email": "bryanweatherly@gmail.com"
+    },
+    {
+      "name": "Johan Bruning",
+      "email": "johan@taquito.nl"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rgbkrk/atom-script"
+  },
+  "keywords": [
+    "script",
+    "runner",
+    "Bash",
+    "Behat Feature",
+    "Coffeescript",
+    "CoffeeScript (Literate)",
+    "Cucumber (Gherkin)",
+    "Elixir",
+    "Erlang",
+    "F#",
+    "Go",
+    "Groovy",
+    "Haskell",
+    "Javascript",
+    "Julia",
+    "Lua",
+    "newLISP",
+    "Perl",
+    "PHP",
+    "Python",
+    "RSpec",
+    "Ruby",
+    "Scala",
+    "run",
+    "Applescript",
+    "code"
+  ],
+  "license": "Apache 2",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+    "ansi-to-html": ">0.1.0",
+    "underscore": "~1.5.2"
+  },
+  "readme": "# Run code in Atom!\n\n![](https://cloud.githubusercontent.com/assets/1694055/3226201/c458acbc-f067-11e3-84a0-da27fe334f5e.gif)\n\nRun selections of code, code based on line number, or the whole file!\n\nCurrently supported grammars are:\n\n  * AppleScript\n  * Bash\n  * Behat Feature\n  * Coffeescript\n  * CoffeeScript (Literate) <sup>^</sup>\n  * Cucumber (Gherkin) <sup>*</sup>\n  * Elixir\n  * Erlang <sup>†</sup>\n  * F# <sup>*</sup>\n  * Go <sup>*</sup>\n  * Groovy\n  * Haskell\n  * Javascript\n  * Julia\n  * LiveScript\n  * Lua\n  * MoonScript\n  * newLISP\n  * Perl\n  * PHP\n  * Python\n  * RSpec\n  * Ruby\n  * Scala\n\n**NOTE**: Some grammars may require you to install [a custom language package](https://atom.io/search?utf8=✓&q=language).\n\nYou only have to add a few lines in a PR to support another.\n\n### Limitations\n\n<sup>^</sup> Running selections of code for CoffeeScript (Literate) only works when selecting just the code blocks\n\n<sup>†</sup> Erlang uses `erl` for limited selection based runs (see [#70](https://github.com/rgbkrk/atom-script/pull/70))\n\n<sup>\\*</sup> Cucumber (Gherkin), Go, and F# do not support selection based runs\n\n## Installation\n\n`apm install script`\n\nor\n\nSearch for `script` within package search in the Settings View.\n\n## Atom can't find node | ruby | python | my socks\n\nMake sure to launch Atom from the console/terminal. This gives atom all your useful environment variables.\n\nIf you *really* wish to open atom from a launcher/icon, see [this issue for a variety of workarounds that have been suggested](https://github.com/rgbkrk/atom-script/issues/61#issuecomment-37337827).\n\n## Usage\n\nMake sure to run `atom` from the command line to get full access to your environment variables. Running Atom from the icon will launch using launchctl's environment.\n\nSelect some code and use **Script: Run** to run just that selection.\n\nBy default **Script: Run** will run your entire file.\n\nUse **Script: Run at line** to run using the line [number] specific. Note that if you select an entire line this number could be off by one due to the way Atom detects numbers while text is selected.\n\n**Script: Run Options** can be used to configure command options and program arguments.\n\n**Script: Kill Process** will kill the process but leaves the pane open.\n\n**Script: Close View** closes the pane and kills the process.\n\nTo kill everything, click the close icon in the upper right and just go back to\ncoding.\n\n### Command and shortcut reference\n\n| Command              | Mac OS X               | Linux/Windows               | Notes                                                   |\n| -------------------- | ---------------------- | --------------------------- | ------------------------------------------------------- |\n| Script: Run          | <kbd>cmd-i</kbd>       | <kbd>ctrl-b</kbd>           | If text is selected a selection based run will occur    |\n| Script: Run at line  | <kbd>shift-cmd-j</kbd> | <kbd>shift-ctrl-j<kbd>      | If text is selected the line number will be the last    |\n| Script: Run Options  | <kbd>shift-cmd-i</kbd> | <kbd>shift-ctrl-alt-o</kbd> | Runs the selection or whole file with the given options |\n| Script: Close View   | <kbd>ctrl-w</kbd>      | <kbd>ctrl-w</kbd>           | Closes the script view window                           |\n| Script: Kill Process | <kbd>ctrl-c</kbd>      | <kbd>ctrl-q</kbd>           | Kills the current script process                        |\n\n## Development\n\nUse the atom [contributing guidelines](https://atom.io/docs/latest/contributing).\nThey're pretty sane.\n\n#### Quick and dirty setup\n\n`apm develop script`\n\nThis will clone the `script` repository to `~/github` unless you set the\n`ATOM_REPOS_HOME` environment variable.\n\n#### I already cloned it!\n\nIf you cloned it somewhere else, you'll want to use `apm link --dev` within the\npackage directory, followed by `apm install` to get dependencies.\n\n### Workflow\n\nAfter pulling upstream changes, make sure to run `apm update`.\n\nTo start hacking, make sure to run `atom --dev` from the package directory.\nCut a branch while you're working then either submit a Pull Request when done\nor when you want some feedback!\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/rgbkrk/atom-script/issues"
+  },
+  "homepage": "https://github.com/rgbkrk/atom-script",
+  "_id": "script@2.7.0",
+  "dist": {
+    "shasum": "d4b51427057c9d3698532ed86b92ad20266f7528"
+  },
+  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114524-65036-x96rti/package.tgz",
+  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114524-65036-x96rti/package.tgz"
+}

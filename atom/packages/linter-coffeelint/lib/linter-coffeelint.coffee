@@ -1,4 +1,4 @@
-linterPath = atom.packages.getLoadedPackage("linter").path
+linterPath = atom.packages.getLoadedPackage('linter').path
 Linter = require "#{linterPath}/lib/linter"
 findFile = require "#{linterPath}/lib/util"
 
@@ -9,7 +9,7 @@ class LinterCoffeelint extends Linter
 
   # A string, list, tuple or callable that returns a string, list or tuple,
   # containing the command line (with arguments) used to lint.
-  cmd: 'coffeelint --jslint'
+  cmd: 'coffeelint --reporter jslint'
 
   linterName: 'coffeelint'
 
@@ -21,7 +21,9 @@ class LinterCoffeelint extends Linter
 
   regexFlags: 's'
 
-  constructor: (editor)->
+  isNodeExecutable: yes
+
+  constructor: (editor) ->
     super(editor)
 
     config = findFile(@cwd, ['coffeelint.json'])

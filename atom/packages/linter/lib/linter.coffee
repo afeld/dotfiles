@@ -1,7 +1,7 @@
-{exec, child} = require 'child_process'
+{child} = require 'child_process'
 {XRegExp} = require 'xregexp'
 path = require 'path'
-{Range, Point} = require 'atom'
+{Range, Point, BufferedProcess, BufferedNodeProcess} = require 'atom'
 
 # Public: The base class for linters.
 # Subclasses must at a minimum define the attributes syntax, cmd, and regex.
@@ -47,20 +47,30 @@ class Linter
   constructor: (@editor) ->
     @cwd = path.dirname(editor.getUri())
 
-  # Private: base command construction used to execute external linter binaries
-  getCmd: (filePath) ->
-    if /@filename/i.test(@cmd)
-      cmd = @cmd.replace('@filename', filePath)
-    else
-      cmd = "#{@cmd} #{filePath}"
+  # Private: get command and args for atom.BufferedProcess for execution
+  getCmdAndArgs: (filePath) ->
+    cmd = @cmd
+
+    # here guarantee `cmd` does not have space or quote mark issue
+    cmd_list = cmd.split(' ').concat [filePath]
 
     if @executablePath
-      cmd = "#{@executablePath}/#{cmd}"
+      cmd_list[0] = "#{@executablePath}/#{cmd_list[0]}"
 
-    if @isNodeExecutable
-      cmd = "#{@getNodeExecutablePath()} #{cmd}"
+    # if there are "@filename" placeholders, replace them with real file path
+    cmd_list = cmd_list.map (cmd_item) ->
+      if /@filename/i.test(cmd_item)
+        return cmd_item.replace(/@filename/gi, filePath)
+      else
+        return cmd_item
 
-    cmd
+    if atom.inDevMode()
+      console.log 'command and arguments', cmd_list
+
+    {
+      command: cmd_list[0],
+      args: cmd_list.slice(1)
+    }
 
   # Private: Provide the node executable path for use when executing a node
   #          linter
@@ -74,17 +84,34 @@ class Linter
   #
   # Override this if you don't intend to use base command execution logic
   lintFile: (filePath, callback) ->
-    console.log 'linter: run linter command'
-    console.log @getCmd(filePath)
-    console.log @cwd
-    exec @getCmd(filePath), {cwd: @cwd}, (error, stdout, stderr) =>
-      if stderr
-        console.log stderr
-      console.log stdout
+    # build the command with arguments to lint the file
+    {command, args} = @getCmdAndArgs(filePath)
+
+    if atom.inDevMode()
+      console.log 'is node executable: ' + @isNodeExecutable
+
+    # use BufferedNodeProcess if the linter is node executable
+    if @isNodeExecutable
+      Process = BufferedNodeProcess
+    else
+      Process = BufferedProcess
+
+    # options for BufferedProcess, same syntax with child_process.spawn
+    options = {cwd: @cwd}
+
+    stdout = (output) =>
+      if atom.inDevMode()
+        console.log 'stdout', output
       if @errorStream == 'stdout'
-        @processMessage(stdout, callback)
-      else if @errorStream == 'stderr'
-        @processMessage(stderr, callback)
+        @processMessage(output, callback)
+
+    stderr = (output) =>
+      if atom.inDevMode()
+        console.warn 'stderr', output
+      if @errorStream == 'stderr'
+        @processMessage(output, callback)
+
+    new Process({command, args, options, stdout, stderr})
 
   # Private: process the string result of a linter execution using the regex
   #          as the message builder
@@ -95,7 +122,6 @@ class Linter
     messages = []
     regex = XRegExp @regex, @regexFlags
     XRegExp.forEach message, regex, (match, i) =>
-      console.log match
       messages.push(@createMessage(match))
     , this
     callback messages
@@ -129,6 +155,19 @@ class Linter
       range: @computeRange match
     }
 
+
+  lineLengthForRow: (row) ->
+    return @editor.lineLengthForBufferRow row
+
+  getEditorScopesForPosition: (position) ->
+    return @editor.displayBuffer.tokenizedBuffer.scopesForPosition(position)
+
+  getGetRangeForScopeAtPosition: (innerMostScope, position) ->
+    return @editor
+      .displayBuffer
+        .tokenizedBuffer
+          .bufferRangeForScopeAtPosition(innerMostScope, position)
+
   # Private: This is the logic by which we automatically determine the range
   #          in the buffer that we should highlight for various combinations
   #          of line, lineStart, lineEnd, col, colStart, and colEnd values
@@ -150,26 +189,29 @@ class Linter
   computeRange: (match) ->
     rowStart = parseInt(match.lineStart ? match.line) - 1
     rowEnd = parseInt(match.lineEnd ? match.line) - 1
+
+    # some linters utilize line 0 to denote full file errors, position these
+    # errors on line 1
+    if (rowStart == -1)
+      rowStart = rowEnd = 0
+
     match.col ?=  0
     unless match.colStart
       position = new Point(rowStart, match.col)
-      scopes = @editor.displayBuffer.tokenizedBuffer.scopesForPosition(position)
+      scopes = @getEditorScopesForPosition(position)
 
       while innerMostScope = scopes.pop()
-        range = @editor
-          .displayBuffer
-            .tokenizedBuffer
-              .bufferRangeForScopeAtPosition(innerMostScope, position)
+        range = @getGetRangeForScopeAtPosition(innerMostScope, position)
         if range?
           return range
 
     match.colStart ?= match.col
     colStart = parseInt(match.colStart ? 0)
-    colEnd = if match.colEnd then parseInt(match.colEnd) else
-      (parseInt(@editor.lineLengthForBufferRow rowEnd))
+    colEnd = if match.colEnd then parseInt(match.colEnd) else parseInt(@lineLengthForRow(rowEnd))
     return new Range(
       [rowStart, colStart],
       [rowEnd, colEnd]
     )
+
 
 module.exports = Linter

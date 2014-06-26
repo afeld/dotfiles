@@ -1,8 +1,8 @@
+_ = require 'lodash'
 fs = require 'fs'
 temp = require 'temp'
 {exec, child} = require 'child_process'
 
-_ = require 'underscore'
 {XRegExp} = require 'xregexp'
 
 GutterView = require './gutter-view'
@@ -35,6 +35,9 @@ class LinterView
 
     @initLinters(linters)
 
+    @subscriptions.push atom.workspaceView.on 'pane:item-removed', =>
+      @statusBarView.hide()
+
     @subscriptions.push atom.workspaceView.on 'pane:active-item-changed', =>
       @statusBarView.hide()
       if @editor.id is atom.workspace.getActiveEditor()?.id
@@ -48,8 +51,6 @@ class LinterView
 
     @subscriptions.push @editorView.on 'cursor:moved', =>
       @displayStatusBar()
-
-    @lint()
 
   # Public: Initialize new linters (used on grammar chagne)
   #
@@ -70,15 +71,26 @@ class LinterView
     @subscriptions.push atom.config.observe 'linter.lintOnSave',
       (lintOnSave) => @lintOnSave = lintOnSave
 
-    @subscriptions.push atom.config.observe 'linter.lintOnModified',
+    @subscriptions.push atom.config.observe 'linter.lintOnChangeInterval',
+      (lintOnModifiedDelayMS) =>
+        # If text instead of number into user config
+        throttleInterval = parseInt(lintOnModifiedDelayMS)
+        throttleInterval = 1000 if isNaN throttleInterval
+        # create throttled lint command
+        @throttledLint = (_.throttle @lint, throttleInterval).bind this
+
+    @subscriptions.push atom.config.observe 'linter.lintOnChange',
       (lintOnModified) => @lintOnModified = lintOnModified
+
+    @subscriptions.push atom.config.observe 'linter.lintOnEditorFocus',
+      (lintOnEditorFocus) => @lintOnEditorFocus = lintOnEditorFocus
 
     @subscriptions.push atom.config.observe 'linter.showGutters',
       (showGutters) =>
         @showGutters = showGutters
         @displayGutterMarkers()
 
-    @subscriptions.push atom.config.observe 'linter.showMessagesAroundCursor',
+    @subscriptions.push atom.config.observe 'linter.showErrorInStatusBar',
       (showMessagesAroundCursor) =>
         @showMessagesAroundCursor = showMessagesAroundCursor
         @displayStatusBar()
@@ -93,24 +105,21 @@ class LinterView
     buffer = @editor.getBuffer()
 
     @subscriptions.push buffer.on 'reloaded saved', (buffer) =>
-      @lint() if @lintOnSave
+      @throttledLint() if @lintOnSave
 
     @subscriptions.push buffer.on 'destroyed', ->
       buffer.off 'reloaded saved'
       buffer.off 'destroyed'
 
-    # Create throttled version of `@lint`
-    # It will lint the file only with an interval between every lint
-    interval = atom.config.get 'linter.Lint on modified interval (in ms)'
-    # If text instead of number into user config
-    interval = 1000 unless isNaN parseInt(interval)
-    throttledLint = _.throttle @lint, interval
     @subscriptions.push @editor.on 'contents-modified', =>
-      _.bind(throttledLint, this)() if @lintOnModified
+      @throttledLint() if @lintOnModified
+
+    @subscriptions.push atom.workspaceView.on 'pane:active-item-changed', =>
+      if @editor.id is atom.workspace.getActiveEditor()?.id
+        @throttledLint() if @lintOnEditorFocus
 
   # Public: lint the current file in the editor using the live buffer
   lint: ->
-    console.log 'linter: run commands'
     @totalProcessed = 0
     @messages = []
     @gutterView.clear()

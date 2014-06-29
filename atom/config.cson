@@ -8,6 +8,7 @@
   'userId': 'd7e3485a7b97b0a61edfca6f8e3052bcb8a07ee5'
 'editor':
   'softWrap': true
+  'fontSize': 17
 'core':
   'themes': [
     'atom-dark-ui'

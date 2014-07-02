@@ -10,12 +10,26 @@ module.exports =
     @unsubscribe()
 
   _handleLoad: (editorView) ->
+    editor     = editorView.getEditor()
+    scrollView = editorView.find('.scroll-view')
 
-    editor = editorView.getEditor()
+    altDown    = false
+    mouseStart = null
+    mouseEnd   = null
+    columnWidth  = null
 
-    [altDown, mouseStart, mouseEnd, mouseEndPx, mouseStartPx] = []
+    calculateMonoSpacedCharacterWidth = =>
+      if scrollView
+        # Create a span with an x in it and measure its width then remove it
+        span = document.createElement 'span'
+        span.appendChild document.createTextNode('x')
+        scrollView.append span
+        size = span.offsetWidth
+        span.remove()
+        return size
+      null
 
-    onKeyDown = (e) ->
+    onKeyDown = (e) =>
       if e.which is 18
         altDown = true
 
@@ -25,51 +39,65 @@ module.exports =
 
     onMouseDown = (e) =>
       if altDown
-        mouseStart = editor.getCursor().getBufferPosition()
-        mouseStartPx = [e.screenX, e.screenY]
-        mouseEnd = mouseStart
-        mouseEndPx = mouseStartPx
+        columnWidth = calculateMonoSpacedCharacterWidth()
+        mouseStart  = overflowableScreenPositionFromMouseEvent(e)
+        mouseEnd    = mouseStart
+        e.preventDefault()
+        return false
 
     onMouseUp = (e) =>
       mouseStart = null
-      mouseStartPx = null
       mouseEnd = null
-      mouseEndPx = null
 
     onMouseMove = (e) =>
       if mouseStart
-        mouseEnd = editor.getCursor().getBufferPosition()
-        mouseEndPx = [e.screenX, e.screenY]
+        mouseEnd = overflowableScreenPositionFromMouseEvent(e)
         selectBoxAroundCursors()
+        e.preventDefault()
+        return false
+
+    onMouseleave = =>
+      if mouseStart
+        editorView.mouseup()
+
+    # I had to create my own version of editorView.screenPositionFromMouseEvent
+    # The editorView one doesnt quite do what I need
+    overflowableScreenPositionFromMouseEvent = (e) =>
+      { pageX, pageY }  = e
+      offset            = editorView.scrollView.offset()
+      editorRelativeTop = pageY - offset.top + editorView.scrollTop()
+      row               = Math.floor editorRelativeTop / editorView.lineHeight
+      column            = Math.round (pageX - offset.left) / columnWidth
+      return {row: row, column: column}
 
     selectBoxAroundCursors = =>
-      newRanges = []
+      if mouseStart and mouseEnd
+        allRanges = []
+        rangesWithLength = []
+        selectedColumns = mouseEnd.column - mouseStart.column
 
-      if mouseStart.column is mouseEnd.column
-        selectedBuffers = 0
-      else
-        # Find the pixel width of 1 column to caculate the number of columns to select
-        columnWidthPx = editorView.pixelPositionForBufferPosition([mouseStart.row,mouseStart.column]).left / mouseStart.column
-        selectedColumns = Math.round (mouseEndPx[0] - mouseStartPx[0]) / columnWidthPx
+        for row in [mouseStart.row..mouseEnd.row]
+          # Define a range for this row from the mouseStart coumn number to
+          # the mouseEnd column number + selected columns
+          range = [[row, mouseStart.column], [row, mouseStart.column + selectedColumns]]
 
-      for row in [mouseStart.row..mouseEnd.row]
+          allRanges.push range
+          if editor.getTextInBufferRange(range).length > 0
+            rangesWithLength.push range
 
-        # Define a range for this row from the mouse start to the mouseEnd + selected columns
-        range = [[row, mouseStart.column], [row, mouseStart.column + selectedColumns]]
-
-        # Include a range if zero columns are selected
-        # or if the line has text within the selection
-        newRanges.push range if selectedColumns == 0 or editor.getTextInBufferRange(range).length > 0
-
-      # Set the selected ranges
-      if newRanges.length
-        editor.setSelectedBufferRanges newRanges
+        # If there are rnages with text in them then only select those
+        # Otherwise select all the 0 length ranges
+        if rangesWithLength.length
+          editor.setSelectedBufferRanges rangesWithLength
+        else
+          editor.setSelectedBufferRanges allRanges
 
     # Subscribe to the various things
-    @subscribe editorView, 'keydown',   onKeyDown
-    @subscribe editorView, 'keyup',     onKeyUp
-    @subscribe editorView, 'mousedown', onMouseDown
-    @subscribe editorView, 'mouseup',   onMouseUp
-    @subscribe editorView, 'mousemove', onMouseMove
+    @subscribe editorView, 'keydown',    onKeyDown
+    @subscribe editorView, 'keyup',      onKeyUp
+    @subscribe editorView, 'mousedown',  onMouseDown
+    @subscribe editorView, 'mouseup',    onMouseUp
+    @subscribe editorView, 'mousemove',  onMouseMove
+    @subscribe editorView, 'mouseleave', onMouseleave
 
 Subscriber.extend module.exports

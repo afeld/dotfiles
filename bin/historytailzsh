@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# https://github.com/matthewmccullough/scripts/pull/11
+tail -f ~/.zsh_history | sed -l -e "s/^.*\;//"

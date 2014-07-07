@@ -1,4 +1,3 @@
-alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
 alias dot="cd ~/dotfiles && atom ."
 alias ss="python -m SimpleHTTPServer"

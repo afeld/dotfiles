@@ -20,7 +20,6 @@ I use the following pieces of software in my dev setup.
 ### Installed automatically by `init.sh`
 
 * [gifify](https://github.com/jclem/gifify)
-* A bunch of Sublime Text plugins (listed [here](https://github.com/afeld/dotfiles/blob/master/sublime-text-2/Packages/User/Package%20Control.sublime-settings))
 
 ### Others that need to be installed manually
 
@@ -40,7 +39,6 @@ I use the following pieces of software in my dev setup.
     - [Moom](http://manytricks.com/moom/)
     - [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh)
     - [Skitch](https://itunes.apple.com/us/app/skitch/id425955336?mt=12)
-    - [Sublime Text 3](http://www.sublimetext.com/3)
 * Chrome extensions
     - [Auto Refresh Plus](https://chrome.google.com/webstore/detail/auto-refresh-plus/oilipfekkmncanaajkapbpancpelijih)
     - [Boomerang](http://www.boomeranggmail.com/)

@@ -29,8 +29,26 @@ find "$dir" -maxdepth 1 | while read file; do
   ln -s "$file" "$HOME/$name"
 done
 
+# homebrew
+if ! command_exists brew; then
+  echo "Installing brew..."
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  echo "...brew installed"
+fi
+
+# https://github.com/afeld/git-setup
+curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh
 
 git_plugins=~/dev/git-plugins
 if [ ! -d $git_plugins ]; then
+  echo "Installing git-plugins..."
   git clone https://github.com/afeld/git-plugins $git_plugins
+  echo "...git-plugins installed"
 fi
+
+# use ZShell as default
+echo "Installing oh-my-zsh..."
+curl -L http://install.ohmyz.sh | sh
+echo "...oh-my-zsh installed"
+
+echo "DONE"

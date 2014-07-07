@@ -1,6 +1,6 @@
 # Aidan's dotfiles
 
-Moving towards one-liner setup of a development machine.  Some configuration is missing from this repository, because the installation is done by [Boxen](http://boxen.github.com/).
+Moving towards one-liner setup of a development machine.
 
 ## Getting Started
 
@@ -19,7 +19,9 @@ I use the following pieces of software in my dev setup.
 
 ### Installed automatically by `init.sh`
 
+* [brew](http://mxcl.github.com/homebrew/)
 * [gifify](https://github.com/jclem/gifify)
+* [Ruby Version Manager (RVM)](https://rvm.io)
 
 ### Others that need to be installed manually
 

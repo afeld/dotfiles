@@ -35,6 +35,7 @@ if ! command_exists brew; then
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
   echo "...brew installed"
 fi
+brew bundle
 
 # RVM
 if ! command_exists rvm; then

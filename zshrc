@@ -41,10 +41,10 @@ for file in ~/.zshrc_includes/*.sh; do
   [[ -r $file ]] && source $file;
 done
 
-source /opt/boxen/env.sh
-
 # http://superuser.com/a/221291
 setopt extended_glob
 
 # added by travis gem
 [ -f /Users/afeld/.travis/travis.sh ] && source /Users/afeld/.travis/travis.sh
+
+source $(brew --prefix nvm)/nvm.sh

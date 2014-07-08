@@ -21,13 +21,6 @@ function update {
 }
 
 
-# do inline replace for all files in given dir
-#
-#   $ rep . foo bar
-function rep {
-  perl -e "s/$2/$3/g;" -pi $(find $1 -type f)
-}
-
 # create a new project directory with the given name
 #
 #   $ mkproj foo

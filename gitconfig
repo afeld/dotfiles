@@ -1,5 +1,5 @@
 [user]
-	email = afeld@github.com
+	email = aidan.feldman@gmail.com
 	name = Aidan Feldman
 [core]
 	excludesfile = ~/.gitignore
@@ -27,11 +27,6 @@
 	feature = create-feature-branch
 [branch]
 	autosetupmerge = true
-[mergetool "custom"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge "$PWD/$BASE" "$PWD/$REMOTE" "$PWD/$LOCAL" "$PWD/$MERGED"
-	keepTemporaries = false
-	trustExitCode = false
-	keepBackup = false
 [push]
 	# only push the current branch
 	default = upstream
@@ -39,9 +34,5 @@
 	protocol = https
 [credential]
 	helper = osxkeychain
-
-[filter "media"]
-	clean = git-media-clean %f
-	smudge = git-media-smudge %f
 [url "https://github.com"]
 	insteadOf = git://github.com

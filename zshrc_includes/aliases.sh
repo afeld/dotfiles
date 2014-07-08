@@ -1,5 +1,6 @@
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
 alias dot="cd ~/dotfiles && atom ."
+alias git=hub
 alias ss="python -m SimpleHTTPServer"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303

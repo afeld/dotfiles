@@ -21,6 +21,7 @@ I use the following pieces of software in my dev setup.
 
 * [brew](http://mxcl.github.com/homebrew/)
 * [gifify](https://github.com/jclem/gifify)
+* [hub](https://hub.github.com)
 * [Node Version Manager (NVM)](https://github.com/creationix/nvm)
 * [Ruby Version Manager (RVM)](https://rvm.io)
 

@@ -1,3 +1,4 @@
+install hub
 install nvm
 
 # casks

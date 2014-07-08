@@ -31,6 +31,7 @@ I use the following pieces of software in my dev setup.
     - [Atom](http://atom.io)
     - [Dropbox](http://db.tt/y5bnAOst)
     - [iTerm 2](http://www.iterm2.com)
+        - Set "Load preferences from a custom folder or URL" to be `/Users/USER/dotfiles`
     - App Store
         - [1Password](https://itunes.apple.com/us/app/1password-password-manager/id443987910?mt=12)
         - [Caffeine](http://itunes.apple.com/us/app/caffeine/id411246225)

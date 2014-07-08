@@ -2,7 +2,7 @@
 	email = afeld@github.com
 	name = Aidan Feldman
 [core]
-	excludesfile = /opt/boxen/config/git/gitignore
+	excludesfile = ~/.gitignore
 	editor = vim
 	autocrlf = input
 	precomposeunicode = true
@@ -38,7 +38,7 @@
 [hub]
 	protocol = https
 [credential]
-	helper = /opt/boxen/bin/boxen-git-credential
+	helper = osxkeychain
 
 [filter "media"]
 	clean = git-media-clean %f

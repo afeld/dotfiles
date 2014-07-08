@@ -19,7 +19,7 @@ dir="`dirname "$script"`"
 find "$dir" -maxdepth 1 | while read file; do
 
   case "$file" in
-    "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.markdown"|*.swp|"$script")
+    "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.md"|"$dir/Brewfile"|"$dir/com.googlecode.iterm2.plist"|"$dir/zshrc_includes"|"$dir/itunes_app_updater.scpt"|*.swp|"$script")
       continue
       ;;
   esac

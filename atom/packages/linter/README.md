@@ -11,18 +11,24 @@ The idea is to stop the linter plugins war, by providing a top level API for lin
 - [linter-phpcs](https://atom.io/packages/linter-phpcs), for PHP, using `phpc`
 - [linter-phpmd](https://atom.io/packages/linter-phpmd), for PHP, using `phpmd`
 - [linter-pylint](https://atom.io/packages/linter-pylint), for Python, using `pylint`
+- [linter-pyflakes](https://atom.io/packages/linter-pyflakes), for python, using `pyflakes`.
+- [linter-pep8](https://atom.io/packages/linter-pep8), for python, using `pep8`.
+- [linter-flake8](https://atom.io/packages/linter-flake8), for python, using `flake8`.
 - [linter-javac](https://atom.io/packages/linter-javac), for Java, using `javac`
 - [linter-jshint](https://atom.io/packages/linter-jshint), for JavaScript and JSON, using `jshint`
 - [linter-jscs](https://atom.io/packages/linter-jscs), for JavaScript, using `jscs`
+- [linter-jsxhint](https://atom.io/packages/linter-jsxhint), for JSX (React.js), using `jsxhint`.
 - [linter-scss-lint](https://atom.io/packages/linter-scss-lint), for SASS/SCSS, using `scss-lint`
 - [linter-coffeelint](https://atom.io/packages/linter-coffeelint), for CoffeeScript, using `coffeelint`
 - [linter-csslint](https://atom.io/packages/linter-csslint), for CSS, using `csslint`
-- [linter-rubocop](https://atom.io/packages/linter-rubocop), for Ruby, using `rubocop`
+- [linter-rubocop](https://atom.io/packages/linter-rubocop), for Ruby and Ruby on Rails, using `rubocop`
 - [linter-tslint](https://atom.io/packages/linter-tslint), for Typescript, using `tslint`
 - [linter-xmllint](https://atom.io/packages/linter-xmllint), for XML, using `xmllint`
 - [linter-shellcheck](https://atom.io/packages/linter-shellcheck), for Bash, using `shellcheck`.
 - [linter-scalac](https://atom.io/packages/linter-scalac), for Scala, using `scalac`.
 - [linter-clang](https://atom.io/packages/linter-clang), for C / C++, using `clang`.
+- [linter-ruby](https://atom.io/packages/linter-ruby), for ruby, using `ruby -wc`.
+- [linter-lua](https://atom.io/packages/linter-lua), for Lua, using `luac -p`.
 
 ## Features
 
@@ -39,13 +45,13 @@ The idea is to stop the linter plugins war, by providing a top level API for lin
 
 * **Lint on save** [On / Off] - Lint the file when you save it
 * **Lint on change** [On / Off] - Lint the file as you type
-* **Show hightlighting** [On / Off] - Highlight the range of wrong code
+* **Show highlighting** [On / Off] - Highlight the range of wrong code
 * **Show gutters**: [On / Off] - Show dot in the gutter on line error
 * **Show messages around cursor** [On / Off] - Show error description in the status bar
 * **Show status bar when cursor is in error range** [On / Off] - Either show status bar when the cursor is on the error line, or show it when the cursor is focus the range of wrong code
 * **Lint on change interval** [in ms] - Interval between two lints while you are writing code
 
-## Commons errors
+## Common errors
 
 * `env: node: No such file or directory` – There's a problem with your node path – [check this](http://stackoverflow.com/a/20077620).
 
@@ -55,13 +61,8 @@ http://atomlinter.github.io/Linter/
 ## Coming soon
 
 - linter-pep257, for python, using `pep257`.
-- linter-ruby, for ruby, using `ruby -wc`.
 - linter-rst, for reStructuredText, using `docutils`.
-- linter-pyflakes, for python, using `pyflakes`.
 - linter-phplint, for PHP, using `phplint`.
-- linter-pep8, for python, using `pep8`.
-- linter-lua, for Lua, using `luac -p`.
-- linter-jsxhint, for JSX (React.js), using `jsxhint`.
 - linter-jsl, for JavaScript, using `jsl`.
 - linter-oclitnt, for C / C++ / Objective-C, using `OCLint`.
 

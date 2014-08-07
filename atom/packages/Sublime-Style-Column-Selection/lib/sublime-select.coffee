@@ -56,9 +56,10 @@ module.exports =
         e.preventDefault()
         return false
 
-    onMouseleave = =>
-      if mouseStart
-        editorView.mouseup()
+    onMouseleave = (e) =>
+      if altDown
+        e.preventDefault()
+        return false
 
     # I had to create my own version of editorView.screenPositionFromMouseEvent
     # The editorView one doesnt quite do what I need
@@ -74,18 +75,17 @@ module.exports =
       if mouseStart and mouseEnd
         allRanges = []
         rangesWithLength = []
-        selectedColumns = mouseEnd.column - mouseStart.column
 
         for row in [mouseStart.row..mouseEnd.row]
-          # Define a range for this row from the mouseStart coumn number to
-          # the mouseEnd column number + selected columns
-          range = [[row, mouseStart.column], [row, mouseStart.column + selectedColumns]]
+          # Define a range for this row from the mouseStart column number to
+          # the mouseEnd column number
+          range = editor.bufferRangeForScreenRange [[row, mouseStart.column], [row, mouseEnd.column]]
 
           allRanges.push range
           if editor.getTextInBufferRange(range).length > 0
             rangesWithLength.push range
 
-        # If there are rnages with text in them then only select those
+        # If there are ranges with text in them then only select those
         # Otherwise select all the 0 length ranges
         if rangesWithLength.length
           editor.setSelectedBufferRanges rangesWithLength

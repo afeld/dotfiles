@@ -1,5 +1,5 @@
 /**
- * Sinon.JS 1.10.2, 2014/06/02
+ * Sinon.JS 1.10.3, 2014/07/11
  *
  * @author Christian Johansen (christian@cjohansen.no)
  * @author Contributors: https://github.com/cjohansen/Sinon.JS/blob/master/AUTHORS
@@ -3100,6 +3100,10 @@ if (typeof sinon == "undefined") {
         },
 
         clearTimeout: function clearTimeout(timerId) {
+            if (!timerId) {
+                // null appears to be allowed in most browsers, and appears to be relied upon by some libraries, like Bootstrap carousel
+                return;
+            }
             if (!this.timeouts) {
                 this.timeouts = [];
             }
@@ -3494,7 +3498,7 @@ if (typeof sinon == "undefined") {
     xhr.supportsXHR = typeof xhr.GlobalXMLHttpRequest != "undefined";
     xhr.workingXHR = xhr.supportsXHR ? xhr.GlobalXMLHttpRequest : xhr.supportsActiveX
                                      ? function() { return new xhr.GlobalActiveXObject("MSXML2.XMLHTTP.3.0") } : false;
-    xhr.supportsCORS = 'withCredentials' in (new sinon.xhr.GlobalXMLHttpRequest());
+    xhr.supportsCORS = xhr.supportsXHR && 'withCredentials' in (new sinon.xhr.GlobalXMLHttpRequest());
 
     /*jsl:ignore*/
     var unsafeHeaders = {
@@ -4032,7 +4036,7 @@ if (typeof sinon == "undefined") {
 
     sinon.FakeXMLHttpRequest = FakeXMLHttpRequest;
 
-})(typeof global === "object" ? global : this);
+})((function(){ return typeof global === "object" ? global : this; })());
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = sinon;
@@ -4869,7 +4873,6 @@ if (typeof module !== "undefined" && module.exports && typeof require == "functi
 /**
  * Fake XDomainRequest object
  */
-"use strict";
 
 if (typeof sinon == "undefined") {
     this.sinon = {};

@@ -153,6 +153,11 @@ module.exports =
       command: "perl"
       args: (context) -> [context.filepath]
 
+  PowerShell:
+    "File Based":
+      command: "powershell"
+      args: (context) -> [context.filepath]
+
   Python:
     "Selection Based":
       command: "python"
@@ -208,3 +213,8 @@ module.exports =
     "File Based":
       command: "guile"
       args: (context) -> [context.filepath]
+
+  Swift:
+    "File Based":
+      command: "xcrun"
+      args: (context) -> ['swift', '-i', context.filepath]

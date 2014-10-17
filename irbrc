@@ -63,9 +63,9 @@ rescue LoadError
   puts "WARN: couldn't load pry. `gem install pry`"
 else
   begin
-    require 'pry-debugger'
+    require 'pry-byebug'
   rescue LoadError
-    puts "WARN: couldn't load pry-debugger. `gem install pry-debugger`"
+    puts "WARN: couldn't load pry-byebug. `gem install pry-byebug`"
   end
   Pry.start
   exit

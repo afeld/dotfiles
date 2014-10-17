@@ -1,6 +1,8 @@
+install ack
 install hub
 install nvm
 
 # casks
-#install caskroom/cask/brew-cask
-#tap install iterm2
+install caskroom/cask/brew-cask
+cask install iterm2
+cask install virtualbox

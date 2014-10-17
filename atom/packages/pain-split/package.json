@@ -1,0 +1,27 @@
+{
+  "name": "pain-split",
+  "main": "./lib/pain-split",
+  "version": "1.1.2",
+  "description": "Adds additional pane-splitting commands.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vidius/atom-pain-split"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# Pain Split\n\nAtom's `pane:split-*` commands suck if you want to do anything else but re-open\nthe current document in your shiny new pane. Pain Split is here to help.\n\nDefault key bindings go something like this. Sorry for polluting the `pane:*`\nnamespace.\n\n    '.platform-darwin':\n      # Open an empty pane and bring it to focus to do as you will.\n      # If there had to be only one way to split panes, this should have\n      # been it.\n      'cmd-k left':  'pane:split-left-creating-empty-pane'\n      'cmd-k right': 'pane:split-right-creating-empty-pane'\n      'cmd-k up':    'pane:split-up-creating-empty-pane'\n      'cmd-k down':  'pane:split-down-creating-empty-pane'\n      \n      # Open a new pane and move the current editor tab to it.\n      'cmd-k m left':  'pane:split-left-moving-current-tab'\n      'cmd-k m right': 'pane:split-right-moving-current-tab'\n      'cmd-k m up':    'pane:split-up-moving-current-tab'\n      'cmd-k m down':  'pane:split-down-moving-current-tab'\n      \n      # Atom's default behavior. \"D\" for duplicate the current tab.\n      # It's still there if you want it, I guess.\n      'cmd-k d left':  'pane:split-left'\n      'cmd-k d right': 'pane:split-right'\n      'cmd-k d up':    'pane:split-up'\n      'cmd-k d down':  'pane:split-down'\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/vidius/atom-pain-split/issues"
+  },
+  "homepage": "https://github.com/vidius/atom-pain-split",
+  "_id": "pain-split@1.1.2",
+  "dist": {
+    "shasum": "6caf3897f27311a574d5539e1152b481f5809c71"
+  },
+  "_resolved": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66087-c0ugtk/package.tgz",
+  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66087-c0ugtk/package.tgz"
+}

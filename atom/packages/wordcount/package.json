@@ -1,13 +1,19 @@
 {
   "name": "wordcount",
   "main": "./lib/wordcount",
-  "version": "0.12.0",
+  "version": "0.13.1",
   "private": true,
-  "description": "Counts the words in your current document",
+  "description": "Counts the words (and characters) in your current document, as well as in your selection and displays it in the status bar.",
   "keywords": [
     "word count",
     "word",
-    "count"
+    "count",
+    "character count",
+    "char",
+    "character",
+    "status",
+    "bar",
+    "highlight"
   ],
   "repository": {
     "type": "git",
@@ -24,10 +30,10 @@
     "url": "https://github.com/nesQuick/atom-wordcount/issues"
   },
   "homepage": "https://github.com/nesQuick/atom-wordcount",
-  "_id": "wordcount@0.12.0",
+  "_id": "wordcount@0.13.1",
   "dist": {
-    "shasum": "5325acc2c7775e007a8e750fe8e18cf7a72b7a49"
+    "shasum": "68dbd4f31d035a0d4ebdfdaa4bdf63859b306749"
   },
-  "_resolved": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114517-72301-at9pkr/package.tgz",
-  "_from": "/var/folders/pz/83nw2rks7d3d21gmnwzz10rr0000gn/T/d-114517-72301-at9pkr/package.tgz"
+  "_resolved": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-114816-49503-121v59o/package.tgz",
+  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-114816-49503-121v59o/package.tgz"
 }

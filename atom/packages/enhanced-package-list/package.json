@@ -1,0 +1,27 @@
+{
+  "name": "enhanced-package-list",
+  "main": "./lib/enhanced-package-list",
+  "version": "0.6.2",
+  "description": "Adds icons, highlights and a package source filter (All/Core/User/Author) to your settings view.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/postcasio/enhanced-package-list"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# Enhanced Package List\n\nAdds icons, highlights and a package source filter (All/Core/User/Author) to your settings view.\n\n* Core: Packages bundled with Atom\n* User: Packages you have installed\n* Author: Packages you have authored\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/postcasio/enhanced-package-list/issues"
+  },
+  "homepage": "https://github.com/postcasio/enhanced-package-list",
+  "_id": "enhanced-package-list@0.6.2",
+  "dist": {
+    "shasum": "a8e0ae02d0887a15675d47d2e8046037a7b703fc"
+  },
+  "_resolved": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66082-1yqg1xo/package.tgz",
+  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66082-1yqg1xo/package.tgz"
+}

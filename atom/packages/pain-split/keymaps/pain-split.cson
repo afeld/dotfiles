@@ -1,0 +1,58 @@
+# Keybindings require three things to be fully defined: A selector that is
+# matched against the focused element, the keystroke and the command to
+# execute.
+#
+# Below is a basic keybinding which registers on all platforms by applying to
+# the root workspace element.
+
+# For more detailed documentation see
+# https://atom.io/docs/latest/advanced/keymaps
+
+'.platform-linux, .platform-win32':
+  # Open an empty pane and bring it to focus to do as you will.
+  # If there had to be only one way to split panes, this should have
+  # been it.
+  'ctrl-k left':  'pane:split-left-creating-empty-pane'
+  'ctrl-k right': 'pane:split-right-creating-empty-pane'
+  'ctrl-k up':    'pane:split-up-creating-empty-pane'
+  'ctrl-k down':  'pane:split-down-creating-empty-pane'
+
+  # Open a new pane and move the current editor tab to it.
+  'ctrl-k m left':  'pane:split-left-moving-current-tab'
+  'ctrl-k m right': 'pane:split-right-moving-current-tab'
+  'ctrl-k m up':    'pane:split-up-moving-current-tab'
+  'ctrl-k m down':  'pane:split-down-moving-current-tab'
+
+  # Open a new file in a pane.
+  'ctrl-k n left':  'pane:split-left-creating-new-file'
+  'ctrl-k n right': 'pane:split-right-creating-new-file'
+  'ctrl-k n up':    'pane:split-up-creating-new-file'
+  'ctrl-k n down':  'pane:split-down-creating-new-file'
+
+  # Atom's default behavior. "D" for duplicate the current tab.
+  # It's still there if you want it, I guess.
+  'ctrl-k d left':  'pane:split-left'
+  'ctrl-k d right': 'pane:split-right'
+  'ctrl-k d up':    'pane:split-up'
+  'ctrl-k d down':  'pane:split-down'
+
+'.platform-darwin':
+  'cmd-k left':  'pane:split-left-creating-empty-pane'
+  'cmd-k right': 'pane:split-right-creating-empty-pane'
+  'cmd-k up':    'pane:split-up-creating-empty-pane'
+  'cmd-k down':  'pane:split-down-creating-empty-pane'
+
+  'cmd-k m left':  'pane:split-left-moving-current-tab'
+  'cmd-k m right': 'pane:split-right-moving-current-tab'
+  'cmd-k m up':    'pane:split-up-moving-current-tab'
+  'cmd-k m down':  'pane:split-down-moving-current-tab'
+
+  'cmd-k n left':  'pane:split-left-creating-new-file'
+  'cmd-k n right': 'pane:split-right-creating-new-file'
+  'cmd-k n up':    'pane:split-up-creating-new-file'
+  'cmd-k n down':  'pane:split-down-creating-new-file'
+
+  'cmd-k d left':  'pane:split-left'
+  'cmd-k d right': 'pane:split-right'
+  'cmd-k d up':    'pane:split-up'
+  'cmd-k d down':  'pane:split-down'

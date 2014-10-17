@@ -1,25 +1,31 @@
-'exception-reporting':
-  'userId': '6ade4c18-1386-9952-37d5-6ba13e9409f5'
-'release-notes':
-  'viewedVersion': '0.95.0'
-'welcome':
-  'showOnStartup': false
-'metrics':
-  'userId': 'd7e3485a7b97b0a61edfca6f8e3052bcb8a07ee5'
-'editor':
-  'softWrap': true
-  'fontSize': 17
-'core':
-  'themes': [
-    'atom-dark-ui'
-    'monokai'
-  ]
-  'disabledPackages': [
-    'autocomplete-plus'
-    'trailing-spaces'
-    'feedback'
-    'Sublime-Style-Column-Selection'
-    'autosave'
-    'linter'
-  ]
-'tree-view': {}
+'global':
+  'exception-reporting':
+    'userId': '6ade4c18-1386-9952-37d5-6ba13e9409f5'
+  'release-notes':
+    'viewedVersion': '0.95.0'
+  'welcome':
+    'showOnStartup': false
+  'metrics':
+    'userId': 'd7e3485a7b97b0a61edfca6f8e3052bcb8a07ee5'
+  'editor':
+    'softWrap': true
+    'showIndentGuide': true
+    'softWrapped': true
+    'invisibles': {}
+  'core':
+    'themes': [
+      'atom-dark-ui'
+      'monokai'
+    ]
+    'disabledPackages': [
+      'trailing-spaces'
+      'feedback'
+      'autosave'
+      'linter'
+      'autocomplete-plus'
+      'color-picker'
+      'Sublime-Style-Column-Selection'
+      'deprecation-cop'
+    ]
+  'enhanced-package-list':
+    'sourceFilter': 'user'

@@ -6,6 +6,7 @@
 	editor = vim
 	autocrlf = input
 	precomposeunicode = true
+	ignorecase = false
 [color]
 	ui = true
 [merge]

@@ -23,5 +23,10 @@
     "shasum": "3948649b341ffa99edaa403a4daa3bbd223ee6a3"
   },
   "_resolved": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66069-hylpfd/package.tgz",
-  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66069-hylpfd/package.tgz"
+  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66069-hylpfd/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "folders": []
+  }
 }

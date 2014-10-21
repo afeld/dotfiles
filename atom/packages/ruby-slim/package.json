@@ -23,5 +23,10 @@
     "shasum": "504a0ade43ebc409c4fe50a396fb3b47ad8886b7"
   },
   "_resolved": "/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-114717-45445-6oe0y0/package.tgz",
-  "_from": "/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-114717-45445-6oe0y0/package.tgz"
+  "_from": "/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-114717-45445-6oe0y0/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "folders": []
+  }
 }

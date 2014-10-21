@@ -1,7 +1,7 @@
 {
   "name": "git-plus",
   "main": "./lib/git-plus",
-  "version": "4.1.0",
+  "version": "4.1.2",
   "description": "Do git things without the terminal",
   "activationEvents": [
     "git-plus:menu",
@@ -51,7 +51,6 @@
     "fs-plus": "^2.2.0",
     "fuzzaldrin": "^1.2.0",
     "underscore-plus": "1.x",
-    "theorist": "~1.0.1",
     "emissary": "~1.2.1"
   },
   "readme": "# git-plus package\n\n# ATTENTION!\n  Development on this package is done. I no longer use atom and don't have time to maintain this project. If anyone is willing\n  to pick it up or make pull requests, I'm fine with that but I won't be developing new features any longer.\n\n[![endorse](https://api.coderwall.com/akonwi/endorsecount.png)](https://coderwall.com/akonwi)\n\nvim-fugitive like package for atom. make commits and other git things without the terminal\n\n![A screenshot of your spankin' package](https://raw.githubusercontent.com/akonwi/git-plus/master/commit.gif)\n\n## Usage\n\n### Git-Plus Palette\n>- `Cmd-Shift-H` on MacOS\n>- `Ctrl-Shift-H` on Windows + Linux\n>- `Git Plus: Menu` on the atom command palette.\n\n### Commands\n1. `Git add [all]`\n\n  Git add will add the current file and 'add all' will add all changed files\n  Default key binding: `Cmd-Shift-A`\n\n2. `Git commit`\n\n  Will pull up a commit message file. The commit will be made when the file is saved NOT when the pane is closed. You can just cancel by closing the tab.\n  Default key binding: `Cmd-Shift-C`(*`Ctrl-Shift-X`* on Windows + Linux)\n\n3. `Git commit amend`\n\n  Will amend the changes to previous commit.\n\n4. `Git checkout current file`\n\n  Undo changes and checkout current file.\n\n5. `Git [checkout]`\n\n  Change branches\n\n6. `Git Diff [All]`\n\n  Shows diff for current file or All the files. Diff can either be with staged or unstaged as selected in options.\n\n7. `Git new branch`\n\n  Create a new branch\n\n8. `Git [push|pull]`\n\n  When Pushing, if you have multiple remote repos, you can choose which to push to.\n9. `Git Add and Commit`\n\n  Add the current file and pull up the commit message file. Similar to `Git add` and `Git commit` in succession.\n  Default key binding: `Cmd-Shift-A c`\n\n10. `Git Add All and Commit`\n\n  Add all changed files and pull up the commit message file. Similar to `Git add all` and `Git commit` in succession.\n  Default key binding: `Cmd-Shift-A a`\n\n11. `Git rm [current file]`\n\n  Git rm the current file or open an selector to select the files to remove. You can select multiple files at once.\n\n12. `Git Log [Current File]`\n\n  Show the commit history [for the current file] and show display the selected commit.\n\n13. `Git Show`\n\n  Show the specified object, for example `HEAD`, `HEAD~2`, `3925a0d`, `origin/master` or `v2.7.3`.\n\n## Contributing\n\n1. Fork it\n2. Create your feature branch (`git checkout -b my-new-feature`)\n3. Commit your changes (`git commit -am 'Add some feature'`)\n4. Push to the branch (`git push origin my-new-feature`)\n5. Create new Pull Request\n",
@@ -60,10 +59,132 @@
     "url": "https://github.com/akonwi/git-plus/issues"
   },
   "homepage": "https://github.com/akonwi/git-plus",
-  "_id": "git-plus@4.1.0",
+  "_id": "git-plus@4.1.2",
   "dist": {
-    "shasum": "28eebf7272f19609171596f1a70d30e4abddea9d"
+    "shasum": "818629a994c19c0a99fefaa2d4c787bc8e06236b"
   },
-  "_resolved": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-114915-43529-w9jkyf/package.tgz",
-  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-114915-43529-w9jkyf/package.tgz"
+  "_resolved": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114920-3700-avn3pr/package.tgz",
+  "_from": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114920-3700-avn3pr/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "emissary",
+        "version": "1.2.2",
+        "path": "node_modules/emissary/lib/emissary.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/emissary/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "mixto",
+        "version": "1.0.0",
+        "path": "node_modules/emissary/node_modules/mixto/lib/mixin.js"
+      },
+      {
+        "name": "property-accessors",
+        "version": "1.1.0",
+        "path": "node_modules/emissary/node_modules/property-accessors/lib/property-accessors.js"
+      },
+      {
+        "name": "harmony-collections",
+        "version": "0.3.7",
+        "path": "node_modules/emissary/node_modules/property-accessors/node_modules/harmony-collections/harmony-collections.js"
+      },
+      {
+        "name": "fs-plus",
+        "version": "2.3.1",
+        "path": "node_modules/fs-plus/lib/fs-plus.js"
+      },
+      {
+        "name": "async",
+        "version": "0.2.10",
+        "path": "node_modules/fs-plus/node_modules/async/lib/async.js"
+      },
+      {
+        "name": "mkdirp",
+        "version": "0.3.5",
+        "path": "node_modules/fs-plus/node_modules/mkdirp/index.js"
+      },
+      {
+        "name": "rimraf",
+        "version": "2.2.8",
+        "path": "node_modules/fs-plus/node_modules/rimraf/rimraf.js"
+      },
+      {
+        "name": "fuzzaldrin",
+        "version": "1.2.0",
+        "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.0",
+        "path": "node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      }
+    ],
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          "lib/models",
+          "lib/views",
+          ""
+        ],
+        "dependencies": {
+          "fs-plus": "^2.2.0",
+          "fuzzaldrin": "^1.2.0",
+          "underscore-plus": "1.x",
+          "emissary": "~1.2.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/emissary/lib",
+          "node_modules/emissary"
+        ],
+        "dependencies": {
+          "underscore-plus": "1.x",
+          "mixto": "1.x",
+          "property-accessors": "^1.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/emissary/node_modules/property-accessors/lib",
+          "node_modules/emissary/node_modules/property-accessors"
+        ],
+        "dependencies": {
+          "mixto": "1.x"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/fs-plus/lib",
+          "node_modules/fs-plus"
+        ],
+        "dependencies": {
+          "underscore-plus": "1.x",
+          "mkdirp": "~0.3.5",
+          "rimraf": "~2.2.2",
+          "async": "~0.2.9"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/underscore-plus/lib",
+          "node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      }
+    ]
+  }
 }

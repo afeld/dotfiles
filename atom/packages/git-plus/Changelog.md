@@ -1,5 +1,14 @@
 ## Changelog
 
+### 4.1.2
+
+- Using new atom api for configs and subscribing to make it easier for moving forward and maintenance
+
+### 4.1.1
+
+- Fix issue of commit tab not opening
+- Still need to remove dependency on Theorist
+
 ### 4.1.0
 
 - Return of git-plus command palette

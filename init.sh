@@ -35,7 +35,7 @@ if ! command_exists brew; then
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   echo "...brew installed"
 fi
-brew bundle
+# brew bundle
 
 # RVM
 if ! command_exists rvm; then

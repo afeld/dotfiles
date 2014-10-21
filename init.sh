@@ -11,6 +11,15 @@ command_exists () {
   type "$1" &> /dev/null ;
 }
 
+brew_install () {
+  # http://stackoverflow.com/a/20802425/358804
+  if [ -z "brew ls --versions $1" ]; then
+    echo "$1 doesn't exist"
+    exit
+    brew install $1
+  fi
+}
+
 
 script="`python -c 'import os,sys;print os.path.realpath(sys.argv[1])' "$0"`" #"`readlink -f "$0"`"
 dir="`dirname "$script"`"
@@ -30,12 +39,16 @@ find "$dir" -maxdepth 1 | while read file; do
 done
 
 # homebrew
-if ! command_exists brew; then
+if command_exists brew; then
+  brew update
+else
   echo "Installing brew..."
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   echo "...brew installed"
 fi
+
 # brew bundle
+brew_install nvm
 
 # RVM
 if ! command_exists rvm; then

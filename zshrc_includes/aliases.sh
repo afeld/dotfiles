@@ -5,6 +5,7 @@ alias ss="python -m SimpleHTTPServer"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'
+export NVM_DIR=~/.nvm
 
 
 function update {

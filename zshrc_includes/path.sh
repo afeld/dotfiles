@@ -1,3 +1,5 @@
+source $(brew --prefix nvm)/nvm.sh
+
 export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/dotfiles/bin:$PATH
 export PATH=./node_modules/.bin:$PATH # add NodeJS modules from working directory

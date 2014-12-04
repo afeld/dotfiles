@@ -10,6 +10,9 @@ export NVM_DIR=~/.nvm
 
 function update {
   brew update
+  brew upgrade brew-cask
+  brew cleanup
+  brew cask cleanup
 
   gem update --system
   gem update bundler

@@ -15,7 +15,6 @@ brew_install () {
   # http://stackoverflow.com/a/20802425/358804
   if [ -z "brew ls --versions $1" ]; then
     echo "$1 doesn't exist"
-    exit
     brew install $1
   fi
 }
@@ -49,6 +48,7 @@ fi
 
 brew_install hub
 brew_install nvm
+brew install caskroom/cask/brew-cask
 
 # RVM
 if ! command_exists rvm; then

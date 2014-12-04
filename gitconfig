@@ -22,7 +22,7 @@
 	lbclean = clean-local-branches
 	lg = pretty-log
 	mw = merge-no-whitespace
-	um = checkout-upstream-master
+	um = checkout-upstream-primary
 	co = checkout
 	pr = create-pull-request
 	feature = create-feature-branch

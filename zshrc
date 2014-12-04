@@ -44,7 +44,7 @@ done
 # http://superuser.com/a/221291
 setopt extended_glob
 
-# added by travis gem
-[ -f /Users/afeld/.travis/travis.sh ] && source /Users/afeld/.travis/travis.sh
-
 source $(brew --prefix nvm)/nvm.sh
+
+# added by travis gem
+[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh

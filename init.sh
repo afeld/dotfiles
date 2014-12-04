@@ -47,7 +47,6 @@ else
   echo "...brew installed"
 fi
 
-# brew bundle
 brew_install hub
 brew_install nvm
 

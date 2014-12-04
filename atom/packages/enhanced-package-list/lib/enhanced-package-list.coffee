@@ -1,3 +1,7 @@
+{$, $$} = require 'atom'
+_ = require 'underscore-plus'
+fuzzaldrin = require 'fuzzaldrin'
+
 module.exports =
 	settingsView: null
 	itemChangedSubscription: null
@@ -65,10 +69,6 @@ module.exports =
 
 	settingsViewActive: (@settingsView) ->
 		unless @settingsView.hasClass('enhanced-package-list')
-			{$, $$} = require('atom')
-			path = require 'path'
-			_ = require path.join atom.packages.resourcePath, 'node_modules', 'underscore-plus'
-			fuzzaldrin = require path.join atom.packages.resourcePath, 'node_modules', 'fuzzaldrin'
 			enhancedPackage = this
 
 			filter = @filter = $$ ->

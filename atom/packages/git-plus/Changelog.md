@@ -1,5 +1,22 @@
 ## Changelog
 
+### 4.2.3
+
+- Temporary fix for `Git Pull` issue on yosemite mac's thanks to @Azakur4.
+
+### 4.2.2
+
+- Remove hyphenated package name in menu
+
+### 4.2.1
+
+- Small fix in git-commit.coffee line 90 where promise returns a TextBuffer. Using given TextBuffer for subscriptions
+rather than the 'buffer' property in the TextBuffer.
+
+### 4.2.0
+
+- New Git merge feature thanks to @herlon214
+
 ### 4.1.2
 
 - Using new atom api for configs and subscribing to make it easier for moving forward and maintenance

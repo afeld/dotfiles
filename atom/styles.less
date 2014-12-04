@@ -14,11 +14,6 @@
 
   .cursor {}
 
-  &,
-  & .gutter {
-    background-color: #0F0F0F;
-  }
-
   .wrap-guide {
     visibility: hidden;
   }
@@ -43,6 +38,13 @@
         color: #F8F8F2;
       }
     }
+  }
+}
+
+atom-workspace {
+  .editor .gutter,
+  .editor-colors {
+    background-color: #0F0F0F;
   }
 }
 

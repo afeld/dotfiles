@@ -1,7 +1,7 @@
 {
   "name": "enhanced-package-list",
   "main": "./lib/enhanced-package-list",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Adds icons, highlights and a package source filter (All/Core/User/Author) to your settings view.",
   "repository": {
     "type": "git",
@@ -9,24 +9,83 @@
   },
   "license": "MIT",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": ">=0.139.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "fuzzaldrin": "^2.1.0",
+    "underscore-plus": "^1.6.1"
+  },
   "readme": "# Enhanced Package List\n\nAdds icons, highlights and a package source filter (All/Core/User/Author) to your settings view.\n\n* Core: Packages bundled with Atom\n* User: Packages you have installed\n* Author: Packages you have authored\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/postcasio/enhanced-package-list/issues"
   },
   "homepage": "https://github.com/postcasio/enhanced-package-list",
-  "_id": "enhanced-package-list@0.6.2",
+  "_id": "enhanced-package-list@0.6.3",
   "dist": {
-    "shasum": "a8e0ae02d0887a15675d47d2e8046037a7b703fc"
+    "shasum": "8c251abf54a914ea717c454c8689ccce41ed4010"
   },
-  "_resolved": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66082-1yqg1xo/package.tgz",
-  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-11494-66082-1yqg1xo/package.tgz",
+  "_resolved": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114928-5169-1pritul/package.tgz",
+  "_from": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114928-5169-1pritul/package.tgz",
   "_atomModuleCache": {
     "version": 1,
-    "dependencies": [],
-    "folders": []
+    "dependencies": [
+      {
+        "name": "fuzzaldrin",
+        "version": "2.1.0",
+        "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
+      },
+      {
+        "name": "underscore-plus",
+        "version": "1.6.1",
+        "path": "node_modules/underscore-plus/lib/underscore-plus.js"
+      },
+      {
+        "name": "underscore",
+        "version": "1.6.0",
+        "path": "node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      }
+    ],
+    "extensions": {
+      ".coffee": [
+        "lib/enhanced-package-list.coffee"
+      ],
+      ".js": [
+        "node_modules/fuzzaldrin/lib/filter.js",
+        "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
+        "node_modules/fuzzaldrin/lib/matcher.js",
+        "node_modules/fuzzaldrin/lib/scorer.js",
+        "node_modules/underscore-plus/lib/underscore-plus.js",
+        "node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
+        "node_modules/underscore-plus/node_modules/underscore/underscore.js"
+      ],
+      ".json": [
+        "node_modules/fuzzaldrin/package.json",
+        "node_modules/underscore-plus/node_modules/underscore/package.json",
+        "node_modules/underscore-plus/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "lib",
+          ""
+        ],
+        "dependencies": {
+          "fuzzaldrin": "^2.1.0",
+          "underscore-plus": "^1.6.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/underscore-plus/lib",
+          "node_modules/underscore-plus"
+        ],
+        "dependencies": {
+          "underscore": "~1.6.0"
+        }
+      }
+    ]
   }
 }

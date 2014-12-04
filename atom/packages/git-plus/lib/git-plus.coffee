@@ -16,7 +16,7 @@ module.exports =
       title: 'Split pane direction'
       type: 'string'
       default: 'right'
-      description: 'Where should new panes go?'
+      description: 'Where should new panes go?(right or left)'
     wordDiff:
       type: 'boolean'
       default: true
@@ -62,6 +62,7 @@ module.exports =
     GitTags                = require './models/git-tags'
     GitUnstageFiles        = require './models/git-unstage-files'
     GitRun                 = require './models/git-run'
+    GitMerge               = require './models/git-merge'
 
     atom.workspaceView.command 'git-plus:menu', -> new GitPaletteView()
     atom.workspaceView.command 'git-plus:add', -> GitAdd()
@@ -97,3 +98,4 @@ module.exports =
     atom.workspaceView.command 'git-plus:unstage-files', -> GitUnstageFiles()
     atom.workspaceView.command 'git-plus:init', -> GitInit()
     atom.workspaceView.command 'git-plus:run', -> GitRun()
+    atom.workspaceView.command 'git-plus:merge', -> GitMerge()

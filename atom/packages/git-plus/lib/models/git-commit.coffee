@@ -7,6 +7,8 @@ StatusView = require '../views/status-view'
 
 module.exports =
 class GitCommit
+  subscriptions: []
+
   # Public: Helper method to set the commentchar to be used in
   #   the commit message
   setCommentChar: (char) ->
@@ -83,11 +85,10 @@ class GitCommit
   showFile: ->
     split = if atom.config.get('git-plus.openInPane') then atom.config.get('git-plus.splitPane')
     atom.workspace
-      .open(@filePath(), split: split, activatePane: true, searchAllPanes: true)
-      .done ({buffer}) =>
-        @subscriptions = []
-        @subscriptions.push buffer.onDidSave => @commit()
-        @subscriptions.push buffer.onDidDestroy =>
+      .open(@filePath(), split: split, searchAllPanes: true)
+      .done (textBuffer) =>
+        @subscriptions.push textBuffer.onDidSave => @commit()
+        @subscriptions.push textBuffer.onDidDestroy =>
           if @isAmending then @undoAmend() else @cleanup()
 
   # Public: When the user is done editing the commit message an saves the file

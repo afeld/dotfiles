@@ -1,0 +1,36 @@
+{
+  "name": "language-gherkin",
+  "version": "0.3.0",
+  "description": "Gherkin language support in Atom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gigapixel/atom-language-gherkin"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.50.0"
+  },
+  "dependencies": {},
+  "readme": "Gherkin language support in Atom\n================================\n\nProvide syntax highlight for gherkin language files (.feature) in Atom.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/gigapixel/atom-language-gherkin/issues"
+  },
+  "homepage": "https://github.com/gigapixel/atom-language-gherkin",
+  "_id": "language-gherkin@0.3.0",
+  "dist": {
+    "shasum": "02c6d57b345b9e4544a3240f905308390eaf10de"
+  },
+  "_resolved": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114931-52137-1jmogxf/package.tgz",
+  "_from": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114931-52137-1jmogxf/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}

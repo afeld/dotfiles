@@ -41,7 +41,7 @@
         'name': 'punctuation.definition.tag.haml'
       '3':
         'name': 'entity.name.tag.haml'
-    'end': '$|(?!\\.|#|\\{|\\[|=|-|~|/)'
+    'end': '$|(?!\\.|#|\\{|\\[|\\(|=|-|~|/)'
     'patterns': [
       {
         'match': '\\.[\\w-]+'
@@ -52,8 +52,8 @@
         'name': 'entity.name.tag.id.haml'
       }
       {
-        'begin': '\\{(?=.*\\}|.*\\|\\s*$)'
-        'end': '\\}|$|^(?!.*\\|\\s*$)'
+        'begin': '\\{(?=.*\\}|.*(\\||,)\\s*$)'
+        'end': '\\}'
         'name': 'meta.section.attributes.haml'
         'patterns': [
           {
@@ -61,6 +61,19 @@
           }
           {
             'include': '#continuation'
+          }
+        ]
+      }
+      {
+        'begin': '\\(|\\((?=.*\\)|.*\\|\\s*$)'
+        'end': '\\)'
+        'name': 'meta.section.attribute.haml'
+        'patterns': [
+          {
+            'include': '#tag-stuff'
+          }
+          {
+            'include': 'source.ruby.rails'
           }
         ]
       }
@@ -167,7 +180,7 @@
     ]
   }
   {
-    "begin": "#\{",
+    "begin": "^(?!-#).*?#\{",
     "captures": {
       "0": {
         "name": "punctuation.section.embedded.ruby"
@@ -187,7 +200,7 @@
     'captures':
       '1':
         'name': 'punctuation.separator.continuation.haml'
-    'match': '(\\|)\\s*\\n'
+    'match': '(\\||,)\\s*\\n'
   'rubyline':
     'begin': '=|-|~'
     'contentName': 'source.ruby.embedded.haml'
@@ -209,6 +222,15 @@
       }
       {
         'include': '#continuation'
+      }
+    ]
+  'tag-generic-attribute':
+    'match': '\\b([a-zA-Z\\-:]+)'
+    'name': 'entity.other.attribute-name.haml'
+  'tag-stuff':
+    'patterns': [
+      {
+        'include': '#tag-generic-attribute'
       }
     ]
 'scopeName': 'text.haml'

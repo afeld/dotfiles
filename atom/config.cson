@@ -11,6 +11,7 @@
     'softWrap': true
     'showIndentGuide': true
     'softWrapped': true
+    'invisibles': {}
   'core':
     'themes': [
       'atom-dark-ui'

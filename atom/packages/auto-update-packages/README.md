@@ -1,4 +1,4 @@
-[![Build Status](http://img.shields.io/travis/yujinakayama/atom-auto-update-packages/master.svg)](https://travis-ci.org/yujinakayama/atom-auto-update-packages)
+[![Build Status](https://travis-ci.org/yujinakayama/atom-auto-update-packages.svg?branch=master)](https://travis-ci.org/yujinakayama/atom-auto-update-packages)
 
 # Auto-Update-Packages for Atom
 
@@ -16,7 +16,7 @@ $ apm install auto-update-packages
 
 Just sit tight. :)
 
-`auto-update-packages` automatically checks for package updates every 6 hours by default.
+auto-update-packages automatically checks for package updates every 6 hours by default.
 If any updates are available, it installs them and notifies you via OS X Notification Center.
 
 Note that after the update you need to **Reload** (⌃⌥⌘L)
@@ -27,7 +27,7 @@ run **Packages** menu > **Auto Update Packages** > **Update Now**.
 
 ## Configuration
 
-You can configure `auto-update-packages`
+You can configure auto-update-packages
 either
 in the Settings view (**Preferences...** in **Atom** menu)
 or
@@ -42,7 +42,7 @@ in `~/.atom/config.cson` (**Open Your Config** in **Atom** menu):
 Specify an auto-update interval.
 If you specify a value less than 15, it will be handled as 15 internally.
 
-Note that `auto-update-packages` does not adhere the value strictly.
+Note that auto-update-packages does not adhere the value strictly.
 It has some margin around 5%.
 
 ## License

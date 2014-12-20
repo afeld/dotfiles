@@ -1,7 +1,7 @@
 {
   "name": "git-plus",
   "main": "./lib/git-plus",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "description": "Do git things without the terminal",
   "activationEvents": [
     "git-plus:menu",
@@ -60,12 +60,12 @@
     "url": "https://github.com/akonwi/git-plus/issues"
   },
   "homepage": "https://github.com/akonwi/git-plus",
-  "_id": "git-plus@4.2.3",
+  "_id": "git-plus@4.2.4",
   "dist": {
-    "shasum": "18ec028d142a8f33f982fb209b0e572021fbb0c3"
+    "shasum": "253d83558716a12251019158cfabd4ebf47c1ff4"
   },
-  "_resolved": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-1141016-65997-h5cq5e/package.tgz",
-  "_from": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-1141016-65997-h5cq5e/package.tgz",
+  "_resolved": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-1141118-36853-1bw7sqc/package.tgz",
+  "_from": "/private/var/folders/xn/l3zwsfsj4m15v3gd3whnwvtr0000gn/T/d-1141118-36853-1bw7sqc/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -96,7 +96,7 @@
       },
       {
         "name": "fs-plus",
-        "version": "2.3.1",
+        "version": "2.4.0",
         "path": "node_modules/fs-plus/lib/fs-plus.js"
       },
       {
@@ -121,7 +121,7 @@
       },
       {
         "name": "underscore-plus",
-        "version": "1.6.1",
+        "version": "1.6.6",
         "path": "node_modules/underscore-plus/lib/underscore-plus.js"
       },
       {

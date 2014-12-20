@@ -8,23 +8,6 @@ alias diff='diff -W $(( $(tput cols) - 2 ))'
 export NVM_DIR=~/.nvm
 
 
-function update {
-  brew update
-  brew upgrade brew-cask
-  brew cleanup
-  brew cask cleanup
-
-  gem update --system
-  gem update bundler
-
-  npm update -g
-
-  cd ~/.atom
-  apm upgrade -c false
-  cd -
-}
-
-
 # create a new project directory with the given name
 #
 #   $ mkproj foo

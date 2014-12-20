@@ -1,0 +1,15 @@
+#!/bin/bash
+
+brew update
+brew upgrade brew-cask
+brew cleanup
+brew cask cleanup
+
+gem update --system
+gem update bundler
+
+npm update -g
+
+cd ~/.atom
+apm upgrade -c false
+cd -

@@ -8,22 +8,6 @@ alias diff='diff -W $(( $(tput cols) - 2 ))'
 export NVM_DIR=~/.nvm
 
 
-# create a new project directory with the given name
-#
-#   $ mkproj foo
-function mkproj {
-  if [ "$1" == "" ]; then
-    echo -e "ERROR: please provide a project name.\n\n\t\$ mkproj foo"
-  else
-    cd ~/dev
-    mkdir $1
-    cd $1
-    git init
-    atom .
-  fi
-}
-
-
 ## Git stuff ##
 
 alias rbp="git pull --rebase && git push"

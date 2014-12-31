@@ -1,5 +1,17 @@
 ## Changelog
 
+### 4.3.0
+
+- Confirm on `Git Remove`
+
+### 4.2.6
+
+- Handle case of no available panes after saving commit message
+
+### 4.2.5
+
+- Handle case of no available panes after closing commit message pane
+
 ### 4.2.4
 
 - Minor patch

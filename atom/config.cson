@@ -1,4 +1,4 @@
-'global':
+'*':
   'exception-reporting':
     'userId': '6ade4c18-1386-9952-37d5-6ba13e9409f5'
   'release-notes':
@@ -8,15 +8,10 @@
   'metrics':
     'userId': 'd7e3485a7b97b0a61edfca6f8e3052bcb8a07ee5'
   'editor':
-    'softWrap': true
     'showIndentGuide': true
-    'softWrapped': true
+    'softWrap': true
     'invisibles': {}
   'core':
-    'themes': [
-      'atom-dark-ui'
-      'monokai'
-    ]
     'disabledPackages': [
       'trailing-spaces'
       'feedback'
@@ -26,7 +21,9 @@
       'color-picker'
       'Sublime-Style-Column-Selection'
       'deprecation-cop'
+      'enhanced-package-list'
     ]
-'.js.source':
-  'editor':
-    'tabLength': 2
+    'themes': [
+      'atom-dark-ui'
+      'monokai'
+    ]

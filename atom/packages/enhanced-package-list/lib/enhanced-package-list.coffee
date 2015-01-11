@@ -1,6 +1,8 @@
 {$, $$} = require 'atom'
 _ = require 'underscore-plus'
 fuzzaldrin = require 'fuzzaldrin'
+semver = require 'semver'
+MessagePanel = require './message-panel'
 
 module.exports =
 	settingsView: null
@@ -26,6 +28,14 @@ module.exports =
 			enum: ['all', 'core', 'user', 'author']
 
 	activate: (state) ->
+		if semver.gte(atom.getVersion(), '0.167.0')
+			message = new MessagePanel()
+			message.initialize 'The enhanced-package-list package is not compatible with Atom >= 0.167.0 and has been disabled.'
+			message.attach()
+			atom.packages.onDidActivateAll ->
+				atom.packages.disablePackage('enhanced-package-list')
+			return
+
 		@itemChangedSubscription = atom.workspaceView.on 'pane:active-item-changed', (e, item) =>
 			if item.is? '.settings-view'
 				@settingsViewActive(item)

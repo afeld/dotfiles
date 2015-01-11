@@ -1,7 +1,7 @@
 {
   "name": "enhanced-package-list",
   "main": "./lib/enhanced-package-list",
-  "version": "0.6.3",
+  "version": "1.0.3",
   "description": "Adds icons, highlights and a package source filter (All/Core/User/Author) to your settings view.",
   "repository": {
     "type": "git",
@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "fuzzaldrin": "^2.1.0",
-    "underscore-plus": "^1.6.1"
+    "underscore-plus": "^1.6.1",
+    "semver": "^4.2.0"
   },
   "readme": "# Enhanced Package List\n\nAdds icons, highlights and a package source filter (All/Core/User/Author) to your settings view.\n\n* Core: Packages bundled with Atom\n* User: Packages you have installed\n* Author: Packages you have authored\n",
   "readmeFilename": "README.md",
@@ -21,12 +22,12 @@
     "url": "https://github.com/postcasio/enhanced-package-list/issues"
   },
   "homepage": "https://github.com/postcasio/enhanced-package-list",
-  "_id": "enhanced-package-list@0.6.3",
+  "_id": "enhanced-package-list@1.0.3",
   "dist": {
-    "shasum": "8c251abf54a914ea717c454c8689ccce41ed4010"
+    "shasum": "4fc0b510870915e2241a990a44005d96ccbe6049"
   },
-  "_resolved": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114928-5169-1pritul/package.tgz",
-  "_from": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-114928-5169-1pritul/package.tgz",
+  "_resolved": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-11508-24422-1uq4t1x/package.tgz",
+  "_from": "/private/var/folders/ww/4wqv74nj65gcttnv9b1ky9ph0000gn/T/d-11508-24422-1uq4t1x/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [
@@ -36,8 +37,13 @@
         "path": "node_modules/fuzzaldrin/lib/fuzzaldrin.js"
       },
       {
+        "name": "semver",
+        "version": "4.2.0",
+        "path": "node_modules/semver/semver.js"
+      },
+      {
         "name": "underscore-plus",
-        "version": "1.6.1",
+        "version": "1.6.6",
         "path": "node_modules/underscore-plus/lib/underscore-plus.js"
       },
       {
@@ -48,19 +54,24 @@
     ],
     "extensions": {
       ".coffee": [
-        "lib/enhanced-package-list.coffee"
+        "lib/enhanced-package-list.coffee",
+        "lib/message-panel.coffee"
       ],
       ".js": [
         "node_modules/fuzzaldrin/lib/filter.js",
         "node_modules/fuzzaldrin/lib/fuzzaldrin.js",
         "node_modules/fuzzaldrin/lib/matcher.js",
         "node_modules/fuzzaldrin/lib/scorer.js",
+        "node_modules/semver/semver.browser.js",
+        "node_modules/semver/semver.js",
+        "node_modules/semver/semver.min.js",
         "node_modules/underscore-plus/lib/underscore-plus.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore-min.js",
         "node_modules/underscore-plus/node_modules/underscore/underscore.js"
       ],
       ".json": [
         "node_modules/fuzzaldrin/package.json",
+        "node_modules/semver/package.json",
         "node_modules/underscore-plus/node_modules/underscore/package.json",
         "node_modules/underscore-plus/package.json",
         "package.json"
@@ -74,7 +85,8 @@
         ],
         "dependencies": {
           "fuzzaldrin": "^2.1.0",
-          "underscore-plus": "^1.6.1"
+          "underscore-plus": "^1.6.1",
+          "semver": "^4.2.0"
         }
       },
       {

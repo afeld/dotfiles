@@ -12,6 +12,7 @@ rvm get stable
 gem update --system
 gem update bundler
 
+npm update -g npm
 npm update -g
 
 cd ~/.atom

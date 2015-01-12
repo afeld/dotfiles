@@ -12,3 +12,5 @@ vim/.netrwhist
 
 *.pyc
 *.cache
+
+client_secrets.json

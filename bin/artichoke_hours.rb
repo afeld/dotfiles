@@ -27,30 +27,22 @@ def setup!
   client.authorization = authorization
 end
 
-def service
-  @service ||= client.discovered_api('calendar', 'v3')
-end
+setup!
 
-def search(page_token=nil)
-  params = {
+# https://developers.google.com/google-apps/calendar/v3/reference/events/list#examples
+# https://developers.google.com/api-client-library/ruby/guide/pagination
+service = client.discovered_api('calendar', 'v3')
+request = {
+  api_method: service.events.list,
+  parameters: {
     'calendarId' => 'aidan.feldman@gmail.com',
     'q' => 'Artichoke rehearsal',
     'timeMin' => '2014-01-14T00:00:00Z'
   }
-  params['pageToken'] = page_token if page_token
-  client.execute(
-    :api_method => service.events.list,
-    :parameters => params
-  )
-end
-
-setup!
-
-# https://developers.google.com/google-apps/calendar/v3/reference/events/list#examples
-page_token = nil
+}
 total_seconds = 0
 loop do
-  result = search(page_token)
+  result = client.execute(request)
   events = result.data.items
 
   events.each do |event|
@@ -58,8 +50,8 @@ loop do
     total_seconds += duration
   end
 
-  page_token = result.data.next_page_token
-  break if !page_token
+  break unless result.next_page_token
+  request = result.next_page
 end
 
 total_hours = total_seconds.to_f / 60 / 60

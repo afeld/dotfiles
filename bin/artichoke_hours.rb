@@ -1,8 +1,11 @@
 # usage:
 # 1. Create new OAuth app at https://console.developers.google.com
 # 2. "Download JSON", and save as client_secrets.json in this repo
-# 3. Run `ruby bin/artichoke_hours.json`
+# 3. Run `gem install google-api-client`
+# 4. Run `ruby bin/artichoke_hours.json`
+
 require 'google/api_client'
+require 'time'
 
 def client
   @client ||= Google::APIClient.new(
@@ -42,16 +45,23 @@ def search(page_token=nil)
 end
 
 setup!
+
 # https://developers.google.com/google-apps/calendar/v3/reference/events/list#examples
 page_token = nil
-result = search
-while true
-  events = result.data.items
-  events.each do |e|
-    print e.summary + "\n"
-  end
-  if !(page_token = result.data.next_page_token)
-    break
-  end
+total_seconds = 0
+loop do
   result = search(page_token)
+  events = result.data.items
+
+  events.each do |event|
+    duration = event.end.dateTime - event.start.dateTime
+    total_seconds += duration
+  end
+
+  page_token = result.data.next_page_token
+  break if !page_token
 end
+
+total_hours = total_seconds.to_f / 60 / 60
+total_rehearsals = total_hours / 2
+puts "Total rehearsals: #{total_rehearsals}"

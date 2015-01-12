@@ -2,7 +2,7 @@
 # 1. Create new OAuth app at https://console.developers.google.com
 # 2. "Download JSON", and save as client_secrets.json in this repo
 # 3. Run `gem install google-api-client`
-# 4. Run `ruby bin/artichoke_hours.json`
+# 4. Run `ruby bin/artichoke_hours.rb`
 
 require 'google/api_client'
 require 'time'

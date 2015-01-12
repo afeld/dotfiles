@@ -49,7 +49,10 @@ request = {
     'timeMin' => '2014-01-14T00:00:00Z'
   }
 }
-total_hours = 0
+total_hours_old = 0
+total_hours_new = 0
+
+puts '-------------------'
 loop do
   result = client.execute(request)
   events = result.data.items
@@ -69,7 +72,11 @@ loop do
 
     case event.summary
     when 'Artichoke rehearsal', 'Artichoke tech'
-      total_hours += duration_hours
+      if start_at.year >= 2015
+        total_hours_new += duration_hours
+      else
+        total_hours_old += duration_hours
+      end
     else
       puts [
         event.summary.ljust(30),
@@ -83,5 +90,7 @@ loop do
   request = result.next_page
 end
 
-total_rehearsals = total_hours / 2
-puts "Total rehearsals: #{total_rehearsals}"
+total_rehearsals_old = total_hours_old / 2
+total_rehearsals_new = total_hours_new / 2
+puts "Total rehearsals pre-2015: #{total_rehearsals_old}"
+puts "Total rehearsals 2015+: #{total_rehearsals_new}"

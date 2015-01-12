@@ -27,33 +27,61 @@ def setup!
   client.authorization = authorization
 end
 
+def to_datetime(time)
+  if time.is_a?(String)
+    DateTime.parse(time)
+  else
+    time
+  end
+end
+
+
 setup!
+service = client.discovered_api('calendar', 'v3')
 
 # https://developers.google.com/google-apps/calendar/v3/reference/events/list#examples
 # https://developers.google.com/api-client-library/ruby/guide/pagination
-service = client.discovered_api('calendar', 'v3')
 request = {
   api_method: service.events.list,
   parameters: {
     'calendarId' => 'aidan.feldman@gmail.com',
-    'q' => 'Artichoke rehearsal',
+    'q' => 'Artichoke',
     'timeMin' => '2014-01-14T00:00:00Z'
   }
 }
-total_seconds = 0
+total_hours = 0
 loop do
   result = client.execute(request)
   events = result.data.items
 
   events.each do |event|
-    duration = event.end.dateTime - event.start.dateTime
-    total_seconds += duration
+    # for some reason, dates for all-day events are a different attribute, and are Strings
+    start_at = to_datetime(event.start['dateTime'] || event.start['date'])
+    end_at = to_datetime(event.end['dateTime'] || event.end['date'])
+
+    if event.start['date']
+      # don't count full-day events
+      duration_hours = 0
+    else
+      duration_sec = end_at - start_at
+      duration_hours = duration_sec.to_f / 60 / 60
+    end
+
+    case event.summary
+    when 'Artichoke rehearsal', 'Artichoke tech'
+      total_hours += duration_hours
+    else
+      puts [
+        event.summary.ljust(30),
+        start_at.strftime('%b %-d').ljust(12),
+        "#{duration_hours} hours"
+      ].join
+    end
   end
 
   break unless result.next_page_token
   request = result.next_page
 end
 
-total_hours = total_seconds.to_f / 60 / 60
 total_rehearsals = total_hours / 2
 puts "Total rehearsals: #{total_rehearsals}"

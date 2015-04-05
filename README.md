@@ -13,9 +13,9 @@ cd dotfiles
 ./init.sh
 
 # after Atom is installed
-apm install --packages-file atom/packages.txt
+apm install --packages-file atom/my-packages.txt
 # later, update the list
-apm list --installed --bare > atom/packages.txt
+apm list --installed --bare > atom/my-packages.txt
 ```
 
 ## Software

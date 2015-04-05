@@ -1,0 +1,17 @@
+Sublime-Style-Column-Selection@1.2.3
+auto-update-packages@0.2.2
+enhanced-package-list@1.0.3
+git-plus@4.4.10
+language-ejs@0.1.0
+language-gherkin@1.0.1
+language-haml@0.17.0
+language-jade@0.3.0
+language-liquid@0.2.0
+monokai@0.13.0
+pain-split@1.3.1
+ruby-slim@0.2.0
+sort-lines@0.10.0
+toggle-quotes@0.10.0
+wordcount@2.2.0
+wrap-lines@0.2.0
+

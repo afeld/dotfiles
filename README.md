@@ -11,6 +11,11 @@ cd ~
 git clone YOUR_FORK_URL.git
 cd dotfiles
 ./init.sh
+
+# after Atom is installed
+apm install --packages-file atom/packages.txt
+# later, update the list
+apm list --installed --bare > atom/packages.txt
 ```
 
 ## Software

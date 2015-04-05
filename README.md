@@ -29,6 +29,7 @@ I use the following pieces of software in my dev setup.
 
 * Apps
     - [Atom](http://atom.io)
+    - [Charles](http://www.charlesproxy.com/)
     - [Dropbox](http://db.tt/y5bnAOst)
     - [iTerm 2](http://www.iterm2.com)
         - Set "Load preferences from a custom folder or URL" to be `/Users/USER/dotfiles`
@@ -43,14 +44,24 @@ I use the following pieces of software in my dev setup.
         - [Moom](https://itunes.apple.com/us/app/moom/id419330170?mt=12)
         - [Skitch](https://itunes.apple.com/us/app/skitch/id425955336?mt=12)
 * Chrome extensions
+    - [Authy](https://www.authy.com/)
     - [Awesome Screenshot](https://chrome.google.com/webstore/detail/awesome-screenshot-captur/alelhddbbhepgpmgidjdcjakblofbmce)
     - [Boomerang](http://www.boomeranggmail.com/)
     - [Github Notification Helper for GMail](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje)
     - [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
     - [Lazarus](https://chrome.google.com/webstore/detail/loljledaigphbcpfhfmgopdkppkifgno)
+    - [Postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm)
+    - [Weather](https://chrome.google.com/webstore/detail/weather/ihbiedpeaicgipncdnnkikeehnjiddck)
 * Firefox extensions
     - [Firebug](https://www.getfirebug.com)
     - [JSONView](https://addons.mozilla.org/en-US/firefox/addon/jsonview/)
+
+## Web-Based Tools
+
+* [Ookla Speed Test](http://www.speedtest.net/)
+* [Qualys SSL Labs](https://www.ssllabs.com/ssltest/)
+* [RequestBin](http://requestb.in/)
+* [W3C Markup Validation Service](http://validator.w3.org/)
 
 ## See Also
 

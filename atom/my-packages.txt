@@ -1,6 +1,4 @@
-Sublime-Style-Column-Selection@1.2.3
 auto-update-packages@0.2.2
-enhanced-package-list@1.0.3
 git-plus@4.4.10
 language-ejs@0.1.0
 language-gherkin@1.0.1

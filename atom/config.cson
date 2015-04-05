@@ -17,11 +17,8 @@
       "feedback"
       "autosave"
       "linter"
-      "autocomplete-plus"
       "color-picker"
-      "Sublime-Style-Column-Selection"
       "deprecation-cop"
-      "enhanced-package-list"
     ]
     themes: [
       "atom-dark-ui"

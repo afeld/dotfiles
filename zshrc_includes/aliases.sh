@@ -8,6 +8,12 @@ alias diff='diff -W $(( $(tput cols) - 2 ))'
 export NVM_DIR=~/.nvm
 
 
+# https://github.com/18F/open-source-policy/blob/master/practice.md#how-to-license-18f-repos
+alias insert-license="wget -q https://raw.githubusercontent.com/18F/open-source-policy/master/LICENSE.md"
+alias insert-contrib="wget -q https://raw.githubusercontent.com/18F/open-source-policy/master/CONTRIBUTING.md"
+alias 18f-init="insert-license && insert-contrib && echo 'Licensed.'"
+
+
 ## Git stuff ##
 
 alias rbp="git pull --rebase && git push"

@@ -1,5 +1,0 @@
-'.text.haml':
-  'editor':
-    'autoIndentOnPaste': false
-    'commentStart': '-# '
-    'increaseIndentPattern': '^([-%#\\:\\.\\=].*)\\s*$'

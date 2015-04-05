@@ -1,7 +1,9 @@
 bash_profile_includes/keys.sh
 
+/atom/.apm/
 /atom/.node-gyp/
 /atom/compile-cache/
+/atom/packages/
 /atom/storage/
 
 oh-my-zsh/

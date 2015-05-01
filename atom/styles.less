@@ -1,16 +1,15 @@
-/*
- * Your Stylesheet
- *
- * This stylesheet is loaded when Atom starts up and is reloaded automatically
- * when it is changed.
- *
- * If you are unfamiliar with LESS, you can read more about it here:
- * http://www.lesscss.org
- */
-
-.editor {
-  font-family: Menlo;
+// https://atom.io/docs/latest/customizing-atom
+atom-text-editor::shadow {
   -webkit-font-smoothing: antialiased;
+
+  @afeld-background-color: #0F0F0F;
+  .gutter {
+    background-color: @afeld-background-color;
+  }
+  .lines {
+    // for some reason, background color is being applied as an inline style
+    background-color: @afeld-background-color !important;
+  }
 
   .cursor {}
 
@@ -27,7 +26,7 @@
   }
 
   .comment {
-    color: #757575;
+    color: #A3A3A3;
   }
 
 
@@ -41,12 +40,6 @@
   }
 }
 
-atom-workspace {
-  .editor .gutter,
-  .editor-colors {
-    background-color: #0F0F0F;
-  }
-}
 
 // for big screen
 // https://github.com/atom/markdown-preview/issues/45

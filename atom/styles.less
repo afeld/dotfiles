@@ -1,17 +1,21 @@
 // https://atom.io/docs/latest/customizing-atom
+@afeld-background-color: #0F0F0F;
+
+atom-text-editor {
+  background-color: @afeld-background-color;
+  font-family: Monaco;
+}
+
 atom-text-editor::shadow {
   -webkit-font-smoothing: antialiased;
 
-  @afeld-background-color: #0F0F0F;
   .gutter {
     background-color: @afeld-background-color;
   }
-  .lines {
+  .tile {
     // for some reason, background color is being applied as an inline style
     background-color: @afeld-background-color !important;
   }
-
-  .cursor {}
 
   .wrap-guide {
     visibility: hidden;

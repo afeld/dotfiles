@@ -13,7 +13,6 @@
     invisibles: {}
   core:
     disabledPackages: [
-      "trailing-spaces"
       "feedback"
       "autosave"
       "linter"

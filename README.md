@@ -78,3 +78,4 @@ I use the following pieces of software in my dev setup.
     - [soloist](https://github.com/mkocher/soloist)
     - [Kitchenplan](https://github.com/kitchenplan/kitchenplan)
     - [Boxen](https://boxen.github.com)
+    - [Strap](https://github.com/mikemcquaid/strap)

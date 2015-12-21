@@ -18,8 +18,11 @@
       "linter"
       "color-picker"
       "deprecation-cop"
+      "jshint"
     ]
     themes: [
       "atom-dark-ui"
       "monokai"
     ]
+  "markdown-preview":
+    useGitHubStyle: true

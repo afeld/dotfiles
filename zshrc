@@ -44,7 +44,13 @@ done
 # http://superuser.com/a/221291
 setopt extended_glob
 
+export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
+
+# Google Cloud
+source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+export PROJECT_ID=jsonproxy-1135
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh

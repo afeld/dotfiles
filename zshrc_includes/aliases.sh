@@ -5,8 +5,6 @@ alias ss="python -m SimpleHTTPServer"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'
-export NVM_DIR=~/.nvm
-
 
 # https://github.com/18F/open-source-policy/blob/master/practice.md#how-to-license-18f-repos
 alias insert-license="wget -q https://raw.githubusercontent.com/18F/open-source-policy/master/LICENSE.md"

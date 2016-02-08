@@ -35,7 +35,6 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR=vim
 export GOPATH=$HOME/dev/go
-export PYTHONPATH="/usr/local/lib/python2.7/site-packages:$PYTHONPATH"
 
 for file in ~/dotfiles/zshrc_includes/*.sh; do
   [[ -r $file ]] && source $file;

@@ -4,6 +4,7 @@ zshrc_includes/keys.sh
 /atom/.node-gyp/
 /atom/blob-store/
 /atom/compile-cache/
+/atom/dev/
 /atom/packages/
 /atom/storage/
 

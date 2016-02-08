@@ -26,6 +26,7 @@
 	co = checkout
 	pr = create-pull-request
 	feature = create-feature-branch
+	s = status
 [branch]
 	autosetupmerge = true
 [push]
@@ -41,3 +42,7 @@
 	required = true
 	clean = git media clean %f
 	smudge = git media smudge %f
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true

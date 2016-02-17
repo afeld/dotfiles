@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+set -x
+
+NAME=$1
+
+if [ "$NAME" == "" ]; then
+  echo -e "ERROR: please provide a script name.\n\n\t\$ mkscript foo"
+  exit 1
+fi
+
+echo -e "#!/bin/bash\n\nset -e\nset -x\n\n" > $NAME
+chmod a+x $NAME
+atom $NAME

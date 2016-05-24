@@ -1,16 +1,4 @@
 "*":
-  "exception-reporting":
-    userId: "6ade4c18-1386-9952-37d5-6ba13e9409f5"
-  "release-notes":
-    viewedVersion: "0.95.0"
-  welcome:
-    showOnStartup: false
-  metrics:
-    userId: "d7e3485a7b97b0a61edfca6f8e3052bcb8a07ee5"
-  editor:
-    showIndentGuide: true
-    softWrap: true
-    invisibles: {}
   core:
     disabledPackages: [
       "feedback"
@@ -24,5 +12,18 @@
       "atom-dark-ui"
       "monokai"
     ]
+  editor:
+    fontSize: 13
+    invisibles: {}
+    showIndentGuide: true
+    softWrap: true
+  "exception-reporting":
+    userId: "6ade4c18-1386-9952-37d5-6ba13e9409f5"
   "markdown-preview":
     useGitHubStyle: true
+  metrics:
+    userId: "d7e3485a7b97b0a61edfca6f8e3052bcb8a07ee5"
+  "release-notes":
+    viewedVersion: "0.95.0"
+  welcome:
+    showOnStartup: false

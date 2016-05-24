@@ -27,6 +27,7 @@
 	pr = create-pull-request
 	feature = create-feature-branch
 	s = status
+  dw = diff --color-words=\"\\w+\"
 [branch]
 	autosetupmerge = true
 [push]

@@ -1,3 +1,11 @@
+# https://github.com/codeclimate/codeclimate#usage
+alias cc="docker run \
+  --interactive --tty --rm \
+  --env CODECLIMATE_CODE=\"$PWD\" \
+  --volume \"$PWD\":/code \
+  --volume /var/run/docker.sock:/var/run/docker.sock \
+  --volume /tmp/cc:/tmp/cc \
+  codeclimate/codeclimate"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
 alias dot="cd ~/dotfiles && atom ."
 alias git=hub

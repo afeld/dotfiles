@@ -9,7 +9,8 @@ alias cc="docker run \
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
 alias dot="cd ~/dotfiles && atom ."
 alias git=hub
-alias ss="python -m SimpleHTTPServer"
+alias g=git
+alias ss="python3 -m http.server"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'
@@ -19,6 +20,8 @@ alias insert-license="wget -q https://raw.githubusercontent.com/18F/open-source-
 alias insert-contrib="wget -q https://raw.githubusercontent.com/18F/open-source-policy/master/CONTRIBUTING.md"
 alias 18f-init="insert-license && insert-contrib && echo 'Licensed.'"
 
+# projects
+alias cm="cd $GOPATH/src/github.com/opencontrol/compliance-masonry/"
 
 ## Git stuff ##
 

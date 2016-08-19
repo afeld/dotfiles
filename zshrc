@@ -29,7 +29,7 @@ REPORTTIME=10
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(gem git heroku node npm)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -43,13 +43,13 @@ done
 # http://superuser.com/a/221291
 setopt extended_glob
 
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+export NVM_DIR="$HOME/.nvm"
+. "$(brew --prefix nvm)/nvm.sh"
 
 # Google Cloud
-source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
-source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
-export PROJECT_ID=jsonproxy-1135
+source '/Users/aidanfeldman/google-cloud-sdk/path.zsh.inc'
+source '/Users/aidanfeldman/google-cloud-sdk/completion.zsh.inc'
+export PROJECT_ID=jsonproxy-1367
 
-# added by travis gem
+# travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh

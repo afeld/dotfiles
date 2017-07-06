@@ -29,6 +29,7 @@
 	feature = create-feature-branch
 	s = status
   dw = diff --color-words=\"\\w+\"
+	fix = commit -a --amend --no-edit
 [branch]
 	autosetupmerge = true
 [push]

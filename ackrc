@@ -1,4 +1,6 @@
 --type-add=css=.scss,.hbs,.sass,.styl,.less
+# https://github.com/petdance/ack2/issues/593
+--type-add=markdown=.md,.markdown
 --type-add=js=.coffee
 --type-set=views=.html,.haml,.slim,.hbs,.hamljs,.jade
 --ignore-dir=node_modules

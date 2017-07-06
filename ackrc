@@ -1,8 +1,8 @@
---type-add=css=.scss,.hbs,.sass,.styl,.less
+--type-add=css:ext:scss,hbs,sass,styl,less
 # https://github.com/petdance/ack2/issues/593
---type-add=markdown=.md,.markdown
---type-add=js=.coffee
---type-set=views=.html,.haml,.slim,.hbs,.hamljs,.jade
+--type-add=markdown:ext:md,markdown
+--type-add=js:ext:coffee
+--type-set=views:ext:html,haml,slim,hbs,hamljs,jade
 --ignore-dir=node_modules
 --ignore-dir=log
 --ignore-dir=tmp

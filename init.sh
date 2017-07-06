@@ -65,6 +65,9 @@ rvm autolibs enable
 # https://github.com/afeld/git-setup
 curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh
 
+# https://github.com/18F/laptop#want-to-install-just-git-seekret
+curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
+
 git_plugins=~/dev/git-plugins
 if [ ! -d $git_plugins ]; then
   echo "Installing git-plugins..."

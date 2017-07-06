@@ -49,7 +49,6 @@ fi
 brew_install gifify
 brew_install hub
 brew_install nvm
-brew install caskroom/cask/brew-cask
 brew install tree
 brew install pyenv
 

@@ -7,10 +7,12 @@ alias cc="docker run \
   --volume /tmp/cc:/tmp/cc \
   codeclimate/codeclimate"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
-alias dot="cd ~/dotfiles && atom ."
+alias dotfiles="cd ~/dotfiles && atom ."
+alias k=kubectl
 alias git=hub
 alias g=git
 alias ss="python3 -m http.server"
+alias t=terraform
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'

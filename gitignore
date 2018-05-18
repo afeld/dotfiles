@@ -6,4 +6,5 @@
 *.sublime-workspace
 .DS_Store
 .junk
+.vscode/
 bundler_stubs/

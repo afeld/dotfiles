@@ -21,6 +21,9 @@ alias diff='diff -W $(( $(tput cols) - 2 ))'
 alias insert-license="wget -q https://raw.githubusercontent.com/18F/open-source-policy/master/LICENSE.md"
 alias insert-contrib="wget -q https://raw.githubusercontent.com/18F/open-source-policy/master/CONTRIBUTING.md"
 alias 18f-init="insert-license && insert-contrib && echo 'Licensed.'"
+alias insert-gsa-license="curl -sO https://raw.githubusercontent.com/GSA/open-source-policy/master/LICENSE.md"
+alias insert-gsa-contrib="curl -sO https://raw.githubusercontent.com/GSA/open-source-policy/master/CONTRIBUTING.md"
+alias GSA-init="insert-gsa-license && insert-gsa-contrib && echo 'Licensed.'"
 
 # projects
 alias cm="cd $GOPATH/src/github.com/opencontrol/compliance-masonry/"

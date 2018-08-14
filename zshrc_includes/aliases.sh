@@ -7,7 +7,7 @@ alias cc="docker run \
   --volume /tmp/cc:/tmp/cc \
   codeclimate/codeclimate"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
-alias dotfiles="cd ~/dotfiles && atom ."
+alias dotfiles="cd ~/dotfiles && code ."
 alias k=kubectl
 alias git=hub
 alias g=git

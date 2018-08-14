@@ -1,0 +1,17 @@
+{
+  "atomKeymap.promptV3Features": true,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
+  "editor.wordWrap": "on",
+  "files.trimTrailingWhitespace": true,
+  "window.zoomLevel": 1,
+  "workbench.activityBar.visible": false,
+  "workbench.startupEditor": "newUntitledFile",
+  "[markdown]": {
+    "editor.formatOnSave": false
+  }
+}

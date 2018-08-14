@@ -27,7 +27,7 @@ dir="`dirname "$script"`"
 find "$dir" -maxdepth 1 | while read file; do
 
   case "$file" in
-    "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.md"|"$dir/Brewfile"|"$dir/com.googlecode.iterm2.plist"|"$dir/zshrc_includes"|"$dir/itunes_app_updater.scpt"|*.swp|"$script")
+    "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.md"|"$dir/vscode"|"$dir/com.googlecode.iterm2.plist"|"$dir/zshrc_includes"|"$dir/itunes_app_updater.scpt"|*.swp|"$script")
       continue
       ;;
   esac
@@ -36,6 +36,9 @@ find "$dir" -maxdepth 1 | while read file; do
   rm -rf "$HOME/$name"
   ln -s "$file" "$HOME/$name"
 done
+
+rm -rf ~/Library/Application\ Support/Code/User/settings.json
+ln -s $(realpath vscode/settings.json) ~/Library/Application\ Support/Code/User/settings.json
 
 # homebrew
 if command_exists brew; then

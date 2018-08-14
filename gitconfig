@@ -26,7 +26,7 @@
 	mw = merge-no-whitespace
 	um = checkout-upstream-primary
 	co = checkout
-	pr = create-pull-request
+	cpr = create-pull-request
 	feature = create-feature-branch
 	s = status
   dw = diff --color-words=\"\\w+\"

@@ -1,0 +1,5 @@
+brew "gifify"
+brew "hub"
+brew "nvm"
+brew "tree"
+brew "pyenv"

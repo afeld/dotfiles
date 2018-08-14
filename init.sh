@@ -11,14 +11,6 @@ command_exists () {
   type "$1" &> /dev/null ;
 }
 
-brew_install () {
-  # http://stackoverflow.com/a/20802425/358804
-  if [ -z "$(brew ls --versions "$1")" ]; then
-    echo "$1 doesn't exist"
-    brew install "$1"
-  fi
-}
-
 script=$(realpath "$0")
 dir=$(dirname "$script")
 
@@ -26,7 +18,7 @@ dir=$(dirname "$script")
 find "$dir" -maxdepth 1 | while read -r file; do
 
   case "$file" in
-    "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.md"|"$dir/vscode"|"$dir/com.googlecode.iterm2.plist"|"$dir/zshrc_includes"|"$dir/itunes_app_updater.scpt"|*.swp|"$script")
+    "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.md"|"$dir/Brewfile"|"$dir/vscode"|"$dir/com.googlecode.iterm2.plist"|"$dir/zshrc_includes"|"$dir/itunes_app_updater.scpt"|*.swp|"$script")
       continue
       ;;
   esac
@@ -48,11 +40,7 @@ else
   echo "...brew installed"
 fi
 
-brew_install gifify
-brew_install hub
-brew_install nvm
-brew install tree
-brew install pyenv
+brew bundle
 
 # RVM
 if ! command_exists rvm; then

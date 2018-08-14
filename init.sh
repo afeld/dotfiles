@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # based on https://github.com/ahri/dotfiles/blob/master/write-links.sh
 
 # Die on failures
@@ -13,18 +13,17 @@ command_exists () {
 
 brew_install () {
   # http://stackoverflow.com/a/20802425/358804
-  if [ -z "brew ls --versions $1" ]; then
+  if [ -z "$(brew ls --versions "$1")" ]; then
     echo "$1 doesn't exist"
-    brew install $1
+    brew install "$1"
   fi
 }
 
-
-script="`python -c 'import os,sys;print os.path.realpath(sys.argv[1])' "$0"`" #"`readlink -f "$0"`"
-dir="`dirname "$script"`"
+script=$(realpath "$0")
+dir=$(dirname "$script")
 
 # symlink dotfiles/folders
-find "$dir" -maxdepth 1 | while read file; do
+find "$dir" -maxdepth 1 | while read -r file; do
 
   case "$file" in
     "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.md"|"$dir/vscode"|"$dir/com.googlecode.iterm2.plist"|"$dir/zshrc_includes"|"$dir/itunes_app_updater.scpt"|*.swp|"$script")
@@ -32,13 +31,13 @@ find "$dir" -maxdepth 1 | while read file; do
       ;;
   esac
 
-  name=".`basename $file`"
-  rm -rf "$HOME/$name"
+  name=".$(basename "$file")"
+  rm -rf "${HOME:?}/$name"
   ln -s "$file" "$HOME/$name"
 done
 
 rm -rf ~/Library/Application\ Support/Code/User/settings.json
-ln -s $(realpath vscode/settings.json) ~/Library/Application\ Support/Code/User/settings.json
+ln -s "$(realpath vscode/settings.json)" ~/Library/Application\ Support/Code/User/settings.json
 
 # homebrew
 if command_exists brew; then
@@ -59,6 +58,7 @@ brew install pyenv
 if ! command_exists rvm; then
   echo "Installing RVM..."
   curl -sSL https://get.rvm.io | bash -s stable
+  # shellcheck source=zshrc
   source ~/.zshrc
   echo "...RVM installed"
 fi

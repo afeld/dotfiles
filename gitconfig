@@ -22,6 +22,7 @@
 	latest = latest-tag
 	lbclean = clean-local-branches
 	lg = pretty-log
+	fp = push --force-with-lease
 	mw = merge-no-whitespace
 	um = checkout-upstream-primary
 	co = checkout

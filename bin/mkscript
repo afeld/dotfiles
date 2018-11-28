@@ -12,4 +12,4 @@ fi
 
 echo -e "#!/bin/bash\n\nset -e\nset -x\n\n" > $NAME
 chmod a+x $NAME
-atom $NAME
+code $NAME

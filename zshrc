@@ -42,6 +42,3 @@ done
 
 # http://superuser.com/a/221291
 setopt extended_glob
-
-export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"

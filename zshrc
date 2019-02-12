@@ -24,7 +24,7 @@ CASE_SENSITIVE="true"
 
 # Report CPU usage for commands running longer than 10 seconds
 # http://nuclearsquid.com/writings/reporttime-in-zsh/
-REPORTTIME=10
+REPORTTIME=5
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -45,11 +45,3 @@ setopt extended_glob
 
 export NVM_DIR="$HOME/.nvm"
 . "$(brew --prefix nvm)/nvm.sh"
-
-# Google Cloud
-source '/Users/aidanfeldman/google-cloud-sdk/path.zsh.inc'
-source '/Users/aidanfeldman/google-cloud-sdk/completion.zsh.inc'
-export PROJECT_ID=jsonproxy-1367
-
-# travis gem
-[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh

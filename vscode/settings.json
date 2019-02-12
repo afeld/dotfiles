@@ -11,7 +11,12 @@
   "window.zoomLevel": 1,
   "workbench.activityBar.visible": false,
   "workbench.startupEditor": "newUntitledFile",
-  "[markdown]": {
-    "editor.formatOnSave": false
-  }
+  "[python]": {
+    "editor.tabSize": 4
+  },
+  "[yaml]": {
+    "editor.tabSize": 2
+  },
+  "editor.renderControlCharacters": true,
+  "workbench.statusBar.feedback.visible": false
 }

@@ -8,7 +8,9 @@ alias cc="docker run \
   codeclimate/codeclimate"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
 alias dotfiles="cd ~/dotfiles && code ."
-alias git=hub
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  alias git=hub
+fi
 alias g=git
 alias ss="python3 -m http.server"
 alias t=terraform

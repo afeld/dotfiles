@@ -28,35 +28,39 @@ find "$dir" -maxdepth 1 | while read -r file; do
   ln -s "$file" "$HOME/$name"
 done
 
-rm -rf ~/Library/Application\ Support/Code/User/settings.json
-ln -s "$(realpath vscode/settings.json)" ~/Library/Application\ Support/Code/User/settings.json
 
-# homebrew
-if command_exists brew; then
-  brew update
-else
-  echo "Installing brew..."
-  ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  echo "...brew installed"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  rm -rf ~/Library/Application\ Support/Code/User/settings.json
+  ln -s "$(realpath vscode/settings.json)" ~/Library/Application\ Support/Code/User/settings.json
+
+  # homebrew
+  if command_exists brew; then
+    brew update
+  else
+    echo "Installing brew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    echo "...brew installed"
+  fi
+
+  brew bundle
+
+  # RVM
+  if ! command_exists rvm; then
+    echo "Installing RVM..."
+    curl -sSL https://get.rvm.io | bash -s stable
+    # shellcheck source=zshrc
+    source ~/.zshrc
+    echo "...RVM installed"
+  fi
+  rvm autolibs enable
+
+  # https://github.com/afeld/git-setup
+  curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh
+
+  # https://github.com/18F/laptop#want-to-install-just-git-seekret
+  curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
 fi
 
-brew bundle
-
-# RVM
-if ! command_exists rvm; then
-  echo "Installing RVM..."
-  curl -sSL https://get.rvm.io | bash -s stable
-  # shellcheck source=zshrc
-  source ~/.zshrc
-  echo "...RVM installed"
-fi
-rvm autolibs enable
-
-# https://github.com/afeld/git-setup
-curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh
-
-# https://github.com/18F/laptop#want-to-install-just-git-seekret
-curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
 
 git_plugins=~/dev/git-plugins
 if [ ! -d $git_plugins ]; then

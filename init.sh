@@ -71,7 +71,7 @@ fi
 
 # use ZShell as default
 echo "Installing oh-my-zsh..."
-curl -L http://install.ohmyz.sh | sh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 echo "...oh-my-zsh installed"
 
 echo "DONE"

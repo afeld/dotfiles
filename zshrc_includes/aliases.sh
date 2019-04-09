@@ -26,3 +26,12 @@ alias rbp="git pull --rebase && git push"
 function unreleased {
   git for-each-ref --sort=-committerdate --format="%(committerdate:short) %(refname:short)" --count=15 $(git branch -r --no-merged upstream/master | grep -v HEAD | sed -e 's#^ *#refs/remotes/#')
 }
+
+# tunnels Jupyter Notebook from a server
+function jup {
+  set -x
+  # based on
+  # https://fizzylogic.nl/2017/11/06/edit-jupyter-notebooks-over-ssh/
+  ssh $1 -t -L 8888:localhost:8888 jupyter notebook --no-browser
+}
+

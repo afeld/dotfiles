@@ -38,10 +38,6 @@
 	default = upstream
 [hub]
 	protocol = https
-[credential]
-	helper = osxkeychain
-[url "https://github.com"]
-	insteadOf = git://github.com
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -50,14 +46,8 @@
 	clean = git lfs clean %f
 	smudge = git lfs smudge %f
 	required = true
-[interactive]
-	diffFilter = diff-highlight
 [diff]
 	compactionHeuristic = true
-[pager]
-	log = diff-highlight | less
-	show = diff-highlight | less
-	diff = diff-highlight | less
 [gitseekret]
 	version = 1
 	rulesenabled = aws.secret_access_key,aws.access_key_id,aws.account_id,mandrill.api_key,mandrill.username,mandrill.password,newrelic.license_key,slack.api_token
@@ -75,3 +65,8 @@
   path = .gitconfig-work
 [includeIf "gitdir:~/dev/go/"]
   path = .gitconfig-work
+[includeIf "gitdir:/Users/**"]
+  path = .gitconfig-mac
+[includeIf "gitdir:/home/**"]
+  path = .gitconfig-work
+

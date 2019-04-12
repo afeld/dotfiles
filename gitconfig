@@ -65,8 +65,13 @@
   path = .gitconfig-work
 [includeIf "gitdir:~/dev/go/"]
   path = .gitconfig-work
+
+# infer OS type by root directory
 [includeIf "gitdir:/Users/**"]
   path = .gitconfig-mac
+# Windows
 [includeIf "gitdir:/home/**"]
+  path = .gitconfig-work
+[includeIf "gitdir:/cygdrive/**"]
   path = .gitconfig-work
 

@@ -4,7 +4,7 @@ Moving towards one-liner setup of a development machine.
 
 ## Getting Started
 
-Fork this repo, then run the following in a terminal:
+Install and open [Visual Studio Code](https://code.visualstudio.com/), fork this repo, then run the following in a terminal:
 
 ```bash
 cd ~

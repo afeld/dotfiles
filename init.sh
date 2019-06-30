@@ -41,14 +41,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
 fi
 
-
-git_plugins=~/dev/git-plugins
-if [ ! -d $git_plugins ]; then
-  echo "Installing git-plugins..."
-  git clone https://github.com/afeld/git-plugins $git_plugins
-  echo "...git-plugins installed"
-fi
-
 # use ZShell as default
 echo "Installing oh-my-zsh..."
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

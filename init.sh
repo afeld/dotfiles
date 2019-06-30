@@ -38,7 +38,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     brew update
   else
     echo "Installing brew..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     echo "...brew installed"
   fi
 

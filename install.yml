@@ -1,0 +1,20 @@
+- hosts: localhost
+  tasks:
+    - name: Symlink {{ item }}
+      file:
+        src: "{{ playbook_dir }}/{{ item }}"
+        dest: ~/.{{ item }}
+        state: link
+      with_items:
+        - ackrc
+        - asdfrc
+        - gemrc
+        - gitconfig
+        - gitconfig-mac
+        - gitconfig-work
+        - irbrc
+        - pryrc
+        - rdebugrc
+        - sqliterc
+        - vimrc
+        - zshrc

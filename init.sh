@@ -16,24 +16,6 @@ command_exists () {
   type "$1" &> /dev/null ;
 }
 
-script=$(realpath "$0")
-dir=$(dirname "$script")
-
-# symlink dotfiles/folders
-find "$dir" -maxdepth 1 | while read -r file; do
-
-  case "$file" in
-    "$dir"|"$dir/.git"|"$dir/.gitignore"|"$dir/README.md"|"$dir/Brewfile"|"$dir/vscode"|"$dir/com.googlecode.iterm2.plist"|"$dir/zshrc_includes"|"$dir/itunes_app_updater.scpt"|*.swp|"$script")
-      continue
-      ;;
-  esac
-
-  name=".$(basename "$file")"
-  rm -rf "${HOME:?}/$name"
-  ln -s "$file" "$HOME/$name"
-done
-
-
 if [[ "$OSTYPE" == "darwin"* ]]; then
   rm -rf ~/Library/Application\ Support/Code/User/settings.json
   ln -s "$(realpath vscode/settings.json)" ~/Library/Application\ Support/Code/User/settings.json
@@ -48,6 +30,9 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 
   brew bundle
+
+  pipenv install
+  pipenv run ansible-playbook install.yml
 
   # https://github.com/afeld/git-setup
   curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh

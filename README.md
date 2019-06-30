@@ -24,11 +24,10 @@ I use the following pieces of software in my dev setup.
 
 ### Installed automatically by `init.sh`
 
+* [asdf](https://asdf-vm.com/)
 * [brew](http://mxcl.github.com/homebrew/)
 * [gifify](https://github.com/jclem/gifify)
 * [hub](https://hub.github.com)
-* [Node Version Manager (NVM)](https://github.com/creationix/nvm)
-* [Ruby Version Manager (RVM)](https://rvm.io)
 
 ### Others that need to be installed manually
 

@@ -49,16 +49,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   brew bundle
 
-  # RVM
-  if ! command_exists rvm; then
-    echo "Installing RVM..."
-    curl -sSL https://get.rvm.io | bash -s stable
-    # shellcheck source=zshrc
-    source ~/.zshrc
-    echo "...RVM installed"
-  fi
-  rvm autolibs enable
-
   # https://github.com/afeld/git-setup
   curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh
 

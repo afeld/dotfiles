@@ -4,3 +4,15 @@
     dest: ~/Library/Application Support/Code/User/settings.json
     state: link
     force: true
+
+- name: Get installed VSCode extensions
+  command: code --list-extensions
+  changed_when: false
+  register: extensions
+
+- name: Install VSCode extensions
+  command: code --install-extension {{ item }}
+  when: item not in extensions.stdout
+  with_items:
+    - esbenp.prettier-vscode
+    - sdras.night-owl

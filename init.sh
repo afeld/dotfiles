@@ -7,11 +7,6 @@ set -e
 # Echo all commands
 # set -x
 
-# https://stackoverflow.com/a/3572105
-realpath() {
-  [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
-}
-
 command_exists () {
   type "$1" &> /dev/null ;
 }

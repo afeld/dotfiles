@@ -1,0 +1,33 @@
+- hosts: localhost
+  tasks:
+    - name: Symlink dotfiles
+      file:
+        src: "{{ playbook_dir }}/{{ item }}"
+        dest: ~/.{{ item }}
+        state: link
+      with_items:
+        - ackrc
+        - asdfrc
+        - editorconfig
+        - gemrc
+        - gitconfig
+        - gitconfig-mac
+        - gitconfig-work
+        - gitignore
+        - irbrc
+        - pryrc
+        - rdebugrc
+        - sqliterc
+        - tmux.conf
+        - vimrc
+        - zshrc
+    - name: Add VSCode settings
+      file:
+        src: "{{ playbook_dir }}/vscode/settings.json"
+        dest: ~/Library/Application Support/Code/User/settings.json
+        state: link
+        force: true
+    - name: Set up Git
+      import_tasks: tasks/git.yml
+    - name: Set up oh-my-zsh
+      import_tasks: tasks/oh_my_zsh.yml

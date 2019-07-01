@@ -1,0 +1,6 @@
+- name: Add VSCode settings
+  file:
+    src: "{{ playbook_dir }}/vscode/settings.json"
+    dest: ~/Library/Application Support/Code/User/settings.json
+    state: link
+    force: true

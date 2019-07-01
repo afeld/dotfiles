@@ -8,14 +8,17 @@
       with_items:
         - ackrc
         - asdfrc
+        - editorconfig
         - gemrc
         - gitconfig
         - gitconfig-mac
         - gitconfig-work
+        - gitignore
         - irbrc
         - pryrc
         - rdebugrc
         - sqliterc
+        - tmux.conf
         - vimrc
         - zshrc
     - name: Clone git-plugins

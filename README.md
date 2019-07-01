@@ -11,11 +11,6 @@ cd ~
 git clone YOUR_FORK_URL.git
 cd dotfiles
 ./init.sh
-
-# after Atom is installed
-apm install --packages-file atom/my-packages.txt
-# later, update the list
-apm list --installed --bare > atom/my-packages.txt
 ```
 
 ## Software
@@ -32,7 +27,6 @@ I use the following pieces of software in my dev setup.
 ### Others that need to be installed manually
 
 * Apps
-    - [Atom](http://atom.io)
     - [Charles](http://www.charlesproxy.com/)
     - [Dropbox](http://db.tt/y5bnAOst)
     - [iTerm 2](http://www.iterm2.com)

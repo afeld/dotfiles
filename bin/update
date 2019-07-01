@@ -14,7 +14,3 @@ gem update bundler
 
 npm update -g npm
 npm update -g
-
-cd ~/.atom
-apm upgrade -c false
-cd -

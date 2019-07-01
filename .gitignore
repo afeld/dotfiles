@@ -1,13 +1,5 @@
 zshrc_includes/keys.sh
 
-/atom/.apm/
-/atom/.node-gyp/
-/atom/blob-store/
-/atom/compile-cache/
-/atom/dev/
-/atom/packages/
-/atom/storage/
-
 oh-my-zsh/
 !oh-my-zsh/oh-my-zsh.sh
 !oh-my-zsh/custom/

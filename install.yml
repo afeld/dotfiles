@@ -8,7 +8,6 @@
       with_items:
         - ackrc
         - asdfrc
-        - editorconfig
         - gemrc
         - gitconfig
         - gitconfig-mac

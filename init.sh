@@ -30,17 +30,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   pipenv install
   pipenv run ansible-playbook install.yml
-
-  # https://github.com/afeld/git-setup
-  curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh
-
-  # https://github.com/18F/laptop#want-to-install-just-git-seekret
-  curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
 fi
-
-# use ZShell as default
-echo "Installing oh-my-zsh..."
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-echo "...oh-my-zsh installed"
 
 echo "DONE"

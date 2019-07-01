@@ -31,3 +31,17 @@
         dest: ~/Library/Application Support/Code/User/settings.json
         state: link
         force: true
+    # https://github.com/afeld/git-setup
+    - name: Set up Git
+      shell: curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh
+    # https://github.com/18F/laptop#want-to-install-just-git-seekret
+    - name: Set up Git Seekret
+      shell: curl -s https://raw.githubusercontent.com/18F/laptop/master/seekrets-install | bash -
+
+    - name: Check if oh-my-zsh is installed
+      stat:
+        path: ~/.oh-my-zsh
+      register: oh_my_zsh
+    - name: Install oh-my-zsh
+      shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      when: not oh_my_zsh.stat.exists

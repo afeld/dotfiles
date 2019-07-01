@@ -24,7 +24,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   brew bundle
 
   pipenv install
-  pipenv run ansible-playbook install.yml
+  pipenv run ansible-playbook -i localhost, -c local install.yml
 fi
 
 echo "DONE"

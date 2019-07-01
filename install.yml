@@ -1,6 +1,6 @@
 - hosts: localhost
   tasks:
-    - name: Symlink {{ item }}
+    - name: Symlink dotfiles
       file:
         src: "{{ playbook_dir }}/{{ item }}"
         dest: ~/.{{ item }}
@@ -25,3 +25,9 @@
       git:
         repo: https://github.com/afeld/git-plugins.git
         dest: ~/dev/git-plugins
+    - name: Add VSCode settings
+      file:
+        src: "{{ playbook_dir }}/vscode/settings.json"
+        dest: ~/Library/Application Support/Code/User/settings.json
+        state: link
+        force: true

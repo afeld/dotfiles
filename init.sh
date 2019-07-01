@@ -17,9 +17,6 @@ command_exists () {
 }
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  rm -rf ~/Library/Application\ Support/Code/User/settings.json
-  ln -s "$(realpath vscode/settings.json)" ~/Library/Application\ Support/Code/User/settings.json
-
   # homebrew
   if command_exists brew; then
     brew update

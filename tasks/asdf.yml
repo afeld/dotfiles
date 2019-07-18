@@ -1,0 +1,12 @@
+- name: Get installed asdf plugins
+  command: asdf plugin-list
+  changed_when: false
+  register: asdf_plugins
+
+- name: Install asdf plugins
+  command: asdf plugin-add {{ item }}
+  when: item not in asdf_plugins.stdout
+  with_items:
+    - nodejs
+    - python
+    - ruby

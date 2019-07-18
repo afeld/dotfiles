@@ -30,3 +30,6 @@
 
     - name: Set up Visual Studio Code
       import_tasks: tasks/vscode.yml
+
+    - name: Set up asdf
+      import_tasks: tasks/asdf.yml

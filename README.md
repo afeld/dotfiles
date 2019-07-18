@@ -4,14 +4,17 @@ Moving towards one-liner setup of a development machine.
 
 ## Getting Started
 
-Install and open [Visual Studio Code](https://code.visualstudio.com/), fork this repo, then run the following in a terminal:
+1. Install and open [Visual Studio Code](https://code.visualstudio.com/)
+1. [Set up the VSCode command line helper](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line)
+1. Fork this repo
+1. Run the following in a terminal:
 
-```bash
-cd ~
-git clone YOUR_FORK_URL.git
-cd dotfiles
-./init.sh
-```
+    ```bash
+    cd ~
+    git clone YOUR_FORK_URL.git
+    cd dotfiles
+    ./init.sh
+    ```
 
 ## Software
 

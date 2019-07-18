@@ -5,6 +5,7 @@
         src: "{{ playbook_dir }}/{{ item }}"
         dest: ~/.{{ item }}
         state: link
+        force: true
       with_items:
         - ackrc
         - asdfrc

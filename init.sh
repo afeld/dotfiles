@@ -11,20 +11,18 @@ command_exists () {
   type "$1" &> /dev/null ;
 }
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # homebrew
-  if command_exists brew; then
-    brew update
-  else
-    echo "Installing brew..."
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    echo "...brew installed"
-  fi
-
-  brew bundle
-
-  pipenv install
-  pipenv run ansible-playbook -i localhost, -c local install.yml
+# homebrew
+if command_exists brew; then
+  brew update
+else
+  echo "Installing brew..."
+  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  echo "...brew installed"
 fi
+
+brew bundle
+
+pipenv install
+pipenv run ansible-playbook -i localhost, -c local --ask-become-pass install.yml
 
 echo "DONE"

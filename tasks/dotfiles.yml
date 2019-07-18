@@ -1,0 +1,13 @@
+- name: List dotfiles
+  find:
+    paths: "{{ playbook_dir }}/dotfiles"
+    hidden: true
+  register: dotfiles
+
+- name: Symlink dotfiles
+  file:
+    src: "{{ playbook_dir }}/dotfiles/{{ item }}"
+    dest: ~/.{{ item }}
+    state: link
+    force: true
+  loop: "{{ dotfiles.files | map(attribute='path') | map('basename') | sort }}"

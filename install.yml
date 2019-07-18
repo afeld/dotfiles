@@ -3,27 +3,8 @@
     - name: Restart Dock
       command: killall Dock
   tasks:
-    - name: Symlink dotfiles
-      file:
-        src: "{{ playbook_dir }}/dotfiles/{{ item }}"
-        dest: ~/.{{ item }}
-        state: link
-        force: true
-      with_items:
-        - ackrc
-        - asdfrc
-        - gemrc
-        - gitconfig
-        - gitconfig-mac
-        - gitconfig-work
-        - gitignore
-        - irbrc
-        - pryrc
-        - rdebugrc
-        - sqliterc
-        - tmux.conf
-        - vimrc
-        - zshrc
+    - name: Set up dotfiles
+      import_tasks: tasks/dotfiles.yml
 
     - name: Set up Git
       import_tasks: tasks/git.yml

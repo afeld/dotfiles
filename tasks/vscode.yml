@@ -13,6 +13,6 @@
 - name: Install VSCode extensions
   command: code --install-extension {{ item }}
   when: item not in extensions.stdout
-  with_items:
+  loop:
     - esbenp.prettier-vscode
     - sdras.night-owl

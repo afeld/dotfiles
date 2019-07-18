@@ -6,7 +6,7 @@
 - name: Install asdf plugins
   command: asdf plugin-add {{ item }}
   when: item not in asdf_plugins.stdout
-  with_items:
+  loop:
     - nodejs
     - python
     - ruby

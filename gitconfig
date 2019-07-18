@@ -48,6 +48,16 @@
 	required = true
 [diff]
 	compactionHeuristic = true
+[credential]
+	helper = osxkeychain
+[url "https://github.com"]
+	insteadOf = git://github.com
+[interactive]
+	diffFilter = diff-highlight
+[pager]
+	log = diff-highlight | less
+	show = diff-highlight | less
+	diff = diff-highlight | less
 [gitseekret]
 	version = 1
 	rulesenabled = aws.secret_access_key,aws.access_key_id,aws.account_id,mandrill.username,mandrill.password,mandrill.api_key,newrelic.license_key,slack.api_token
@@ -65,13 +75,3 @@
   path = .gitconfig-work
 [includeIf "gitdir:~/dev/go/"]
   path = .gitconfig-work
-
-# infer OS type by root directory
-[includeIf "gitdir:/Users/**"]
-  path = .gitconfig-mac
-# Windows
-[includeIf "gitdir:/home/**"]
-  path = .gitconfig-work
-[includeIf "gitdir:/cygdrive/**"]
-  path = .gitconfig-work
-

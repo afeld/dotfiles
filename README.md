@@ -9,12 +9,21 @@ Moving towards one-liner setup of a development machine.
 1. Fork this repo
 1. Run the following in a terminal:
 
-    ```bash
-    cd ~
-    git clone YOUR_FORK_URL.git
-    cd dotfiles
-    ./init.sh
-    ```
+   ```bash
+   cd ~
+   git clone YOUR_FORK_URL.git
+   cd dotfiles
+   ./init.sh
+   ```
+
+## OSX settings
+
+...that need to be changed manually:
+
+- [Change modifier keys](https://support.apple.com/guide/mac-help/change-the-behavior-of-the-modifier-keys-mchlp1011/mac) to have Caps Lock act like Control
+- [Speed up the key repeat and shorten the delay](https://support.apple.com/guide/mac-help/set-how-quickly-a-key-repeats-mchl0311bdb4/mac)
+- [Remove extraneous Dock items](https://support.apple.com/guide/mac-help/dock-mh35859/mac#mchlpf80766d)
+- [Turn off "swipe between pages"](https://support.apple.com/guide/mac-help/change-trackpad-preferences-mchlp1226/10.14/mac/10.14)
 
 ## Software
 

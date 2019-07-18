@@ -1,4 +1,7 @@
 - hosts: localhost
+  handlers:
+    - name: Restart Dock
+      command: killall Dock
   tasks:
     - name: Symlink dotfiles
       file:
@@ -33,3 +36,7 @@
 
     - name: Set up asdf
       import_tasks: tasks/asdf.yml
+
+    - name: Auto-hide the Dock
+      command: defaults write com.apple.dock autohide -int 1
+      notify: Restart Dock

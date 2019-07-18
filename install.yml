@@ -5,7 +5,7 @@
   tasks:
     - name: Symlink dotfiles
       file:
-        src: "{{ playbook_dir }}/{{ item }}"
+        src: "{{ playbook_dir }}/dotfiles/{{ item }}"
         dest: ~/.{{ item }}
         state: link
         force: true

@@ -7,7 +7,7 @@ brew upgrade brew-cask
 brew cleanup
 brew cask cleanup
 
-rvm get stable
+asdf plugin-update
 
 gem update --system
 gem update bundler

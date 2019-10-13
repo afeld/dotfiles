@@ -48,6 +48,7 @@
 	required = true
 [diff]
 	compactionHeuristic = true
+	noprefix = true
 [credential]
 	helper = osxkeychain
 [url "https://github.com"]

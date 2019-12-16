@@ -1,6 +1,8 @@
 - name: Get installed asdf plugins
   command: asdf plugin-list
   changed_when: false
+  # given an error when there are none
+  ignore_errors: true
   register: asdf_plugins
 
 - name: Install asdf plugins

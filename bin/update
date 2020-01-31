@@ -2,12 +2,11 @@
 
 set -x
 
-brew update
-brew upgrade brew-cask
+brew upgrade
+brew cask upgrade
 brew cleanup
-brew cask cleanup
 
-asdf plugin-update
+asdf plugin-update --all
 
 gem update --system
 gem update bundler

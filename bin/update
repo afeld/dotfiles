@@ -8,8 +8,13 @@ brew cleanup
 
 asdf plugin-update --all
 
+# ruby
 gem update --system
 gem update bundler
 
+# node
 npm update -g npm
 npm update -g
+
+# python
+pip install -U pip

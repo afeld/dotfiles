@@ -20,7 +20,8 @@ else
   echo "...brew installed"
 fi
 
-brew bundle
+# ignore failure (for already-installed applications)
+brew bundle || true
 
 pipenv install
 pipenv run ansible-playbook -i localhost, -c local --ask-become-pass install.yml

@@ -1,3 +1,13 @@
+# https://pawelgrzybek.com/change-macos-user-preferences-via-command-line/
+
+# https://apple.stackexchange.com/a/340175/39927
+- name: Disable screenshot previews
+  osx_defaults:
+    domain: com.apple.screencapture
+    key: show-thumbnail
+    type: bool
+    value: false
+
 - name: Auto-hide the Dock
   osx_defaults:
     domain: com.apple.dock

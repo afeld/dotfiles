@@ -1,0 +1,7 @@
+- name: Auto-hide the Dock
+  osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: int
+    value: 1
+  notify: Restart Dock

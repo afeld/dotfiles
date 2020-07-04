@@ -18,6 +18,5 @@
     - name: Set up asdf
       import_tasks: tasks/asdf.yml
 
-    - name: Auto-hide the Dock
-      command: defaults write com.apple.dock autohide -int 1
-      notify: Restart Dock
+    - name: Set up macOS
+      import_tasks: tasks/macos.yml

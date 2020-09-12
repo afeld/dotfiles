@@ -30,6 +30,9 @@ Moving towards one-liner setup of a development machine.
   - Increase tracking speed
   - Turn on App Expose
   - [Turn off "swipe between pages"](https://support.apple.com/guide/mac-help/change-trackpad-preferences-mchlp1226/10.14/mac/10.14)
+- Finder
+  - [Add folders to sidebar](https://support.apple.com/guide/mac-help/customize-finder-toolbar-sidebar-mac-mchlp3011/mac)
+  - [Enable Path Bar](https://www.lifewire.com/use-macs-hidden-finder-path-bar-2260868)
 
 ## Software
 

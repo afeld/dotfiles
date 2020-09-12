@@ -3,7 +3,6 @@
 set -x
 
 brew upgrade
-brew cask upgrade
 brew cleanup
 
 asdf plugin-update --all

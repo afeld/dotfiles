@@ -6,5 +6,6 @@
 *.sublime-workspace
 .DS_Store
 .junk
+.tool-versions
 .vscode/
 bundler_stubs/

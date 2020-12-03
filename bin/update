@@ -7,9 +7,6 @@ brew cleanup
 
 asdf plugin-update --all
 
-# oh-my-zsh
-omz update
-
 # ruby
 gem update --system
 gem update bundler

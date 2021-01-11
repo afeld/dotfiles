@@ -1,7 +1,7 @@
 brew "ack"
 brew "asdf"
+brew "gh"
 brew "git"
-brew "github/gh/gh"
 brew "gpg"
 brew "hub"
 brew "pipenv"

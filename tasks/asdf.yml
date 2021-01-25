@@ -12,6 +12,7 @@
     - nodejs
     - python
     - ruby
+    - terraform
 
 # https://github.com/asdf-vm/asdf-nodejs#install
 - name: Import NodeJS keys

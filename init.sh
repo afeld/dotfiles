@@ -11,6 +11,8 @@ command_exists () {
   type "$1" &> /dev/null ;
 }
 
+chsh -s /bin/zsh
+
 # homebrew
 if command_exists brew; then
   brew update
@@ -24,6 +26,6 @@ fi
 brew bundle || true
 
 pipenv install
-pipenv run ansible-playbook -i localhost, -c local --ask-become-pass install.yml
+pipenv run ansible-playbook -i localhost, -c local install.yml
 
 echo "DONE"

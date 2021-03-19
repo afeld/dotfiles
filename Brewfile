@@ -15,4 +15,4 @@ cask "google-chrome" unless File.exist?('/Applications/Google Chrome.app')
 cask "firefox"
 cask "iterm2"
 cask "slack"
-cask "zoomus"
+cask "zoom"

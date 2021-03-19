@@ -56,6 +56,7 @@ I use the following pieces of software in my dev setup.
     - [Caffeine](http://itunes.apple.com/us/app/caffeine/id411246225)
     - [Cloud](http://itunes.apple.com/us/app/cloud/id417602904)
     - [Dash](https://itunes.apple.com/us/app/dash/id458034879)
+      - Under `Preferences`, `Set Up Syncing` to `dotfiles/`
     - [Moom](https://itunes.apple.com/us/app/moom/id419330170?mt=12)
     - [Skitch](https://itunes.apple.com/us/app/skitch/id425955336?mt=12)
 - Chrome extensions

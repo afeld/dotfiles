@@ -24,3 +24,12 @@ alias rbp="git pull --rebase && git push"
 function unreleased {
   git for-each-ref --sort=-committerdate --format="%(committerdate:short) %(refname:short)" --count=15 $(git branch -r --no-merged upstream/master | grep -v HEAD | sed -e 's#^ *#refs/remotes/#')
 }
+
+# add and retrieve secrets from macOS Keychain, based on
+# https://medium.com/@johnjjung/how-to-store-sensitive-environment-variables-on-macos-76bd5ba464f6
+function setpass {
+  security add-generic-password -a "$USER" -s "$1" -w
+}
+function getpass {
+  security find-generic-password -a "$USER" -s "$1" -w
+}

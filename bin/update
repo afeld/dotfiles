@@ -2,6 +2,14 @@
 
 set -x
 
+# update the dotfiles
+# https://stackoverflow.com/a/242550/358804
+BASEDIR=$(dirname "$0")
+git -C "$BASEDIR" pull
+
+# update the git plugins
+git -C ~/dev/git-plugins pull
+
 brew upgrade
 brew cleanup
 

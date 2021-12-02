@@ -13,6 +13,7 @@ git -C ~/dev/git-plugins pull
 brew upgrade
 brew cleanup
 
+omz update
 asdf plugin-update --all
 
 # ruby

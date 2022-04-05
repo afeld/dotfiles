@@ -58,15 +58,5 @@
 	log = diff-highlight | less
 	show = diff-highlight | less
 	diff = diff-highlight | less
-[includeIf "gitdir:~/dev/18F/"]
-  path = .gitconfig-work
-[includeIf "gitdir:~/dev/GSA/"]
-  path = .gitconfig-work
-[includeIf "gitdir:~/dev/opencontrol/"]
-  path = .gitconfig-work
-[includeIf "gitdir:~/dev/xdgov/"]
-  path = .gitconfig-work
-[includeIf "gitdir:~/dev/uscensusbureau/"]
-  path = .gitconfig-work
-[includeIf "gitdir:~/dev/go/"]
-  path = .gitconfig-work
+[includeIf "gitdir:~/dev/cal-itp/"]
+	path = .gitconfig-work

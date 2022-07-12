@@ -1,2 +1,4 @@
 channel_priority: strict
 auto_activate_base: false
+channels:
+  - defaults

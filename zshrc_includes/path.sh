@@ -8,4 +8,4 @@ export PATH=$PATH:$GOPATH/bin
 export PATH=$HOME/dev/git-plugins/bin:$PATH
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-export PATH="$PATH:/usr/local/share/git-core/contrib/diff-highlight"
+export PATH="$PATH:/opt/homebrew/share/git-core/contrib/diff-highlight"

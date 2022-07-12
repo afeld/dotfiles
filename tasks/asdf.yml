@@ -12,8 +12,4 @@
     - nodejs
     - python
     - ruby
-    - terraform
-
-# https://github.com/asdf-vm/asdf-nodejs#install
-- name: Import NodeJS keys
-  command: bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+    - terraform˝

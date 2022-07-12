@@ -2,14 +2,14 @@
 
 # https://apple.stackexchange.com/a/340175/39927
 - name: Disable screenshot previews
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.screencapture
     key: show-thumbnail
     type: bool
     value: false
 
 - name: Auto-hide the Dock
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.dock
     key: autohide
     type: int
@@ -17,7 +17,7 @@
   notify: Restart Dock
 
 - name: Turn on tap-to-click
-  osx_defaults:
+  community.general.osx_defaults:
     domain: com.apple.AppleMultitouchTrackpad
     key: Clicking
     type: bool

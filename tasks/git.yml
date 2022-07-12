@@ -2,7 +2,3 @@
   git:
     repo: https://github.com/afeld/git-plugins.git
     dest: ~/dev/git-plugins
-
-# https://github.com/afeld/git-setup
-- name: Set up Git
-  shell: curl -fsSL https://raw.githubusercontent.com/afeld/git-setup/master/setup.sh | sh

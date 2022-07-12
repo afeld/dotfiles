@@ -4,5 +4,6 @@
   register: oh_my_zsh
 
 - name: Install oh-my-zsh
-  shell: sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  # https://ohmyz.sh/#install
+  shell: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   when: not oh_my_zsh.stat.exists

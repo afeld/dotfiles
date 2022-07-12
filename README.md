@@ -16,7 +16,7 @@ Moving towards one-liner setup of a development machine.
    ./init.sh
    ```
 
-1. If you don't have XCode command line tools, you may need to run `./init.sh` again.
+You may need to run `./init.sh` a few times for it to successfully complete.
 
 ## Manual steps
 

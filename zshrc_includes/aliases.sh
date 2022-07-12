@@ -33,3 +33,9 @@ function setpass {
 function getpass {
   security find-generic-password -a "$USER" -s "$1" -w
 }
+
+# https://www.unixtutorial.org/docker-stop-all-containers/#docker-stop-all-containers
+function docker-stop-all {
+  docker stop $(docker ps -q)
+}
+

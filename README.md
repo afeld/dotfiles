@@ -4,8 +4,6 @@ Moving towards one-liner setup of a development machine.
 
 ## Getting Started
 
-1. Install and open [Visual Studio Code](https://code.visualstudio.com/)
-1. [Set up the VSCode command line helper](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line)
 1. Fork this repo
 1. Run the following in a terminal:
 
@@ -41,6 +39,7 @@ You may need to run `./init.sh` a few times for it to successfully complete.
 - Install Purchased items from App Store
 - [iTerm 2](http://www.iterm2.com)
   - Set "Load preferences from a custom folder or URL" to be `/Users/USER/dotfiles`
+- [Set up the VSCode command line helper](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line)
 
 ## Web-Based Tools
 

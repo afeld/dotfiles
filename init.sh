@@ -18,7 +18,8 @@ if command_exists brew; then
   brew update
 else
   echo "Installing brew..."
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  # https://brew.sh/#install
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   echo "...brew installed"
 fi
 

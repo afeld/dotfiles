@@ -11,8 +11,6 @@ command_exists () {
   type "$1" &> /dev/null ;
 }
 
-chsh -s /bin/zsh
-
 # homebrew
 if command_exists brew; then
   brew update

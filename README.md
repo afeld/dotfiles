@@ -34,6 +34,9 @@ You may need to run `./init.sh` a few times for it to successfully complete.
   - [Add folders to sidebar](https://support.apple.com/guide/mac-help/customize-finder-toolbar-sidebar-mac-mchlp3011/mac)
   - [Enable Path Bar](https://www.lifewire.com/use-macs-hidden-finder-path-bar-2260868)
 - Set default browser
+- Bluetooth
+  - Pair headphones
+  - Show Bluetooth menu in menu bar
 
 ### Other
 

@@ -11,11 +11,12 @@ cask "bartender"
 cask "bluesnooze"
 cask "docker"
 cask "dropbox"
+cask "firefox"
 # don't fail if Chrome is already installed
 cask "google-chrome" unless File.exist?('/Applications/Google Chrome.app')
 cask "google-drive"
-cask "firefox"
 cask "iterm2"
+cask "pipenv"
 cask "signal"
 cask "slack"
 cask "spotify"

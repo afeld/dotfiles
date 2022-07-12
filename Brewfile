@@ -1,13 +1,10 @@
-brew "ack"
 brew "asdf"
 brew "gh"
 brew "git"
 brew "gpg"
 brew "hub"
-brew "pipenv"
 brew "shellcheck"
 brew "tree"
-brew "wget"
 
 cask "docker"
 # don't fail if Chrome is already installed

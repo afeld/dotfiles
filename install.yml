@@ -12,9 +12,6 @@
     - name: Set up oh-my-zsh
       import_tasks: tasks/oh_my_zsh.yml
 
-    - name: Set up Visual Studio Code
-      import_tasks: tasks/vscode.yml
-
     - name: Set up asdf
       import_tasks: tasks/asdf.yml
 

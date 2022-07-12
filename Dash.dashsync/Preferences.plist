@@ -93,15 +93,19 @@
 			<key>Terraform</key>
 			<dict>
 				<key>date</key>
-				<date>2021-03-19T11:24:59Z</date>
+				<date>2022-07-08T04:26:00Z</date>
 				<key>entry</key>
 				<dict>
 					<key>aliases</key>
-					<array/>
+					<array>
+						<string>terraform</string>
+						<string>tf</string>
+						<string>terra</string>
+					</array>
 					<key>authorLinkHref</key>
 					<string>https://github.com/Kapeli/Dash-User-Contributions/tree/master/docsets/Terraform#readme</string>
 					<key>authorLinkText</key>
-					<string>rolandjohann</string>
+					<string>Roberth Kulbin</string>
 					<key>name</key>
 					<string>Terraform</string>
 					<key>platform</key>
@@ -139,6 +143,8 @@
 			<string>p:</string>
 			<key>~/Library/Application Support/Dash/DocSets/Ruby_2/Ruby.docset</key>
 			<string>r:</string>
+			<key>~/Library/Application Support/Dash/DocSets/Ruby_3/Ruby.docset</key>
+			<string>r:</string>
 			<key>~/Library/Application Support/Dash/User Contributed/Terraform/Terraform.docset</key>
 			<string>t:</string>
 		</dict>
@@ -157,6 +163,11 @@
 				<key>date</key>
 				<date>2019-06-30T19:33:14Z</date>
 			</dict>
+			<key>http://kapeli.com/feeds/Docker.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2022-06-10T03:57:56Z</date>
+			</dict>
 			<key>http://kapeli.com/feeds/HTML.xml</key>
 			<dict>
 				<key>date</key>
@@ -166,6 +177,11 @@
 			<dict>
 				<key>date</key>
 				<date>2019-06-30T19:36:00Z</date>
+			</dict>
+			<key>http://kapeli.com/feeds/Nginx.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2022-07-08T04:24:38Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/NodeJS.xml</key>
 			<dict>
@@ -187,10 +203,10 @@
 				<key>date</key>
 				<date>2020-05-10T07:06:10Z</date>
 			</dict>
-			<key>http://kapeli.com/feeds/Ruby_2.xml</key>
+			<key>http://kapeli.com/feeds/Ruby_3.xml</key>
 			<dict>
 				<key>date</key>
-				<date>2019-11-09T05:12:49Z</date>
+				<date>2021-10-07T03:51:20Z</date>
 			</dict>
 			<key>http://kapeli.com/feeds/SVG.xml</key>
 			<dict>
@@ -199,7 +215,18 @@
 			</dict>
 		</dict>
 		<key>uninstalled</key>
-		<dict/>
+		<dict>
+			<key>http://kapeli.com/feeds/Django.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2022-04-14T18:52:01Z</date>
+			</dict>
+			<key>http://kapeli.com/feeds/Ruby_2.xml</key>
+			<dict>
+				<key>date</key>
+				<date>2022-02-22T22:34:22Z</date>
+			</dict>
+		</dict>
 	</dict>
 	<key>isPinned</key>
 	<true/>
@@ -259,6 +286,28 @@
 			</array>
 			<key>name</key>
 			<string>frontend</string>
+			<key>searchSnippets</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>docsets</key>
+			<array>
+				<string>~/Library/Application Support/Dash/Versioned DocSets/Django - DHDocsetDownloader/3-2-10/Django.docset</string>
+				<string>~/Library/Application Support/Dash/DocSets/Python_3/Python 3.docset</string>
+			</array>
+			<key>name</key>
+			<string>Benefits</string>
+			<key>searchSnippets</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>docsets</key>
+			<array>
+				<string>~/Library/Application Support/Dash/DocSets/Pandas/Pandas.docset</string>
+				<string>~/Library/Application Support/Dash/DocSets/Python_3/Python 3.docset</string>
+			</array>
+			<key>name</key>
+			<string>pandas</string>
 			<key>searchSnippets</key>
 			<true/>
 		</dict>
@@ -392,7 +441,16 @@
 	<key>versionedFeeds</key>
 	<dict>
 		<key>installed</key>
-		<dict/>
+		<dict>
+			<key>http://kapeli.com/feeds/Django.xml</key>
+			<dict>
+				<key>3.2.10</key>
+				<dict>
+					<key>date</key>
+					<date>2022-04-07T05:21:19Z</date>
+				</dict>
+			</dict>
+		</dict>
 		<key>uninstalled</key>
 		<dict/>
 	</dict>

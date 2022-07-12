@@ -18,7 +18,9 @@ Moving towards one-liner setup of a development machine.
 
 1. If you don't have XCode command line tools, you may need to run `./init.sh` again.
 
-## OSX settings
+## Manual steps
+
+### OSX settings
 
 ...that need to be changed manually:
 
@@ -34,40 +36,11 @@ Moving towards one-liner setup of a development machine.
   - [Add folders to sidebar](https://support.apple.com/guide/mac-help/customize-finder-toolbar-sidebar-mac-mchlp3011/mac)
   - [Enable Path Bar](https://www.lifewire.com/use-macs-hidden-finder-path-bar-2260868)
 
-## Software
+### Other
 
-I use the following pieces of software in my dev setup.
-
-### Installed automatically by `init.sh`
-
-- [asdf](https://asdf-vm.com/)
-- [brew](http://mxcl.github.com/homebrew/)
-- [hub](https://hub.github.com)
-
-### Others that need to be installed manually
-
-- Apps
-  - [Dropbox](http://db.tt/y5bnAOst)
-  - [iTerm 2](http://www.iterm2.com)
-    - Set "Load preferences from a custom folder or URL" to be `/Users/USER/dotfiles`
-  - [Satellite Eyes](http://satelliteeyes.tomtaylor.co.uk/)
-  - App Store
-    - [1Password](https://itunes.apple.com/us/app/1password-password-manager/id443987910?mt=12)
-    - [Caffeine](http://itunes.apple.com/us/app/caffeine/id411246225)
-    - [Cloud](http://itunes.apple.com/us/app/cloud/id417602904)
-    - [Dash](https://itunes.apple.com/us/app/dash/id458034879)
-      - Under `Preferences`, `Set Up Syncing` to `dotfiles/`
-    - [Moom](https://itunes.apple.com/us/app/moom/id419330170?mt=12)
-    - [Skitch](https://itunes.apple.com/us/app/skitch/id425955336?mt=12)
-- Chrome extensions
-  - [Authy](https://www.authy.com/)
-  - [Awesome Screenshot](https://chrome.google.com/webstore/detail/awesome-screenshot-captur/alelhddbbhepgpmgidjdcjakblofbmce)
-  - [Boomerang](http://www.boomeranggmail.com/)
-  - [Github Notification Helper for GMail](https://chrome.google.com/webstore/detail/github-notification-helpe/gmhijkhbpihfmkmhmcfebmlkaekgmaje)
-  - [JSONView](https://chrome.google.com/webstore/detail/jsonview/chklaanhfefbnpoihckbnefhakgolnmc)
-  - [Postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm)
-- Firefox extensions
-  - [JSONView](https://addons.mozilla.org/en-US/firefox/addon/jsonview/)
+- Install Purchased items from App Store
+- [iTerm 2](http://www.iterm2.com)
+  - Set "Load preferences from a custom folder or URL" to be `/Users/USER/dotfiles`
 
 ## Web-Based Tools
 

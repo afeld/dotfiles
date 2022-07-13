@@ -37,6 +37,7 @@ You may need to run `./init.sh` a few times for it to successfully complete.
 - Bluetooth
   - Pair headphones
   - Show Bluetooth menu in menu bar
+- [Automatically keep up to date](https://support.apple.com/guide/mac-help/get-macos-updates-mchlpx1065/mac)
 
 ### Other
 

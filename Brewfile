@@ -7,6 +7,11 @@ brew "pipenv"
 brew "shellcheck"
 brew "tree"
 
+# https://github.com/rbenv/ruby-build/wiki#openssl-version-compatibility
+# https://github.com/rbenv/homebrew-tap/pull/2#issuecomment-1047430606
+tap "nutcracker/tap"
+brew "nutcracker/tap/openssl@1.0"
+
 cask "1password"
 cask "bartender"
 cask "bluesnooze"

@@ -39,6 +39,7 @@
 [push]
 	# only push the current branch
 	default = upstream
+	autoSetupRemote = true
 [hub]
 	protocol = https
 [filter "media"]

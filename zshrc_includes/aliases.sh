@@ -34,6 +34,10 @@ function getpass {
   security find-generic-password -a "$USER" -s "$1" -w
 }
 
+# opens the current directory in a given Docker image
+function docker-run {
+  docker run --rm -it --volume "$(pwd):/home/app" --workdir /home/app "$@"
+}
 # https://www.unixtutorial.org/docker-stop-all-containers/#docker-stop-all-containers
 function docker-stop-all {
   docker stop $(docker ps -q)

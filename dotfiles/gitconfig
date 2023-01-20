@@ -3,7 +3,7 @@
 	name = Aidan Feldman
 [core]
 	excludesfile = ~/.gitignore
-	editor = vim
+	editor = code --wait
 	autocrlf = input
 	precomposeunicode = true
 	ignorecase = false

@@ -37,6 +37,8 @@ source $ZSH/oh-my-zsh.sh
 
 export EDITOR=vim
 export GOPATH=$HOME/dev/go
+# fix deprecation warning
+export JUPYTER_PLATFORM_DIRS=1
 
 for file in ~/dotfiles/zshrc_includes/*.sh; do
   [[ -r $file ]] && source $file;

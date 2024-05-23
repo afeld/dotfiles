@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+# https://www.cloudbees.com/blog/how-to-kill-all-containers-in-docker
+containers=$(docker ps -q)
+if [ -n "$containers" ]; then
+  docker kill $containers;
+fi

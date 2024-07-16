@@ -47,6 +47,9 @@ done
 # http://superuser.com/a/221291
 setopt extended_glob
 
+# https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#getting-updates
+zstyle ':omz:update' mode auto
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/homebrew/Caskroom/mambaforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -65,4 +68,3 @@ if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh" ]; then
     . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh"
 fi
 # <<< conda initialize <<<
-

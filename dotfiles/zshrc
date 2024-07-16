@@ -31,9 +31,15 @@ REPORTTIME=5
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(asdf z)
+plugins=(asdf conda-env z)
 
 source $ZSH/oh-my-zsh.sh
+
+# display conda environment
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/conda-env/README.md#example
+ZSH_THEME_CONDA_PREFIX='conda:%F{green}'
+ZSH_THEME_CONDA_SUFFIX='%f'
+RPROMPT='$(conda_prompt_info)'
 
 export EDITOR=vim
 export GOPATH=$HOME/dev/go

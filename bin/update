@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 set -x
 
@@ -26,3 +26,5 @@ npm update -g
 
 # python
 pip install -U pip
+
+gcloud components update

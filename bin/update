@@ -27,4 +27,4 @@ npm update -g
 # python
 pip install -U pip
 
-gcloud components update
+gcloud components update --quiet

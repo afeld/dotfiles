@@ -14,7 +14,7 @@ brew upgrade
 brew cleanup
 
 omz update
-asdf plugin-update --all
+asdf plugin update --all
 
 # ruby
 gem update --system

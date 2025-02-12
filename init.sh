@@ -25,7 +25,7 @@ fi
 brew bundle || true
 
 # install Python plugin so that Pipenv can automatically install Python, ignoring failure if the plugin is already installed
-asdf plugin-add python || true
+asdf plugin add python || true
 pipenv install
 pipenv run ansible-playbook -i localhost, -c local install.yml
 

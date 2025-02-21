@@ -7,5 +7,5 @@
 .DS_Store
 .junk
 .tool-versions
-.vscode/
+.vscode/settings.json
 bundler_stubs/

@@ -6,7 +6,5 @@ export PATH=$HOME/dotfiles/bin:$PATH
 export PATH=./node_modules/.bin:$PATH # add NodeJS modules from working directory
 export PATH=$PATH:$GOPATH/bin
 export PATH=$HOME/dev/git-plugins/bin:$PATH
-# https://asdf-vm.com/guide/getting-started.html#_2-configure-asdf
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 export PATH="$PATH:/opt/homebrew/share/git-core/contrib/diff-highlight"

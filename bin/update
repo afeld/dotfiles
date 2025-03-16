@@ -13,7 +13,8 @@ git -C ~/dev/git-plugins pull
 brew upgrade
 brew cleanup
 
-omz update
+# https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-update-oh-my-zsh
+~/.oh-my-zsh/tools/upgrade.sh
 asdf plugin update --all
 
 # ruby

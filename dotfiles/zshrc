@@ -31,15 +31,9 @@ REPORTTIME=5
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(asdf conda-env z)
+plugins=(asdf z)
 
 source $ZSH/oh-my-zsh.sh
-
-# display conda environment
-# https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/conda-env/README.md#example
-ZSH_THEME_CONDA_PREFIX='conda:%F{green}'
-ZSH_THEME_CONDA_SUFFIX='%f'
-RPROMPT='$(conda_prompt_info)'
 
 export EDITOR=vim
 export GOPATH=$HOME/dev/go
@@ -56,24 +50,18 @@ setopt extended_glob
 # https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#getting-updates
 zstyle ':omz:update' mode auto
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/opt/homebrew/Caskroom/mambaforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba shell init' !!
+export MAMBA_EXE='/opt/homebrew/opt/micromamba/bin/mamba';
+export MAMBA_ROOT_PREFIX='/Users/afeld/mamba';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+    eval "$__mamba_setup"
 else
-    if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh" ]; then
-        . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/conda.sh"
-    else
-        export PATH="/opt/homebrew/Caskroom/mambaforge/base/bin:$PATH"
-    fi
+    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
 fi
-unset __conda_setup
-
-if [ -f "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh" ]; then
-    . "/opt/homebrew/Caskroom/mambaforge/base/etc/profile.d/mamba.sh"
-fi
-# <<< conda initialize <<<
+unset __mamba_setup
+# <<< mamba initialize <<<
 
 # Created by `pipx` on 2024-11-13 20:22:36
 export PATH="$PATH:/Users/afeld/.local/bin"

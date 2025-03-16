@@ -1,7 +1,6 @@
 brew "asdf"
 brew "gh"
 brew "git"
-brew "hub"
 brew "pipx"
 brew "shellcheck"
 brew "tree"

@@ -50,18 +50,20 @@ setopt extended_glob
 # https://github.com/ohmyzsh/ohmyzsh?tab=readme-ov-file#getting-updates
 zstyle ':omz:update' mode auto
 
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba shell init' !!
-export MAMBA_EXE='/opt/homebrew/opt/micromamba/bin/mamba';
-export MAMBA_ROOT_PREFIX='/Users/afeld/mamba';
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniforge/base/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
+    eval "$__conda_setup"
 else
-    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+    if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniforge/base/bin:$PATH"
+    fi
 fi
-unset __mamba_setup
-# <<< mamba initialize <<<
+unset __conda_setup
+# <<< conda initialize <<<
 
 # Created by `pipx` on 2024-11-13 20:22:36
 export PATH="$PATH:/Users/afeld/.local/bin"

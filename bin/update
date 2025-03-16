@@ -27,5 +27,6 @@ npm update -g
 
 # python
 pip install -U pip
+conda update -n base -c conda-forge conda
 
 gcloud components update --quiet

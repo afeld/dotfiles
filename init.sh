@@ -24,7 +24,8 @@ fi
 # ignore failure (for already-installed applications)
 brew bundle || true
 
-pipx install --include-deps ansible~=8.7
-ansible-playbook -i localhost, -c local install.yml
+pipx run \
+  --spec ansible~=8.7 \
+  ansible-playbook -i localhost, -c local install.yml
 
 echo "DONE"

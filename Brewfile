@@ -1,17 +1,19 @@
 brew "asdf"
 brew "gh"
 brew "git"
-brew "gpg"
 brew "hub"
 brew "micromamba"
 brew "pipenv"
 brew "shellcheck"
 brew "tree"
 
-# https://github.com/rbenv/ruby-build/wiki#openssl-version-compatibility
-# https://github.com/rbenv/homebrew-tap/pull/2#issuecomment-1047430606
-tap "nutcracker/tap"
-brew "nutcracker/tap/openssl@1.0"
+# needed for building Ruby through asdf
+# https://github.com/rbenv/ruby-build/wiki#macos
+brew "openssl@3"
+brew "readline"
+brew "libyaml"
+brew "gmp"
+brew "autoconf"
 
 cask "1password"
 cask "bartender"

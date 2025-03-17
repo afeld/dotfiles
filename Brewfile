@@ -24,6 +24,9 @@ cask "firefox"
 cask "google-chrome" unless File.exist?('/Applications/Google Chrome.app')
 cask "google-drive"
 cask "iterm2"
+# for exporting Jupyter notebooks as PDFs
+# https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex
+cask "mactex-no-gui"
 # conda+mamba
 cask "miniforge"
 cask "signal"

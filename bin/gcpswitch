@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+set -x
+
+gcloud config configurations activate "$1"
+gcloud auth application-default login

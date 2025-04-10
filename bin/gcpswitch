@@ -3,5 +3,18 @@
 set -e
 set -x
 
+if [ -z "$1" ]; then
+    gcloud config configurations list
+    exit 0
+fi
 gcloud config configurations activate "$1"
 gcloud auth application-default login
+
+CURRENT_PROJECT=$(gcloud config get-value project)
+if [ -z "$CURRENT_PROJECT" ]; then
+    printf "Project not set. Use:\n\n\tggcloud config set project PROJECT_ID\n"
+    gcloud projects list
+    exit 0
+fi
+gcloud auth application-default set-quota-project "$CURRENT_PROJECT"
+gcloud config set billing/quota_project "$CURRENT_PROJECT"

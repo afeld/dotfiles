@@ -17,6 +17,16 @@ brew cleanup
 ~/.oh-my-zsh/tools/upgrade.sh
 asdf plugin update --all
 
+# install and use latest versions
+for tool in nodejs python ruby terraform; do
+  # https://asdf-vm.com/manage/versions.html#install-latest-stable-version
+  asdf install $tool latest
+  # https://asdf-vm.com/manage/versions.html#set-version
+  asdf set -u $tool latest
+  # just to be safe
+  asdf reshim $tool
+done
+
 # ruby
 gem update --system
 gem update bundler

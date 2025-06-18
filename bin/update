@@ -18,13 +18,14 @@ brew cleanup
 asdf plugin update --all
 
 # install and use latest versions
-for tool in nodejs python ruby terraform; do
+# https://asdf-vm.com/manage/plugins.html#list-installed
+for tool in $(asdf plugin list); do
   # https://asdf-vm.com/manage/versions.html#install-latest-stable-version
-  asdf install $tool latest
+  asdf install "$tool" latest
   # https://asdf-vm.com/manage/versions.html#set-version
-  asdf set -u $tool latest
+  asdf set -u "$tool" latest
   # just to be safe
-  asdf reshim $tool
+  asdf reshim "$tool"
 done
 
 # ruby

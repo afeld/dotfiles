@@ -11,6 +11,7 @@ alias dotfiles="cd ~/dotfiles && code ."
 alias g=git
 alias ss="python3 -m http.server"
 alias t=terraform
+alias venv="python -m venv .venv && source .venv/bin/activate"
 
 # diff full-width, c/o http://unix.stackexchange.com/a/9303
 alias diff='diff -W $(( $(tput cols) - 2 ))'
@@ -41,4 +42,3 @@ function docker-run {
 function docker-stop-all {
   docker stop $(docker ps -q)
 }
-

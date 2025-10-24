@@ -49,6 +49,7 @@
 	noprefix = true
 [credential]
 	helper = osxkeychain
+	azreposCredentialType = oauth
 [url "https://github.com"]
 	insteadOf = git://github.com
 [interactive]

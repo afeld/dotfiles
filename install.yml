@@ -4,6 +4,8 @@
   handlers:
     - name: Restart Dock
       ansible.builtin.command: killall Dock
+    - name: Restart SystemUIServer
+      ansible.builtin.command: killall SystemUIServer
   tasks:
     - name: Set up dotfiles
       import_tasks: tasks/dotfiles.yml

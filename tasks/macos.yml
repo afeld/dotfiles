@@ -7,6 +7,16 @@
     key: show-thumbnail
     type: bool
     value: false
+  notify: Restart SystemUIServer
+
+# https://macos-defaults.com/screenshots/type.html
+- name: Set screenshot format to PNG
+  community.general.osx_defaults:
+    domain: com.apple.screencapture
+    key: type
+    type: string
+    value: png
+  notify: Restart SystemUIServer
 
 - name: Auto-hide the Dock
   community.general.osx_defaults:

@@ -1,13 +1,13 @@
 - name: Get installed asdf plugins
-  command: asdf plugin list
+  ansible.builtin.command: asdf plugin list
   changed_when: false
-  # given an error when there are none
-  ignore_errors: true
+  # avoid failing when there are no plugins installed yet
+  failed_when: false
   register: asdf_plugins
 
 - name: Install asdf plugins
-  command: asdf plugin add {{ item }}
-  when: item not in asdf_plugins.stdout
+  ansible.builtin.command: asdf plugin add {{ item }}
+  when: item not in (asdf_plugins.stdout_lines | default([]))
   loop:
     - nodejs
     - python

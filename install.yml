@@ -1,7 +1,9 @@
 - hosts: localhost
+  connection: local
+  gather_facts: false
   handlers:
     - name: Restart Dock
-      command: killall Dock
+      ansible.builtin.command: killall Dock
   tasks:
     - name: Set up dotfiles
       import_tasks: tasks/dotfiles.yml

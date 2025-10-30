@@ -1,4 +1,4 @@
 - name: Clone git-plugins
-  git:
+  ansible.builtin.git:
     repo: https://github.com/afeld/git-plugins.git
     dest: ~/dev/git-plugins

@@ -1,13 +1,13 @@
 - name: List dotfiles
-  find:
+  ansible.builtin.find:
     paths: "{{ playbook_dir }}/dotfiles"
     hidden: true
   register: dotfiles
 
 - name: Symlink dotfiles
-  file:
-    src: "{{ playbook_dir }}/dotfiles/{{ item }}"
-    dest: ~/.{{ item }}
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "~/.{{ item.path | basename }}"
     state: link
     force: true
-  loop: "{{ dotfiles.files | map(attribute='path') | map('basename') | sort }}"
+  loop: "{{ dotfiles.files | sort(attribute='path') }}"

@@ -25,7 +25,7 @@ fi
 brew bundle || true
 
 pipx run \
-  --spec ansible~=11.3 \
-  ansible-playbook -i localhost, -c local install.yml
+  --spec 'ansible==12.*' \
+  ansible-playbook -i localhost, install.yml
 
 echo "DONE"

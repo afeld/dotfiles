@@ -10,12 +10,13 @@
   notify: Restart SystemUIServer
 
 # https://macos-defaults.com/screenshots/type.html
-- name: Set screenshot format to PNG
+- name: Set screenshot format to JPEG
+  # PNGs weren't displaying properly everywhere, not sure why
   community.general.osx_defaults:
     domain: com.apple.screencapture
     key: type
     type: string
-    value: png
+    value: jpg
   notify: Restart SystemUIServer
 
 - name: Auto-hide the Dock

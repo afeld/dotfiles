@@ -24,8 +24,9 @@ fi
 # ignore failure (for already-installed applications)
 brew bundle || true
 
-pipx run \
-  --spec 'ansible==12.*' \
-  ansible-playbook -i localhost, install.yml
+# https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html#pipx-install
+pipx install --include-deps 'ansible==12.*'
+pipx ensurepath
+ansible-playbook -i localhost, install.yml --ask-become-pass
 
 echo "DONE"

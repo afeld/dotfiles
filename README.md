@@ -1,6 +1,6 @@
 # Aidan's dotfiles
 
-Moving towards one-liner setup of a development machine.
+Moving towards one-liner setup of a development machine. Written for Mac, but lots is applicable on other UNIX machines.
 
 ## Getting Started
 

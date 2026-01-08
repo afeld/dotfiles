@@ -33,3 +33,24 @@
     key: Clicking
     type: int
     value: 1
+
+- name: Enable Touch ID for sudo
+  become: true
+  block:
+    - name: Copy the sudo_local template to the active config file
+      ansible.builtin.copy:
+        src: /etc/pam.d/sudo_local.template
+        dest: /etc/pam.d/sudo_local
+        owner: root
+        group: wheel
+        mode: "0644"
+
+    - name: Uncomment the pam_tid.so line in sudo_local
+      ansible.builtin.lineinfile:
+        path: /etc/pam.d/sudo_local
+        regexp: "^#auth sufficient pam_tid.so"
+        line: "auth sufficient pam_tid.so"
+        owner: root
+        group: wheel
+        mode: "0644"
+        state: present

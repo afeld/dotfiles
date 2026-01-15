@@ -7,7 +7,7 @@ alias cc="docker run \
   --volume /tmp/cc:/tmp/cc \
   codeclimate/codeclimate"
 alias ding="afplay /System/Library/Sounds/Glass.aiff"
-alias dotfiles="cd ~/dotfiles && code ."
+alias dotfiles="code ~/dotfiles"
 alias g=git
 alias ss="python3 -m http.server"
 alias t=terraform

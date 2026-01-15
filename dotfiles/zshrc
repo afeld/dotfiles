@@ -63,11 +63,20 @@ else
     fi
 fi
 unset __conda_setup
-
-if [ -f "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/mamba.sh" ]; then
-    . "/opt/homebrew/Caskroom/miniforge/base/etc/profile.d/mamba.sh"
-fi
 # <<< conda initialize <<<
 
 # Created by `pipx` on 2024-11-13 20:22:36
 export PATH="$PATH:/Users/afeld/.local/bin"
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba shell init' !!
+export MAMBA_EXE='/opt/homebrew/Caskroom/miniforge/base/bin/mamba';
+export MAMBA_ROOT_PREFIX='/opt/homebrew/Caskroom/miniforge/base';
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    alias mamba="$MAMBA_EXE"  # Fallback on help from mamba activate
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<

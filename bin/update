@@ -10,7 +10,7 @@ git -C "$BASEDIR" pull
 # update the git plugins
 git -C ~/dev/git-plugins pull
 
-brew upgrade
+brew upgrade --yes
 brew cleanup
 
 # https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-update-oh-my-zsh

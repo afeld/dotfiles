@@ -11,3 +11,10 @@
     state: link
     force: true
   loop: "{{ dotfiles.files | sort(attribute='path') }}"
+
+- name: Symlink Snowflake Cortex Code hooks
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/snowflake/cortex/hooks.json"
+    dest: ~/.snowflake/cortex/hooks.json
+    state: link
+    force: true

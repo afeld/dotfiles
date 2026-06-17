@@ -4,6 +4,7 @@ brew "git"
 brew "pipx"
 brew "shellcheck"
 brew "tree"
+brew "uv"
 brew "wget"
 
 # needed for building Ruby through asdf

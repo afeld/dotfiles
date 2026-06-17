@@ -25,8 +25,9 @@ fi
 brew bundle || true
 
 # https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html#pipx-install
-pipx install --include-deps 'ansible==13.*'
-pipx ensurepath
-ansible-playbook -i localhost, install.yml --ask-become-pass
+uvx \
+  --with 'ansible==13.*' \
+  --from ansible-core \
+  ansible-playbook -i localhost, install.yml --ask-become-pass
 
 echo "DONE"

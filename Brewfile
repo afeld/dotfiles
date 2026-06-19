@@ -28,6 +28,7 @@ cask "git-credential-manager"
 # don't fail if Chrome is already installed
 cask "google-chrome" unless File.exist?('/Applications/Google Chrome.app')
 cask "google-drive"
+cask "harvest"
 # cask "iterm2"
 # for exporting Jupyter notebooks as PDFs
 # https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex

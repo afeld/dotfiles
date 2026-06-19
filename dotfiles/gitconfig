@@ -50,6 +50,9 @@
 [credential]
 	helper = osxkeychain
 	azreposCredentialType = oauth
+	# on a per-repo basis:
+	# `git config credential.helper /usr/local/share/gcm-core/git-credential-manager`
+	# https://learn.microsoft.com/en-us/azure/devops/repos/git/set-up-credential-managers?view=azure-devops
 [url "https://github.com"]
 	insteadOf = git://github.com
 [interactive]
@@ -60,3 +63,8 @@
 	diff = diff-highlight | less
 [includeIf "gitdir:~/dev/cal-itp/"]
 	path = .gitconfig-work
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+[credential "azrepos:org/SOC-OIT"]
+	azureAuthority = https://login.microsoftonline.com/0afe5947-d994-494e-9806-46aa6ab08aa7
+	username = feldmana1@oit.state.co.us

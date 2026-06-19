@@ -23,6 +23,8 @@ cask "docker-desktop"
 #cask "dropbox"
 #cask "firefox"
 cask "gcloud-cli"
+# https://learn.microsoft.com/en-us/azure/devops/repos/git/set-up-credential-managers?view=azure-devops
+cask "git-credential-manager"
 # don't fail if Chrome is already installed
 cask "google-chrome" unless File.exist?('/Applications/Google Chrome.app')
 cask "google-drive"

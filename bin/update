@@ -12,6 +12,8 @@ git -C ~/dev/git-plugins pull
 
 brew upgrade --yes
 brew cleanup
+# check for security issues
+brew vulns
 
 # https://github.com/ohmyzsh/ohmyzsh/wiki/FAQ#how-do-i-update-oh-my-zsh
 ~/.oh-my-zsh/tools/upgrade.sh

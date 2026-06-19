@@ -42,8 +42,6 @@ You may need to run `./init.sh` a few times for it to successfully complete.
 ### Other
 
 - Install Purchased items from App Store
-- [iTerm 2](http://www.iterm2.com)
-  - Set "Load preferences from a custom folder or URL" to be `/Users/USER/dotfiles`
 - [Set up the VSCode command line helper](https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line)
 - [Visual Studio Code: Turn on Settings Sync](https://code.visualstudio.com/docs/editor/settings-sync#_turning-on-settings-sync)
 

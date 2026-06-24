@@ -48,11 +48,11 @@
 	compactionHeuristic = true
 	noprefix = true
 [credential]
-	helper = osxkeychain
 	azreposCredentialType = oauth
-	# on a per-repo basis:
-	# `git config credential.helper /usr/local/share/gcm-core/git-credential-manager`
+	# supports SSO
+	# https://docs.github.com/en/get-started/git-basics/caching-your-github-credentials-in-git
 	# https://learn.microsoft.com/en-us/azure/devops/repos/git/set-up-credential-managers?view=azure-devops
+	helper = /usr/local/share/gcm-core/git-credential-manager
 [url "https://github.com"]
 	insteadOf = git://github.com
 [interactive]

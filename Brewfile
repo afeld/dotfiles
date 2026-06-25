@@ -40,3 +40,7 @@ cask "slack"
 cask "spotify"
 cask "visual-studio-code"
 cask "zoom"
+
+# Snowflake CLI
+tap "snowflakedb/snowflake-cli"
+cask "snowflake-cli"

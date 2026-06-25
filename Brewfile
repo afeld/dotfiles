@@ -42,5 +42,7 @@ cask "visual-studio-code"
 cask "zoom"
 
 # Snowflake CLI
-tap "snowflakedb/snowflake-cli"
-cask "snowflake-cli"
+# tap "snowflakedb/snowflake-cli"
+# cask "snowflake-cli"
+# they don't seem to keep it as up-to-date as the formula, so go with that one
+brew "snowflake-cli"

@@ -43,6 +43,8 @@ cask "zoom"
 
 # Snowflake CLI
 # tap "snowflakedb/snowflake-cli"
+# https://github.com/snowflakedb/snowflake-cli/pull/3135
 # cask "snowflake-cli"
 # they don't seem to keep it as up-to-date as the formula, so go with that one
+# https://github.com/snowflakedb/snowflake-cli/issues/3136
 brew "snowflake-cli"

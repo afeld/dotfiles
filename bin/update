@@ -10,7 +10,7 @@ git -C "$BASEDIR" pull
 # update the git plugins
 git -C ~/dev/git-plugins pull
 
-brew upgrade --yes
+brew upgrade --yes --no-quit
 brew cleanup
 # check for security issues
 brew vulns

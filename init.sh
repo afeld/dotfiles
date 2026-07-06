@@ -28,7 +28,7 @@ brew pin google-chrome
 
 # https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html#pipx-install
 uvx \
-  --with 'ansible==13.*' \
+  --with 'ansible==14.*' \
   --from ansible-core \
   ansible-playbook -i localhost, install.yml --ask-become-pass
 

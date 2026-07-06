@@ -83,3 +83,6 @@ unset __mamba_setup
 
 # Cortex CLI completion (disable via /settings in cortex)
 [[ -s ~/.zsh/completions/cortex.zsh ]] && source ~/.zsh/completions/cortex.zsh
+
+# Added by dbt Fusion extension
+alias dbtf=/Users/afeld/.local/bin/dbt

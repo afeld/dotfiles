@@ -36,20 +36,23 @@
 - name: Enable Touch ID for sudo
   become: true
   block:
-    - name: Copy the sudo_local template to the active config file
-      ansible.builtin.copy:
+    - name: Read the sudo_local template
+      ansible.builtin.slurp:
         src: /etc/pam.d/sudo_local.template
+      register: sudo_local_template
+
+    - name: Build desired sudo_local contents with Touch ID enabled
+      ansible.builtin.set_fact:
+        sudo_local_content: >-
+          {{
+            (sudo_local_template.content | b64decode)
+            | regex_replace('(?m)^#?\s*auth\s+sufficient\s+pam_tid\.so\s*$', 'auth sufficient pam_tid.so')
+          }}
+
+    - name: Write sudo_local only when the desired file differs
+      ansible.builtin.copy:
+        content: "{{ sudo_local_content }}"
         dest: /etc/pam.d/sudo_local
         owner: root
         group: wheel
         mode: "0644"
-
-    - name: Uncomment the pam_tid.so line in sudo_local
-      ansible.builtin.lineinfile:
-        path: /etc/pam.d/sudo_local
-        regexp: "^#auth sufficient pam_tid.so"
-        line: "auth sufficient pam_tid.so"
-        owner: root
-        group: wheel
-        mode: "0644"
-        state: present

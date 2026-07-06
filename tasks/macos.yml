@@ -46,7 +46,7 @@
         sudo_local_content: >-
           {{
             (sudo_local_template.content | b64decode)
-            | regex_replace('(?m)^#?\s*auth\s+sufficient\s+pam_tid\.so\s*$', 'auth sufficient pam_tid.so')
+            | regex_replace('(?m)^#?\s*(auth\s+sufficient\s+pam_tid\.so\s*)$', '\1')
           }}
 
     - name: Write sudo_local only when the desired file differs

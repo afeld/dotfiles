@@ -23,6 +23,8 @@ fi
 
 # ignore failure (for already-installed applications)
 brew bundle || true
+# updating Chrome from Homebrew while it also auto-updates can lead to a corrupted install; defer to Chrome for updating itself
+brew pin google-chrome
 
 # https://docs.ansible.com/projects/ansible/latest/installation_guide/intro_installation.html#pipx-install
 uvx \

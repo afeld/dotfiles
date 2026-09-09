@@ -1,6 +1,17 @@
 resource "aws_organizations_organization" "this" {
-  feature_set          = "ALL"
-  enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
+  feature_set                   = "ALL"
+  enabled_policy_types          = ["SERVICE_CONTROL_POLICY"]
+  aws_service_access_principals = ["iam.amazonaws.com"]
+}
+
+# https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user-access-management
+resource "aws_iam_organizations_features" "centralized_root_access" {
+  depends_on = [aws_organizations_organization.this]
+
+  enabled_features = [
+    "RootCredentialsManagement",
+    "RootSessions",
+  ]
 }
 
 resource "aws_organizations_policy" "deny_leave_and_close_account" {

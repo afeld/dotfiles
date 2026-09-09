@@ -10,3 +10,10 @@ vim/.netrwhist
 
 *.pyc
 *.cache
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log

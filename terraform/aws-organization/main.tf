@@ -1,7 +1,11 @@
 resource "aws_organizations_organization" "this" {
-  feature_set                   = "ALL"
-  enabled_policy_types          = ["SERVICE_CONTROL_POLICY"]
-  aws_service_access_principals = ["iam.amazonaws.com"]
+  feature_set          = "ALL"
+  enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
+  aws_service_access_principals = [
+    "iam.amazonaws.com",
+    # added automatically when IAM Identity Center was enabled
+    "sso.amazonaws.com",
+  ]
 }
 
 # https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html#id_root-user-access-management

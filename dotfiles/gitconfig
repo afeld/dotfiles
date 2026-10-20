@@ -68,3 +68,8 @@
 [credential "azrepos:org/SOC-OIT"]
 	azureAuthority = https://login.microsoftonline.com/0afe5947-d994-494e-9806-46aa6ab08aa7
 	username = feldmana1@oit.state.co.us
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

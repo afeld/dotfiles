@@ -2,7 +2,7 @@
 
 These apply in every project. It's mainly for coding, but some parts (like [Writing](#writing-docs-readmes-comments-messages)) apply more broadly. Instructions from the user or a project's own configuration/documentation (including `AGENTS.md`, `CLAUDE.md`, etc.) takes precedence where they conflict.
 
-This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agent's config directory, so edit it there.
+This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agent's config directory, so edit it there. For a preference that would be saved into project/agent memory, ask if it should be saved in this file instead.
 
 Also incorporate the [tips for my students](https://python-public-policy.afeld.me/en/columbia/assignments/#tips).
 

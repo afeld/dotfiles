@@ -1,14 +1,17 @@
 # Aidan's global instructions for coding agents
 
-These apply in every project. Instructions from the user or a project's own configuration/documentation (including `AGENTS.md`, `CLAUDE.md`, etc.) takes precedence where they conflict.
+These apply in every project. It's mainly for coding, but some parts (like [Writing](#writing-docs-readmes-comments-messages)) apply more broadly. Instructions from the user or a project's own configuration/documentation (including `AGENTS.md`, `CLAUDE.md`, etc.) takes precedence where they conflict.
 
 This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agent's config directory, so edit it there.
 
 ## Commits
 
+- If the repository is maintained by multiple people or the change is significant, use branches off of the primary ([GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)). Otherwise, commit directly to the primary branch.
 - When committing, make focused commits: one per logical change (a feature, then its error handling, then tests), each made once that piece is done and verified (formatted, type-checked, tests passing), rather than one big commit at the end.
   - Refactors get their own commits, separate from behavior changes.
 - Don't push unless asked.
+- Rebase non-primary branches off the primary one before pushing.
+- If working on a branch or commits haven't been pushed, feel free to amend/squash to keep related changes together.
 - Subject line: imperative, sentence case, no trailing period, no length limit.
   - Say what changes for the user or the code's behavior, not which files were touched.
   - Match the casing/format of a repo's existing history.
@@ -20,6 +23,7 @@ This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agen
   - E.g. "the current profile stays the default", with the numbers that decided it.
 - Keep tool-generated directories out of Git.
   - Similarly, ignore tool-installed skill directories (`.agents/skills`, `.claude/skills`) unless the project deliberately ships them.
+- Make code work cross-platform (Mac, Windows, Linux) if it doesn't add a ton of complexity.
 
 ## Writing (docs, READMEs, comments, messages)
 
@@ -37,7 +41,8 @@ This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agen
   - Add a module docstring saying what the module is for.
 - Be consistent in terminology within a project, and fix the term everywhere when you rename it.
 - READMEs:
-  - Lead with setup as a numbered list with copy-pasteable commands, then how to run, test, and refresh data.
+  - Lead with setup as a numbered list with copy-pasteable commands.
+    - The fewer steps that are needed, the better.
   - Put a screenshot in for visual apps.
   - Prompt for what license new public projects should have:
     - Mostly code: MIT
@@ -53,10 +58,13 @@ This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agen
 
 ## Code
 
-- Use opinionated formatters/linters that auto-fix. Make sure these are run after edits are made, before committing.
-  - JS, Markdown, JSON, YAML, etc: Prettier (`npx prettier --write`)
-  - Python: Ruff (`uvx ruff format`)
-  - Shell scripts: shellcheck
+- Use opinionated formatters/linters, preferably ones that auto-fix.
+  - Examples:
+    - JS, Markdown, JSON, YAML, etc: [Prettier](https://prettier.io/) (`npx prettier --write`)
+    - Python: [Ruff](https://docs.astral.sh/ruff/) (`uvx ruff check --fix`, `uvx ruff format`)
+    - Shell scripts: [ShellCheck](https://www.shellcheck.net/)
+  - Run these after edits are made, before committing.
+  - If working in a fork, have formatting match existing code style instead.
 - Keep functions and modules small and single-purpose.
   - When a function passes roughly 40–50 lines or a module several hundred, split it by responsibility into well-named modules or a package, and say so in the commit.
   - Remove unused code and dependencies as you notice them.
@@ -70,14 +78,24 @@ This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agen
   - Use Pyright (standard mode) or mypy as the project already does.
   - Always annotate types that are otherwise unknown (like arguments); don't annotate places where the type can be inferred (variables, return types, etc).
   - Fix the errors rather than ignoring them.
-- Add tests alongside behavior changes and refactors, and keep them small and readable.
-  - A helper builds made-up inputs, with a docstring saying what it models.
-  - One scenario per test, with a descriptive name (`test_within_window`).
-  - Tests must not hit the network or need API keys.
 - Always set explicit timeouts on HTTP requests.
-- Care about the end user's device.
-  - Apps should work well on phones: tap-target sizes, layouts that don't need width.
-  - Load fast, and keep payloads small.
+- Prefer declarative over imperative.
+- Keep dependency version specifications minimal.
+  - Explain any non-obvious floor in a comment (such as `# 1.64.0 added st.cache_data support for async functions`).
+
+### Automated testing
+
+- Practice [test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development).
+- Keep tests small and readable.
+- Avoid having tests hit the network or require API keys.
+
+## User interfaces
+
+- Provide a good experience on mobile.
+  - Tap-target sizes that are large enough
+  - Work well on narrow/short screens
+  - Load fast, and keep payloads small
+- Be accesible.
 
 ## Python tooling
 
@@ -86,8 +104,6 @@ This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agen
   - `uvx` for one-off tools.
   - Pin the interpreter in `.python-version`, and prefer the latest stable Python unless a platform (Colab, Read the Docs) constrains it.
   - Put dev-only tools in `[dependency-groups]`.
-- Use `>=` specifiers for dependencies.
-  - Explain any non-obvious floor in a comment (`# 1.64.0 added st.cache_data support for async functions`).
 
 ## Continuous integration/deployment (CI/CD)
 
@@ -108,6 +124,9 @@ Free public APIs and data sources (OpenStreetMap, Nominatim, Overpass, Overture,
 
 ## Working style
 
+- Be explicit rather than implicit, as long as it doesn't add a ton of cruft/noise. Examples for coding:
+  - Configuration/infrastructure as code
+  - Lock files
 - Verify changes by running them (tests, the app, the build) before saying they work, and say what you couldn't verify.
 - Prefer a clear simplification, and mention it, rather than preserving complexity out of caution.
   - E.g. dropping a page, a dependency, or a layer of config.

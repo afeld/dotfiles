@@ -12,6 +12,31 @@
     force: true
   loop: "{{ dotfiles.files | sort(attribute='path') }}"
 
+# one source of instructions about my writing and coding style, for each agent's global instructions file
+- name: Create agent config directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  loop:
+    - ~/.claude
+    - ~/.codex
+    - ~/.gemini
+
+- name: Symlink global agent instructions
+  ansible.builtin.file:
+    src: "{{ playbook_dir }}/agents/AGENTS.md"
+    dest: "{{ item }}"
+    state: link
+    force: true
+  loop:
+    # Claude Code
+    - ~/.claude/CLAUDE.md
+    # Codex
+    - ~/.codex/AGENTS.md
+    # Gemini CLI
+    - ~/.gemini/GEMINI.md
+
 - name: Symlink Snowflake Cortex Code hooks
   ansible.builtin.file:
     src: "{{ playbook_dir }}/snowflake/cortex/hooks.json"

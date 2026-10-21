@@ -16,6 +16,10 @@ Moving towards one-liner setup of a development machine. Written for Mac, but lo
 
 You may need to run `./init.sh` a few times for it to successfully complete.
 
+## Agent instructions
+
+[`agents/AGENTS.md`](agents/AGENTS.md) holds my writing and coding style, for AI coding agents. `./init.sh` symlinks it to the global instructions file for Claude Code (`~/.claude/CLAUDE.md`), Codex (`~/.codex/AGENTS.md`), and Gemini CLI (`~/.gemini/GEMINI.md`), so edit it here rather than there.
+
 ## Manual steps
 
 ### OSX settings

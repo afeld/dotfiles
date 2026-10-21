@@ -9,10 +9,19 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
 ## Commits
 
 - If the repository is maintained by multiple people or the change is significant, use branches off of the primary ([GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)). Otherwise, commit directly to the primary branch.
+- Commit automatically: once a change is finished and verified, commit it without waiting to be asked.
+  - Pushing still needs an explicit request (see below).
 - When committing, make focused commits: one per logical change (a feature, then its error handling, then tests), each made once that piece is done and verified (formatted, type-checked, tests passing), rather than one big commit at the end.
   - Refactors get their own commits, separate from behavior changes.
 - Don't push unless asked.
-- Rebase non-primary branches off the primary one before pushing.
+  - Push new branches with an explicit refspec (`git push -u origin X:X`), or create them with `--no-track`. My `push.default` is `upstream`, so a branch created from `origin/main` would otherwise push straight to `main`.
+- Rebase non-primary branches off the primary one before pushing, rather than merging the primary branch in.
+  - Force-push rebased branches with `--force-with-lease`.
+  - This applies even when a tool or automation (CI auto-fix, "sync with base branch", etc.) says to merge.
+  - Diff against the primary branch afterward, since replaying commits that were later reverted can silently undo changes that landed there.
+- Keep diffs minimal.
+  - Leave code where it is and keep existing names, unless the change calls for moving or renaming.
+  - Don't bundle unrelated fixes; put them in their own commits/branches.
 - If working on a branch or commits haven't been pushed, feel free to amend/squash to keep related changes together.
 - Subject line: imperative, sentence case, no trailing period, no length limit.
   - Say what changes for the user or the code's behavior, not which files were touched.
@@ -34,6 +43,7 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
   - Put the reason in a clause ("rather than…", "so that…", "since…") instead of a separate paragraph.
   - Skip filler, hype, and recaps of what was just done.
 - Don't hard-wrap prose. Write each paragraph, bullet, comment, docstring paragraph, string, etc. as one line, without manual line breaks. This applies to commit message bodies, PR descriptions, Markdown, code comments, docstrings, string literals, etc.
+  - Don't reflow existing hard-wrapped comments just to rewrap them; unwrapping one you're already editing is fine.
 - Comments explain why, not what.
   - Cover the constraint, the surprising behavior, the version that introduced something, or the unit.
   - Link the source (docs, data dictionary, issue) next to a non-obvious value or config.
@@ -80,6 +90,7 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
   - Use Pyright (standard mode) or mypy as the project already does.
   - Always annotate types that are otherwise unknown (like arguments); don't annotate places where the type can be inferred (variables, return types, etc).
   - Fix the errors rather than ignoring them.
+  - Add `types-*` stub packages as dev dependencies for libraries that need them, even if no type checker runs in CI, since editors use them.
 - Always set explicit timeouts on HTTP requests.
 - Prefer declarative over imperative.
 - Keep dependency version specifications minimal.
@@ -106,11 +117,13 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
   - `uvx` for one-off tools.
   - Pin the interpreter in `.python-version`, and prefer the latest stable Python unless a platform (Colab, Read the Docs) constrains it.
   - Put dev-only tools in `[dependency-groups]`.
+  - Run `uv sync` after changing `pyproject.toml`, and commit the updated `uv.lock` with it.
 
 ## Continuous integration/deployment (CI/CD)
 
 - Run type checking and tests on pushes to `main` and on pull requests.
   - Use `uv sync --locked`.
+- After pushing, don't wait for CI runs unless asked.
 - Keep dependencies current; Dependabot (or equivalent) is welcome.
 
 ## Being polite to other people's servers
@@ -130,5 +143,6 @@ Free public APIs and data sources (OpenStreetMap, Nominatim, Overpass, Overture,
   - Configuration/infrastructure as code
   - Lock files
 - Verify changes by running them (tests, the app, the build) before saying they work, and say what you couldn't verify.
+  - When the full check is slow, iterate with the targeted check for what you changed (e.g. one file's linter), then run the full suite once for final verification.
 - Prefer a clear simplification, and mention it, rather than preserving complexity out of caution.
   - E.g. dropping a page, a dependency, or a layer of config.

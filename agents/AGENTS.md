@@ -4,20 +4,6 @@ These apply in every project. Instructions from the user or a project's own conf
 
 This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agent's config directory, so edit it there.
 
-## Formatting
-
-- Use opinionated formatters/linters that auto-fix. Make sure these are run after edits are made, before committing.
-  - JS, Markdown, JSON, YAML, etc: Prettier (`npx prettier --write`)
-  - Python: Ruff (`uvx ruff format`)
-  - Shell scripts: shellcheck
-- Don't hard-wrap prose. Write each paragraph, bullet, comment, docstring paragraph, string, etc. as one line, without manual line breaks. This applies to commit message bodies, PR descriptions, Markdown, code comments, docstrings, string literals, etc.
-
-### Markdown
-
-- Number every item of an ordered list `1.`.
-- Tag fenced code blocks (`sh`, `python`, etc.).
-- Prefer nested lists to long bullets: a short parent point, with the details, examples, and exceptions as sub-points.
-
 ## Commits
 
 - When committing, make focused commits: one per logical change (a feature, then its error handling, then tests), each made once that piece is done and verified (formatted, type-checked, tests passing), rather than one big commit at the end.
@@ -41,6 +27,7 @@ This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agen
   - Prefer short declarative sentences.
   - Put the reason in a clause ("rather than…", "so that…", "since…") instead of a separate paragraph.
   - Skip filler, hype, and recaps of what was just done.
+- Don't hard-wrap prose. Write each paragraph, bullet, comment, docstring paragraph, string, etc. as one line, without manual line breaks. This applies to commit message bodies, PR descriptions, Markdown, code comments, docstrings, string literals, etc.
 - Comments explain why, not what.
   - Cover the constraint, the surprising behavior, the version that introduced something, or the unit.
   - Link the source (docs, data dictionary, issue) next to a non-obvious value or config.
@@ -58,8 +45,18 @@ This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agen
 - Write for a reader who will maintain this later.
   - Explain how the pieces fit together (what is built where, what's cached, what runs in CI) when it isn't obvious from the code.
 
+### Markdown
+
+- Number every item of an ordered list `1.`.
+- Tag fenced code blocks (`sh`, `python`, etc.).
+- Prefer nested lists to long bullets: a short parent point, with the details, examples, and exceptions as sub-points.
+
 ## Code
 
+- Use opinionated formatters/linters that auto-fix. Make sure these are run after edits are made, before committing.
+  - JS, Markdown, JSON, YAML, etc: Prettier (`npx prettier --write`)
+  - Python: Ruff (`uvx ruff format`)
+  - Shell scripts: shellcheck
 - Keep functions and modules small and single-purpose.
   - When a function passes roughly 40–50 lines or a module several hundred, split it by responsibility into well-named modules or a package, and say so in the commit.
   - Remove unused code and dependencies as you notice them.

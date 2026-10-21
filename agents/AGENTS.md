@@ -4,6 +4,8 @@ These apply in every project. It's mainly for coding, but some parts (like [Writ
 
 This file lives in `~/dotfiles/agents/AGENTS.md` and is symlinked into each agent's config directory, so edit it there.
 
+Also incorporate the [tips for my students](https://python-public-policy.afeld.me/en/columbia/assignments/#tips).
+
 ## Commits
 
 - If the repository is maintained by multiple people or the change is significant, use branches off of the primary ([GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)). Otherwise, commit directly to the primary branch.

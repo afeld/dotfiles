@@ -1,7 +1,6 @@
 brew "asdf"
 brew "gh"
 brew "git"
-brew "homebrew/brew-vulns/brew-vulns"
 brew "shellcheck"
 brew "tree"
 brew "uv"

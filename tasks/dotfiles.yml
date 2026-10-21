@@ -31,10 +31,13 @@
     force: true
   loop:
     # Claude Code
+    # https://code.claude.com/docs/en/memory
     - ~/.claude/CLAUDE.md
     # Codex
+    # https://learn.chatgpt.com/docs/agent-configuration/agents-md
     - ~/.codex/AGENTS.md
     # Gemini CLI
+    # https://geminicli.com/docs/cli/gemini-md/
     - ~/.gemini/GEMINI.md
 
 - name: Symlink Snowflake Cortex Code hooks

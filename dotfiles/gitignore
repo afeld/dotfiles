@@ -1,11 +1,8 @@
 ._*
-.project
+.claude/worktrees/
 *.swp
 *.tmproj
-*.sublime-project
-*.sublime-workspace
 .DS_Store
-.junk
 .tool-versions
 .vscode/mcp.json
 .vscode/settings.json

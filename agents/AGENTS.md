@@ -34,7 +34,6 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
   - E.g. "the current profile stays the default", with the numbers that decided it.
 - Keep tool-generated directories out of Git.
   - Similarly, ignore tool-installed skill directories (`.agents/skills`, `.claude/skills`) unless the project deliberately ships them.
-- Make code work cross-platform (Mac, Windows, Linux) if it doesn't add a ton of complexity.
 
 ## Writing (docs, READMEs, comments, messages)
 
@@ -61,6 +60,7 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
     - Mostly content: Creative Commons, either CC0 or CC-BY
 - Write for a reader who will maintain this later.
   - Explain how the pieces fit together (what is built where, what's cached, what runs in CI) when it isn't obvious from the code.
+- Clearly indicate in issues / commits / pull requests you create that it's a bot doing so on behalf of Aidan.
 
 ### Markdown
 
@@ -95,6 +95,7 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
 - Prefer declarative over imperative.
 - Keep dependency version specifications minimal.
   - Explain any non-obvious floor in a comment (such as `# 1.64.0 added st.cache_data support for async functions`).
+- Make code work cross-platform (Mac, Windows, Linux) if it doesn't add a ton of complexity.
 
 ### Automated testing
 

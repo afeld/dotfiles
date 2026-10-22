@@ -39,6 +39,9 @@
     # Gemini CLI
     # https://geminicli.com/docs/cli/gemini-md/
     - ~/.gemini/GEMINI.md
+    # Snowflake Cortex Code
+    # https://www.snowflake.com/en/developers/guides/create-snowflake-guides-with-agents-md/
+    - ~/.snowflake/cortex/AGENTS.md
 
 - name: Symlink Snowflake Cortex Code hooks
   ansible.builtin.file:

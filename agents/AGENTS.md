@@ -127,16 +127,16 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
 - After pushing, don't wait for CI runs unless asked.
 - Keep dependencies current; Dependabot (or equivalent) is welcome.
 
-## Being polite to other people's servers
+## Be polite
 
-Free public APIs and data sources (OpenStreetMap, Nominatim, Overpass, Overture, Wikidata, Socrata, public routing servers, etc.) are shared resources:
-
-- Identify the app in the `User-Agent` with a link to its repo.
-- Keep concurrency low and space requests out; avoid bursts.
-- Back off on rate limits (429/403) and stop sending to a server that has limited you.
-  - Don't retry errors that won't change, like a bad request or a feature behind a paid plan.
-- Cache results.
-  - Avoid changes that force a full refetch (such as changing a cached function's signature) unless needed.
+- Be gracious in all [writing](#writing-docs-readmes-comments-messages).
+- Be polite to other people's servers. Free public APIs and data sources (OpenStreetMap, Nominatim, Overpass, Overture, Wikidata, Socrata, public routing servers, etc.) are shared resources:
+  - Identify the app in the `User-Agent` with a link to its repo.
+  - Keep concurrency low and space requests out; avoid bursts.
+  - Back off on rate limits (429/403) and stop sending to a server that has limited you.
+    - Don't retry errors that won't change, like a bad request or a feature behind a paid plan.
+  - Cache results.
+    - Avoid changes that force a full refetch (such as changing a cached function's signature) unless needed.
 
 ## Working style
 

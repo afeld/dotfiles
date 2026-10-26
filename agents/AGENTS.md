@@ -95,7 +95,9 @@ Also incorporate the [tips for my students](https://python-public-policy.afeld.m
 - Prefer declarative over imperative.
 - Keep dependency version specifications minimal.
   - Explain any non-obvious floor in a comment (such as `# 1.64.0 added st.cache_data support for async functions`).
-- Make code work cross-platform (Mac, Windows, Linux) if it doesn't add a ton of complexity.
+- When it doesn't add a lot of complexity:
+  - Make code work cross-platform (Mac, Windows, Linux)
+  - Make code/instructions vendor-agnostic
 
 ### Automated testing
 

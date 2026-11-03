@@ -8,7 +8,6 @@ resource "google_folder" "sipa_advanced_computing" {
 locals {
   sipa_advanced_computing_iam = {
     "roles/resourcemanager.folderAdmin"  = ["user:alf2215@columbia.edu"]
-    "roles/resourcemanager.folderEditor" = ["user:alf2215@columbia.edu"]
     "roles/resourcemanager.folderViewer" = ["group:advanced-computing-for-policy-all@columbia.edu"]
   }
 }

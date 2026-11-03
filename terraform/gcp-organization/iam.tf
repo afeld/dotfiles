@@ -34,12 +34,3 @@ resource "google_organization_iam_member" "this" {
     prevent_destroy = true
   }
 }
-
-# Replaced by the per-member resources above. Forget the bindings without revoking anything.
-removed {
-  from = google_organization_iam_binding.this
-
-  lifecycle {
-    destroy = false
-  }
-}

@@ -4,18 +4,16 @@
 #
 # Non-authoritative (one resource per role and member) and protected by `prevent_destroy`, so an edit here can't revoke a grant, e.g. by accident remove the only admin from `organizationAdmin` and lock everyone out of the organization. To revoke a grant on purpose, remove it from this map and delete the `prevent_destroy` line for that apply, or revoke it outside Terraform. Grants made outside Terraform aren't reverted.
 locals {
-  org_iam = {
-    "roles/advisorynotifications.viewer"      = [local.aidan_gmail]
-    "roles/billing.admin"                     = local.aidan
-    "roles/billing.creator"                   = [local.afeld_me]
-    "roles/orgpolicy.policyAdmin"             = local.aidan
-    "roles/resourcemanager.folderAdmin"       = local.aidan
-    "roles/resourcemanager.organizationAdmin" = local.aidan
-    "roles/resourcemanager.projectCreator"    = [local.afeld_me, local.aidan_gmail]
-  }
-
   org_iam_members = merge([
-    for role, members in local.org_iam : {
+    for role, members in {
+      "roles/advisorynotifications.viewer"      = [local.aidan_gmail]
+      "roles/billing.admin"                     = local.aidan
+      "roles/billing.creator"                   = [local.afeld_me]
+      "roles/orgpolicy.policyAdmin"             = local.aidan
+      "roles/resourcemanager.folderAdmin"       = local.aidan
+      "roles/resourcemanager.organizationAdmin" = local.aidan
+      "roles/resourcemanager.projectCreator"    = [local.afeld_me, local.aidan_gmail]
+      } : {
       for member in members : "${role}/${member}" => {
         role   = role
         member = member

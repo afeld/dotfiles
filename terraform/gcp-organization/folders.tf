@@ -5,17 +5,13 @@ resource "google_folder" "sipa_advanced_computing" {
 }
 
 # IAM on a folder is inherited by its sub-folders and projects, so these also apply to Spring 2025 and Spring 2026. `alf2215@columbia.edu` is deliberately granted roles on this folder only, not on the whole organization.
-locals {
-  sipa_advanced_computing_iam = {
+resource "google_folder_iam_binding" "sipa_advanced_computing" {
+  for_each = {
     "roles/resourcemanager.folderAdmin"  = [local.aidan_columbia]
-    "roles/resourcemanager.folderViewer" = [local.course_group]
+    "roles/resourcemanager.folderViewer" = ["group:advanced-computing-for-policy-all@columbia.edu"]
     # lets that account create projects within the folder only
     "roles/resourcemanager.projectCreator" = [local.aidan_columbia]
   }
-}
-
-resource "google_folder_iam_binding" "sipa_advanced_computing" {
-  for_each = local.sipa_advanced_computing_iam
 
   folder  = google_folder.sipa_advanced_computing.name
   role    = each.key

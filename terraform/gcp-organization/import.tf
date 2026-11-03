@@ -10,7 +10,8 @@ import {
 }
 
 import {
-  for_each = local.sipa_advanced_computing_iam
+  # only the bindings that existed before this config; the rest are created
+  for_each = toset(["roles/resourcemanager.folderAdmin", "roles/resourcemanager.folderViewer"])
   to       = google_folder_iam_binding.sipa_advanced_computing[each.key]
   id       = "${google_folder.sipa_advanced_computing.name} ${each.key}"
 }

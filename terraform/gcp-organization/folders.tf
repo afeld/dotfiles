@@ -4,11 +4,13 @@ resource "google_folder" "sipa_advanced_computing" {
   parent       = "organizations/${local.org_id}"
 }
 
-# IAM on a folder is inherited by its sub-folders and projects, so these also apply to Spring 2025 and Spring 2026. `alf2215@columbia.edu` is deliberately only a `folderAdmin` of this folder, not of the whole organization.
+# IAM on a folder is inherited by its sub-folders and projects, so these also apply to Spring 2025 and Spring 2026. The instructor (`alf2215@columbia.edu`) is deliberately granted roles on this folder only, not on the whole organization.
 locals {
   sipa_advanced_computing_iam = {
     "roles/resourcemanager.folderAdmin"  = [local.instructor]
     "roles/resourcemanager.folderViewer" = [local.course_group]
+    # lets the instructor create projects within the folder only
+    "roles/resourcemanager.projectCreator" = [local.instructor]
   }
 }
 

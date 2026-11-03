@@ -1,3 +1,5 @@
+# The instructor's grants are scoped to the SIPA Advanced Computing folder (see folders.tf), not the organization.
+#
 # `organizationViewer` is managed in advanced-computing/course-materials/terraform.
 #
 # Non-authoritative (one resource per role and member) and protected by `prevent_destroy`, so an edit here can't revoke a grant, e.g. by accident remove the only admin from `organizationAdmin` and lock everyone out of the organization. To revoke a grant on purpose, remove it from this map and delete the `prevent_destroy` line for that apply, or revoke it outside Terraform. Grants made outside Terraform aren't reverted.
@@ -6,10 +8,10 @@ locals {
     "roles/advisorynotifications.viewer"      = [local.aidan_gmail]
     "roles/billing.admin"                     = local.aidan
     "roles/billing.creator"                   = [local.afeld_me]
-    "roles/orgpolicy.policyAdmin"             = concat(local.aidan, [local.instructor])
+    "roles/orgpolicy.policyAdmin"             = local.aidan
     "roles/resourcemanager.folderAdmin"       = local.aidan
-    "roles/resourcemanager.organizationAdmin" = concat(local.aidan, [local.instructor])
-    "roles/resourcemanager.projectCreator"    = [local.afeld_me, local.aidan_gmail, local.instructor]
+    "roles/resourcemanager.organizationAdmin" = local.aidan
+    "roles/resourcemanager.projectCreator"    = [local.afeld_me, local.aidan_gmail]
   }
 
   org_iam_members = merge([

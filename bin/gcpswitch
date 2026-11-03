@@ -7,6 +7,7 @@ if [ -z "$1" ]; then
     gcloud config configurations list
     exit 0
 fi
+gcloud auth login
 gcloud config configurations activate "$1"
 gcloud auth application-default login
 

@@ -1,4 +1,4 @@
-# The instructor's grants are scoped to the SIPA Advanced Computing folder (see folders.tf), not the organization.
+# Aidan's Columbia account's grants are scoped to the SIPA Advanced Computing folder (see folders.tf), not the organization.
 #
 # `organizationViewer` is managed in advanced-computing/course-materials/terraform.
 #

@@ -5,20 +5,20 @@ locals {
 
 resource "google_project" "artichoke_hours" {
   project_id = "artichoke-hours"
-  name       = "artichoke-hours"
+  name       = "Artichoke hours"
   org_id     = local.org_id
 }
 
 resource "google_project" "bike_bus_map" {
   project_id      = "bike-bus-map"
-  name            = "bike-bus-map"
+  name            = "Bike bus map"
   org_id          = local.org_id
   billing_account = local.billing_account_personal
 }
 
 resource "google_project" "computing_in_context" {
   project_id      = "computing-in-context"
-  name            = "computing-in-context"
+  name            = "Computing in Context"
   org_id          = local.org_id
   billing_account = "01CCEB-43417F-68533F"
 }
@@ -32,6 +32,6 @@ resource "google_project" "pleasant_rides" {
 
 resource "google_project" "pose" {
   project_id = "pose-374103"
-  name       = "pose"
+  name       = "Pose"
   org_id     = local.org_id
 }

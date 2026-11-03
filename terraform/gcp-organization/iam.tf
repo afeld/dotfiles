@@ -7,7 +7,7 @@ locals {
     "roles/billing.admin"                     = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me"]
     "roles/billing.creator"                   = ["domain:afeld.me"]
     "roles/orgpolicy.policyAdmin"             = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me", "user:alf2215@columbia.edu"]
-    "roles/resourcemanager.folderAdmin"       = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me", "user:alf2215@columbia.edu"]
+    "roles/resourcemanager.folderAdmin"       = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me"]
     "roles/resourcemanager.organizationAdmin" = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me", "user:alf2215@columbia.edu"]
     "roles/resourcemanager.projectCreator"    = ["domain:afeld.me", "user:aidan.feldman@gmail.com", "user:alf2215@columbia.edu"]
   }

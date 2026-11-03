@@ -53,11 +53,6 @@ import {
 }
 
 import {
-  to = google_project.lecture_12_demo_apr_2025
-  id = "lecture-12-demo-apr-2025"
-}
-
-import {
   to = google_project.pleasant_rides
   id = "pleasant-rides"
 }

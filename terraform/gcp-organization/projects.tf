@@ -23,13 +23,6 @@ resource "google_project" "computing_in_context" {
   billing_account = "01CCEB-43417F-68533F"
 }
 
-resource "google_project" "lecture_12_demo_apr_2025" {
-  project_id      = "lecture-12-demo-apr-2025"
-  name            = "Lecture 12 demo"
-  org_id          = local.org_id
-  billing_account = "012E43-0DE36B-6DD968"
-}
-
 resource "google_project" "pleasant_rides" {
   project_id      = "pleasant-rides"
   name            = "Pleasant Rides"

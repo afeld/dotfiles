@@ -3,13 +3,13 @@
 # Non-authoritative (one resource per role and member) and protected by `prevent_destroy`, so an edit here can't revoke a grant, e.g. by accident remove the only admin from `organizationAdmin` and lock everyone out of the organization. To revoke a grant on purpose, remove it from this map and delete the `prevent_destroy` line for that apply, or revoke it outside Terraform. Grants made outside Terraform aren't reverted.
 locals {
   org_iam = {
-    "roles/advisorynotifications.viewer"      = ["user:aidan.feldman@gmail.com"]
-    "roles/billing.admin"                     = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me"]
-    "roles/billing.creator"                   = ["domain:afeld.me"]
-    "roles/orgpolicy.policyAdmin"             = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me", "user:alf2215@columbia.edu"]
-    "roles/resourcemanager.folderAdmin"       = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me"]
-    "roles/resourcemanager.organizationAdmin" = ["user:aidan.feldman@gmail.com", "user:aidan@afeld.me", "user:alf2215@columbia.edu"]
-    "roles/resourcemanager.projectCreator"    = ["domain:afeld.me", "user:aidan.feldman@gmail.com", "user:alf2215@columbia.edu"]
+    "roles/advisorynotifications.viewer"      = [local.aidan_gmail]
+    "roles/billing.admin"                     = local.aidan
+    "roles/billing.creator"                   = [local.afeld_me]
+    "roles/orgpolicy.policyAdmin"             = concat(local.aidan, [local.instructor])
+    "roles/resourcemanager.folderAdmin"       = local.aidan
+    "roles/resourcemanager.organizationAdmin" = concat(local.aidan, [local.instructor])
+    "roles/resourcemanager.projectCreator"    = [local.afeld_me, local.aidan_gmail, local.instructor]
   }
 
   org_iam_members = merge([

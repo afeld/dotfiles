@@ -1,5 +1,9 @@
+data "google_organization" "this" {
+  domain = local.domain
+}
+
 locals {
-  org_id = "378073203623" # afeld.me
+  org_id = data.google_organization.this.org_id
   domain = "afeld.me"
 
   aidan_gmail    = "user:aidan.feldman@gmail.com"

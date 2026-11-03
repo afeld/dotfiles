@@ -1,5 +1,6 @@
 import {
-  for_each = local.org_iam_members
+  # only the bindings that existed before this config; the rest are created
+  for_each = { for key, grant in local.org_iam_members : key => grant if grant.role != "roles/owner" }
   to       = google_organization_iam_member.this[each.key]
   id       = "${local.org_id} ${each.value.role} ${each.value.member}"
 }

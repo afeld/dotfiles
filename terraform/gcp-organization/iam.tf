@@ -10,6 +10,7 @@ locals {
       "roles/billing.admin"                     = local.aidan
       "roles/billing.creator"                   = [local.afeld_me]
       "roles/orgpolicy.policyAdmin"             = local.aidan
+      "roles/owner"                             = local.aidan # inherited by every Project, including ones created from another account (which otherwise only that account owns); `organizationAdmin` could grant this anyway
       "roles/resourcemanager.folderAdmin"       = local.aidan
       "roles/resourcemanager.organizationAdmin" = local.aidan
       "roles/resourcemanager.projectCreator"    = [local.afeld_me, local.aidan_gmail]

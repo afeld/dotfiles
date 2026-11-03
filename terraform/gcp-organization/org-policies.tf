@@ -39,7 +39,7 @@ resource "google_organization_policy" "essentialcontacts_allowed_contact_domains
 
   list_policy {
     allow {
-      values = ["@afeld.me"]
+      values = ["@${local.domain}"]
     }
   }
 }

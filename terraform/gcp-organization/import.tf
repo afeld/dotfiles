@@ -1,7 +1,7 @@
 import {
-  for_each = local.org_iam
-  to       = google_organization_iam_binding.this[each.key]
-  id       = "${local.org_id} ${each.key}"
+  for_each = local.org_iam_members
+  to       = google_organization_iam_member.this[each.key]
+  id       = "${local.org_id} ${each.value.role} ${each.value.member}"
 }
 
 import {
